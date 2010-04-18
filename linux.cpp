@@ -95,7 +95,7 @@ int main() {
 						break;
 			}
 			case ResizeRequest:
-				engine->SetViewport(&xev.width, &xev.height);
+				//engine->SetViewport(&xev.width, &xev.height);
 				break;
 			default:
 				break;
