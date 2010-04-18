@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <gl/glew.h>
+#include <GL/glew.h>
 #include "engine.h"
 #include "msg.h"
 #include "cube.h"

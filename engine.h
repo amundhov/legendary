@@ -6,7 +6,7 @@
 typedef struct Vertex {
 	unsigned char r, g, b, a;
 	GLfloat x, y, z;
-};
+} Vertex;
 
 class engine {
 	public:

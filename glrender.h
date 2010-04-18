@@ -1,7 +1,7 @@
 #ifndef __glRender_h_
 #define __glRender_h_
 
-#include <gl/glew.h>
+#include <GL/glew.h>
 
 class glRender
 {

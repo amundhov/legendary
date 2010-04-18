@@ -1,5 +1,7 @@
-#include <iostream>
+#include <fstream>
 #include <cstdarg>
+#include <cstdlib>
+#include <cstring>
 #include <ctime>
 #include "msg.h"
 

@@ -1,7 +1,7 @@
 #ifndef __CUBE_H
 #define __CUBE_H
 
-#include <gl/glew.h>
+#include <GL/glew.h>
 
 typedef struct vec3 {
 	float x,y,z;
