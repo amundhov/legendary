@@ -1,4 +1,4 @@
-OBJS=engine.o msg.o glrender.o cube.o material.h
+OBJS=engine.o msg.o glrender.o cube.o material.o
 CC=g++
 CFLAGS=-c -DGLEW_STATIC  -g
 WIN_LFLAGS=-mwindows -g

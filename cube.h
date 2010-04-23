@@ -2,6 +2,7 @@
 #define __CUBE_H
 
 #include <GL/glew.h>
+#include "material.h"
 
 typedef struct vec3 {
 	float x,y,z;
@@ -14,8 +15,6 @@ class cube {
 
 		bool genBO();
 		bool freeBO();
-		bool genTO();
-		bool freeTO();
 		void draw();
 		
 		void locate(float x, float y, float z);
@@ -25,10 +24,11 @@ class cube {
 		float pitch;
 		float roll;
 		float yaw;
+
+		CMaterial *mat;
 		
 		static GLuint VBO;
 		static GLuint IBO;
-		static GLuint TO;
 		
 		static int VBO_size_vertex;
 		static int VBO_size_colour;

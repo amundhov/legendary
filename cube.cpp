@@ -5,59 +5,23 @@
 #include "material.h"
 
 cube::cube() {
-	if(!count) {
+	if(!count) 
 		genBO();
-		genTO();
-	}
 	
 	loc.x = 0.0;
 	loc.y = 0.0;
 	loc.z = 0.0;
 
+	mat = new CMaterial("legendary.raw");
+
 	count++;
 }
 
 cube::~cube() {
-	if(!--count) {
+	if(!--count) 
 		freeBO();
-		freeTO();
-	}
-}
-
-bool cube::genTO() {
-	glGenTextures(1, &TO);
-	glBindTexture(GL_TEXTURE_2D, TO);
+	delete mat;
 	
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	
-	#define height 512
-	#define width 512
-	
-	FILE *tex_file;	
-	char *tex_buf;
-	tex_buf = new char[height*width*3];
-	
-	tex_file = fopen("legendary.raw", "r+");
-	if(!tex_file)
-		Log("fopen fail.\n");
-	else {
-		fread(tex_buf, height*width*3, 1, tex_file);
-		fclose(tex_file);
-	}	
-	
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, height, width, 0, GL_RGB, GL_UNSIGNED_BYTE, tex_buf);
-//	glGenerateMipmap(GL_TEXTURE_2D);
-	
-	delete tex_buf;
-	return true;
-}
-
-bool cube::freeTO() {
-	glDeleteTextures(1, &TO);
-	return true;
 }
 
 void cube::locate(float x, float y, float z) {
@@ -150,8 +114,7 @@ bool cube::freeBO() {
 }
 
 void cube::draw() {
-	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-	glBindTexture(GL_TEXTURE_2D, TO);
+	mat->Bind();	
 	//glDisable(GL_TEXTURE_2D);
 	
 	GLfloat transform[16] = {
@@ -182,7 +145,6 @@ void cube::draw() {
 int unsigned cube::count = 0;
 GLuint cube::VBO = 0;
 GLuint cube::IBO = 0;
-GLuint cube::TO  = 0;
 int cube::VBO_size_vertex = 0;
 int cube::VBO_size_colour = 0;
 int cube::VBO_size_coord = 0;

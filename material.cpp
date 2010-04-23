@@ -1,3 +1,5 @@
+#include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 #include "material.h"
 #include "msg.h"
@@ -37,12 +39,12 @@ void CMaterial::genTO() {
 	char *tex_buf;
 	tex_buf = new char[height*width*3];
 	
-	if(!(tex_file = fopen(texturefile, "r+"))) Log("fopen fail.\n");
+	if(!(tex_file = fopen(texturefile, "r"))) Log("fopen fail.\n");
 	fread(tex_buf, height*width*3, 1, tex_file);
 	fclose(tex_file);
 	
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, height, width, 0, GL_RGB, GL_UNSIGNED_BYTE, tex_buf);
-	glGenerateMipmap(GL_TEXTURE_2D);
+	//glGenerateMipmap(GL_TEXTURE_2D);
 	
 	free(tex_buf);
 }
