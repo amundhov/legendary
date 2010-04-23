@@ -1,4 +1,4 @@
-OBJS=engine.o msg.o glrender.o cube.o material.o
+OBJS=engine.o msg.o glrender.o cube.o material.o rtt.o
 CC=g++
 CFLAGS=-c -DGLEW_STATIC  -g
 WIN_LFLAGS=-mwindows -g
@@ -20,6 +20,9 @@ win.o : win.cpp engine.h win.h
 
 material.o : material.cpp material.h
 	$(CC) $(CFLAGS) -o $@ material.cpp
+	
+rtt.o : rtt.cpp rtt.h
+	$(CC) $(CFLAGS) -o $@ rtt.cpp
 
 linux.o : linux.cpp engine.h linux.h
 	$(CC) $(CFLAGS) -o $@ linux.cpp
@@ -27,7 +30,7 @@ linux.o : linux.cpp engine.h linux.h
 glrender.o : glrender.cpp glrender.h
 	$(CC) $(CFLAGS) -o $@ glrender.cpp
 
-cube.o : cube.cpp cube.h material.h
+cube.o : cube.cpp cube.h material.h rtt.h
 	$(CC) $(CFLAGS) -o $@ cube.cpp
 	
 msg.o : msg.cpp msg.h

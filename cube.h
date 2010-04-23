@@ -3,6 +3,7 @@
 
 #include <GL/glew.h>
 #include "material.h"
+#include "rtt.h"
 
 typedef struct vec3 {
 	float x,y,z;
@@ -26,6 +27,7 @@ class cube {
 		float yaw;
 
 		CMaterial *mat;
+		//CRenderToTextureMaterial *mat;
 		
 		static GLuint VBO;
 		static GLuint IBO;

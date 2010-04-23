@@ -3,6 +3,7 @@
 #include "msg.h"
 #include "cube.h"
 #include "material.h"
+#include "rtt.h"
 
 cube::cube() {
 	if(!count) 
@@ -13,6 +14,7 @@ cube::cube() {
 	loc.z = 0.0;
 
 	mat = new CMaterial("legendary.raw");
+	//mat = new CRenderToTextureMaterial;
 
 	count++;
 }
