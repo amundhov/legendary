@@ -2,6 +2,7 @@
 #include <fstream>
 #include "msg.h"
 #include "cube.h"
+#include "material.h"
 
 cube::cube() {
 	if(!count) {
