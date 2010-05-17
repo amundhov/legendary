@@ -2,8 +2,7 @@
 #define __CUBE_H
 
 #include <GL/glew.h>
-#include "material.h"
-#include "rtt.h"
+#include "base_texture.h"
 
 typedef struct vec3 {
 	float x,y,z;
@@ -26,8 +25,7 @@ class cube {
 		float roll;
 		float yaw;
 
-		CMaterial *mat;
-		//CRenderToTextureMaterial *mat;
+		CBaseTexture *mat;
 		
 		static GLuint VBO;
 		static GLuint IBO;

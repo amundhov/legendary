@@ -57,15 +57,3 @@ void CRenderToTextureMaterial::genTO() {
 	glDeleteFramebuffersEXT(1, &FBO);
 	glDeleteRenderbuffersEXT(1, &RBO);
 }
-
-void CRenderToTextureMaterial::freeTO() {
-	glDeleteTextures(1, &TO);
-}
-
-void CRenderToTextureMaterial::Bind() {
-	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-	glBindTexture(GL_TEXTURE_2D, TO);
-}
-
-GLuint CRenderToTextureMaterial::TO = 0;
-unsigned int CRenderToTextureMaterial::count = 0;

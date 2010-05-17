@@ -2,7 +2,7 @@
 #include <fstream>
 #include "msg.h"
 #include "cube.h"
-#include "material.h"
+#include "texture.h"
 #include "rtt.h"
 
 cube::cube() {
@@ -13,8 +13,8 @@ cube::cube() {
 	loc.y = 0.0;
 	loc.z = 0.0;
 
-	mat = new CMaterial("legendary.raw");
-	//mat = new CRenderToTextureMaterial;
+	//mat = new CTexture("legendary.raw");
+	mat = new CRenderToTextureMaterial;
 
 	count++;
 }
