@@ -53,7 +53,7 @@ int main() {
 	cmap = XCreateColormap(display, root, vi->visual, AllocNone);
 	swa.colormap = cmap;
 	swa.event_mask = ExposureMask | KeyPressMask | ResizeRedirectMask;
-	win = XCreateWindow(display, root, 0, 0, 600, 400, 0, vi->depth, InputOutput, vi->visual, CWColormap | CWEventMask, &swa);
+	win = XCreateWindow(display, root, 0, 0, 1024, 600, 0, vi->depth, InputOutput, vi->visual, CWColormap | CWEventMask, &swa);
 
 	XMapWindow(display, win);
 	XStoreName(display, win, "Legendary Alpha");

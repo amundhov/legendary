@@ -27,16 +27,16 @@ void CRenderToTextureMaterial::genTO() {
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, 512, 512, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	glGenRenderbuffers(1, &RBO);
-	glBindRenderbuffer(GL_RENDERBUFFER, RBO);
-	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, 512, 512);
-	glBindRenderbuffer(GL_RENDERBUFFER, 0);
+	glGenRenderbuffersEXT(1, &RBO);
+	glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, RBO);
+	glRenderbufferStorageEXT(GL_RENDERBUFFER_EXT, GL_DEPTH_COMPONENT, 512, 512);
+	glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, 0);
 	
-	glGenFramebuffers(1, &FBO);
-	glBindFramebuffer(GL_FRAMEBUFFER, FBO);
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, TO, 0);
-	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, RBO);
-	if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+	glGenFramebuffersEXT(1, &FBO);
+	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, FBO);
+	glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_TEXTURE_2D, TO, 0);
+	glFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT_EXT, GL_RENDERBUFFER_EXT, RBO);
+	if(glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT) != GL_FRAMEBUFFER_COMPLETE_EXT)
 		Log("Framebuffer panic!\n");
 	
 	glPushAttrib(GL_VIEWPORT_BIT);
@@ -52,10 +52,10 @@ void CRenderToTextureMaterial::genTO() {
 	glEnd();
 	glClearColor(0.0,0.0,0.0,0.0f);
 	glPopAttrib();
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
 	
-	glDeleteFramebuffers(1, &FBO);
-	glDeleteRenderbuffers(1, &RBO);
+	glDeleteFramebuffersEXT(1, &FBO);
+	glDeleteRenderbuffersEXT(1, &RBO);
 }
 
 void CRenderToTextureMaterial::freeTO() {
