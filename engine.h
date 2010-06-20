@@ -2,11 +2,7 @@
 #define __engine_h_
 
 #include "glrender.h"
-
-typedef struct Vertex {
-	unsigned char r, g, b, a;
-	GLfloat x, y, z;
-} Vertex;
+#include "types.h"
 
 class engine {
 	public:

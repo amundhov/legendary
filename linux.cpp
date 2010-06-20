@@ -70,7 +70,8 @@ int main() {
 	engine->SetViewport(1024,600);
 
 	while(1) {
-		XNextEvent(display, &xev);
+		//XNextEvent(display, &xev);
+		engine->DrawFrame();
 		
 		switch(xev.type) {  
 			case Expose:
@@ -100,7 +101,6 @@ int main() {
 			default:
 				break;
 		}
-		engine->DrawFrame();
 		glXSwapBuffers(display, win); }
 }	
 

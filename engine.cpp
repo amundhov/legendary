@@ -3,9 +3,11 @@
 #include "engine.h"
 #include "msg.h"
 #include "cube.h"
+#include "nbody.h"
 
 engine *p_engine;
 cube *object;
+nbody *simulation;
 
 void engine::init() {
 	initLog("debug.log");
@@ -16,7 +18,7 @@ void engine::initRender()
 {
 	Render = new glRender;
 	object = new cube[4];
-	
+	simulation = new nbody(200);
 	object[0].locate(-100, 100, -200);
 	object[1].locate( 100, -100, -200);
 	object[2].locate( 100, 100, -200);
@@ -28,8 +30,11 @@ void engine::DrawFrame()
 	if(Render) {
 		UpdateTimer();
 		Render->DrawFrame();
-		for(int it = 0; it < 4; it++)
-			object[it].draw();
+		//for(int it = 0; it < 4; it++)
+		//	object[it].draw();
+		for (int i=0; i<20; i++) simulation->tick();
+
+		simulation->draw();
 	}
 }
 
