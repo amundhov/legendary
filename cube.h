@@ -3,10 +3,7 @@
 
 #include <GL/glew.h>
 #include "base_texture.h"
-
-typedef struct vec3 {
-	float x,y,z;
-} vec3;
+#include "types.h"
 
 class cube {
 	public:
