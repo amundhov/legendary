@@ -1,4 +1,4 @@
-OBJS=engine.o msg.o glrender.o cube.o base_texture.o texture.o rtt.o
+OBJS=engine.o msg.o glrender.o cube.o base_texture.o texture.o rtt.o vbo_object.o
 CC=g++
 CFLAGS=-c -DGLEW_STATIC  -g
 WIN_LFLAGS=-mwindows -g
@@ -33,11 +33,15 @@ linux.o : linux.cpp engine.h linux.h
 glrender.o : glrender.cpp glrender.h
 	$(CC) $(CFLAGS) -o $@ glrender.cpp
 
-cube.o : cube.cpp cube.h texture.h rtt.h
+cube.o : cube.cpp cube.h texture.h rtt.h vbo_object.h
 	$(CC) $(CFLAGS) -o $@ cube.cpp
 	
 msg.o : msg.cpp msg.h
 	$(CC) $(CFLAGS) -o $@ msg.cpp
+
+vbo_object.o : vbo_object.cpp
+	$(CC) $(CFLAGS) -o $@ vbo_object.cpp
+
 	
 clean:
 	rm *.o Legendary.exe legendary debug.log
