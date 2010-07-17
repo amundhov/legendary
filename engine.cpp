@@ -18,7 +18,7 @@ void engine::initRender()
 {
 	Render = new glRender;
 	object = new cube[4];
-	simulation = new nbody(200);
+	simulation = new nbody(2);
 	object[0].locate(-100, 100, -200);
 	object[1].locate( 100, -100, -200);
 	object[2].locate( 100, 100, -200);
@@ -30,9 +30,9 @@ void engine::DrawFrame()
 	if(Render) {
 		UpdateTimer();
 		Render->DrawFrame();
-		//for(int it = 0; it < 4; it++)
+		for(int it = 0; it < 4; it++)
 		//	object[it].draw();
-		for (int i=0; i<20; i++) simulation->tick();
+		simulation->tick();
 
 		simulation->draw();
 	}

@@ -1,4 +1,4 @@
-OBJS=engine.o msg.o glrender.o cube.o base_texture.o texture.o rtt.o nbody.o
+OBJS=engine.o msg.o glrender.o cube.o base_texture.o texture.o rtt.o nbody.o types.o
 CC=g++
 CFLAGS=-c -DGLEW_STATIC -O1
 WIN_LFLAGS=-mwindows -g
@@ -41,6 +41,9 @@ nbody.o : nbody.cpp nbody.h
 
 msg.o : msg.cpp msg.h
 	$(CC) $(CFLAGS) -o $@ msg.cpp
+
+types.o : types.h types.cpp
+	$(CC) $(CFLAGS) -o $@ types.cpp
 
 clean:
 	rm *.o Legendary.exe legendary debug.log

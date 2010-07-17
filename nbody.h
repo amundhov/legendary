@@ -18,20 +18,16 @@ class nbody {
 		vec3 loc;
 		vec3 *pos;
 		vec3 *vel;
+		vec3 *acc;
+		vec3 *accT;
 		int nodes;
-		//float pitch;
-		//float roll;
-		//float yaw;
+		unsigned int randSeed;
 
-		//GLuint VBO;
-		//GLuint IBO;
-
-		//int VBO_size_vertex;
-		//int VBO_size_colour;
-		//int VBO_size_coord;
 		float sfrand(void);
-		unsigned int mirand;
-		inline static double force(float,float);
+		inline void accel(int i, vec3 &acc);
+		inline void selfGravitation(int i, vec3 &acc);
+		inline vec3 force(vec3 &a, vec3 &b);
+
 		static const float dt = 0.0001f;
 };
 
