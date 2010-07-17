@@ -16,7 +16,7 @@ void engine::init() {
 void engine::initRender()
 {
 	Render = new glRender;
-	vbo_object *object[4];
+	object = new vbo_object*[4];
 	for ( int i=0; i<4; i++ ) {
 			object[i] = new cube();
 	}
