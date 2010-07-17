@@ -5,9 +5,6 @@
 #include "vbo_object.h"
 
 vbo_object::vbo_object() {
-	if(!count)
-		genBO();
-
 	loc.x = 0.0;
 	loc.y = 0.0;
 	loc.z = 0.0;
@@ -37,9 +34,8 @@ bool vbo_object::genBO() {
 	colours = getColours();
 	coords = getCoords();
 
-	VBO_size_vertices = sizeof(vertices);
-	VBO_size_colours = sizeof(colours);
-	VBO_size_coords = sizeof(coords);
+	Log("Vertsize %i, Colsize %i, coordsize %i, indexsize %i\n",
+			VBO_size_vertices,VBO_size_colours,VBO_size_coords,VBO_size_indices);
 
 	glGenBuffersARB(1, &VBO);
 	glBindBufferARB(GL_ARRAY_BUFFER_ARB, VBO);
@@ -58,7 +54,7 @@ bool vbo_object::genBO() {
 	if ( indices != NULL ) delete[] indices;
 	if ( colours != NULL ) delete[] colours;
 	if ( coords != NULL ) delete[] coords;
-	//Log("Generated the Buffer Objects. VBO: %i IBO: %i\n", VBO, IBO);
+	Log("Generated the Buffer Objects. VBO: %i IBO: %i\n", VBO, IBO);
 }
 
 bool vbo_object::freeBO() {
@@ -78,6 +74,7 @@ void vbo_object::draw() {
 	glLoadMatrixf(transform);
 
 	glBindBufferARB(GL_ARRAY_BUFFER_ARB, VBO);
+	Log("Buffer bound...\n");
 	glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, IBO);
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_COLOR_ARRAY);

@@ -27,12 +27,13 @@ class vbo_object {
 		static GLuint VBO;
 		static GLuint IBO;
 
+	protected:
 		static int VBO_size_vertices;
 		static int VBO_size_colours;
 		static int VBO_size_indices;
 		static int VBO_size_coords;
 
-		static unsigned int count;
+	static unsigned int count;
 };
 
 #endif
