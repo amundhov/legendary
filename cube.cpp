@@ -40,7 +40,7 @@ float* cube::getVertices() {
 				-50.0, -50.0,  50.0,	// 4
 				-50.0,  50.0,  50.0,	// 0		14
 				-50.0,  50.0, -50.0,	// 2
-				
+
 				50.0, -50.0, -50.0, 	// 7 Back	16
 				-50.0, -50.0, -50.0,	// 6
 				50.0,  50.0, -50.0,		// 3		18
@@ -51,13 +51,13 @@ float* cube::getVertices() {
 				50.0,  50.0, -50.0,		// 3		22
 				-50.0,  50.0, -50.0};	// 2
 	VBO_size_vertices = sizeof(vcube);
-	float *ret = new float[VBO_size_vertices];
-	for ( int i=0; i < VBO_size_vertices; i++ ) {
+	int vertices = sizeof(vcube)/sizeof(float);
+	float *ret = new float[vertices];
+	for ( int i=0; i < vertices; i++ ) {
 		ret[i] = vcube[i];
 	}
 	return ret;
 }
-
 
 int* cube::getIndices() {
 	unsigned int icube[] = {
@@ -68,8 +68,9 @@ int* cube::getIndices() {
 				16, 17, 18,		18, 17, 23,
 				20, 21, 22,		22, 23, 20};
 	VBO_size_indices = sizeof(icube);
-	int *ret = new int[VBO_size_indices];
-	for ( int i=0; i < VBO_size_indices; i++ ) {
+	VBO_indices = sizeof(icube)/sizeof(int);
+	int *ret = new int[VBO_indices];
+	for ( int i=0; i < VBO_indices; i++ ) {
 		ret[i] = icube[i];
 	}
 	return ret;
@@ -84,8 +85,9 @@ unsigned char* cube::getColours() {
 				000, 000, 000,  255, 255, 255,  255, 255, 255,  000, 000, 000, // Back
 				255, 255, 255,  255, 255, 255,  000, 000, 000,  000, 000, 000};// Top
 	VBO_size_colours = sizeof(ccube);
-	unsigned char *ret = new unsigned char[VBO_size_colours];
-	for ( int i=0; i < VBO_size_colours; i++ ) {
+	int colours = sizeof(ccube)/sizeof(unsigned char);
+	unsigned char *ret = new unsigned char[colours];
+	for ( int i=0; i < colours; i++ ) {
 		ret[i] = ccube[i];
 	}
 	return ret;
@@ -100,8 +102,9 @@ float* cube::getCoords() {
 				0.0, 1.0,  1.0, 1.0,  0.0, 0.0,  1.0, 0.0,
 				0.0, 1.0,  1.0, 1.0,  1.0, 0.0,  0.0, 0.0};
 	VBO_size_coords = sizeof(tcube);
-	float *ret = new float[VBO_size_coords];
-	for ( int i=0; i < VBO_size_coords; i++ ) {
+	int coords = sizeof(tcube)/sizeof(float);
+	float *ret = new float[coords];
+	for ( int i=0; i < coords; i++ ) {
 		ret[i] = tcube[i];
 	}
 	return ret;

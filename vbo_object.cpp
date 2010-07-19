@@ -34,8 +34,8 @@ bool vbo_object::genBO() {
 	colours = getColours();
 	coords = getCoords();
 
-	Log("Vertsize %i, Colsize %i, coordsize %i, indexsize %i\n",
-			VBO_size_vertices,VBO_size_colours,VBO_size_coords,VBO_size_indices);
+	Log("Vertsize %i, Colsize %i, coordsize %i, indices %i\n",
+			VBO_size_vertices,VBO_size_colours,VBO_size_coords,VBO_indices);
 
 	glGenBuffersARB(1, &VBO);
 	glBindBufferARB(GL_ARRAY_BUFFER_ARB, VBO);
@@ -74,7 +74,6 @@ void vbo_object::draw() {
 	glLoadMatrixf(transform);
 
 	glBindBufferARB(GL_ARRAY_BUFFER_ARB, VBO);
-	Log("Buffer bound...\n");
 	glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, IBO);
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_COLOR_ARRAY);
@@ -83,7 +82,7 @@ void vbo_object::draw() {
 	glVertexPointer(3, GL_FLOAT, 0, 0);
 	glColorPointer(3, GL_UNSIGNED_BYTE, 0, (GLvoid *)VBO_size_vertices);
 	glTexCoordPointer(2, GL_FLOAT, 0, (GLvoid *)(VBO_size_vertices+VBO_size_colours));
-	glDrawElements(GL_TRIANGLES, VBO_size_indices, GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, VBO_indices, GL_UNSIGNED_INT, 0);
 
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_COLOR_ARRAY);
@@ -99,3 +98,4 @@ int vbo_object::VBO_size_vertices = 0;
 int vbo_object::VBO_size_colours = 0;
 int vbo_object::VBO_size_coords = 0;
 int vbo_object::VBO_size_indices = 0;
+int vbo_object::VBO_indices = 0;
