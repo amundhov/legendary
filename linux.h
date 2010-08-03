@@ -9,16 +9,16 @@
 #include "engine.h"
 
 class LinuxEngine : public engine {
-	public:
-		LinuxEngine(void);
-		~LinuxEngine(void);
+public:
+    LinuxEngine(void);
+    ~LinuxEngine(void);
 
-		int msgBox(char *msg);
-		void UpdateTimer();
+    int msgBox(char *msg);
+    void UpdateTimer();
 
-    private:
-        suseconds_t m_elapsed;
-        time_t m_lastTick;
+private:
+    suseconds_t m_elapsed;
+    time_t m_lastTick;
 };
 
 #endif

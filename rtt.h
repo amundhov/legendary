@@ -5,14 +5,14 @@
 #include "base_texture.h"
 
 class CRenderToTextureMaterial : public CBaseTexture {
-	public:
-		CRenderToTextureMaterial();
-		~CRenderToTextureMaterial();
-		
-		void Bind();
-		
-	protected:
-		virtual void genTO();
+public:
+    CRenderToTextureMaterial();
+    ~CRenderToTextureMaterial();
+
+    void Bind();
+
+protected:
+    virtual void genTO();
 };
 
 #endif

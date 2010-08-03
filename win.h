@@ -9,17 +9,17 @@
 LRESULT CALLBACK MainWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 class WinEngine : public engine {
-	public:
-		WinEngine( void );
-		virtual ~WinEngine( void );
+public:
+    WinEngine( void );
+    virtual ~WinEngine( void );
 
-		virtual int msgBox(char *msg);
-		void KeyDown(WPARAM wParam, LPARAM lParam);		
-		void UpdateTimer();
-		
-	private:
-		UINT64		freq;
-		UINT64		timer;
+    virtual int msgBox(char *msg);
+    void KeyDown(WPARAM wParam, LPARAM lParam);
+    void UpdateTimer();
+
+private:
+    UINT64		freq;
+    UINT64		timer;
 };
 
 WinEngine  *engine;

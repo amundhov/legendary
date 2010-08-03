@@ -6,17 +6,17 @@
 #include "vbo_object.h"
 
 class cube : public vbo_object {
-	public:
-		cube();
-		~cube();
-		float* getVertices();
-		int* getIndices();
-		unsigned char* getColours();
-		float* getCoords();
-		void draw();
+public:
+    cube();
+    ~cube();
+    float* getVertices();
+    int* getIndices();
+    unsigned char* getColours();
+    float* getCoords();
+    void draw();
 
-	private:
-		CBaseTexture *mat;
+private:
+    CBaseTexture *mat;
 };
 
 #endif

@@ -5,16 +5,16 @@
 #include "base_texture.h"
 
 class CTexture : public CBaseTexture {
-	public: 
-		CTexture(char *filename);
-		~CTexture();
-		
-		void Bind();
-		
-	protected:
-		void genTO();
-		
-		char *texturefile;
+public:
+    CTexture(char *filename);
+    ~CTexture();
+
+    void Bind();
+
+protected:
+    void genTO();
+
+    char *texturefile;
 };
 
 #endif
