@@ -15,9 +15,10 @@ XEvent                  xev;
 
 LinuxEngine				*engine;
 
-LinuxEngine::LinuxEngine() {
+LinuxEngine::LinuxEngine() :
+        m_elapsed(0){
 	init();
-	Log("Testing\n");
+	Log("LINUX ENGINE INITIALIZED!\n");
 }
 
 LinuxEngine::~LinuxEngine() {
@@ -31,7 +32,11 @@ int LinuxEngine::msgBox(char *msg) {
 }
 
 void LinuxEngine::UpdateTimer() {
-	//Stub. TODO: Actually update a timer
+    struct timeval now;
+    gettimeofday(&now, NULL);
+    suseconds_t cur = (now.tv_sec * 1000000) + now.tv_usec;
+    m_elapsed = cur - m_lastTick;
+    m_lastTick = cur;
 }
 
 int main() {
@@ -49,7 +54,7 @@ int main() {
 		delete engine;
 		return 1;
 	}
-	
+
 	cmap = XCreateColormap(display, root, vi->visual, AllocNone);
 	swa.colormap = cmap;
 	swa.event_mask = ExposureMask | KeyPressMask | ResizeRedirectMask;
@@ -60,7 +65,7 @@ int main() {
 	glc = glXCreateContext(display, vi, NULL, GL_TRUE);
 	glXMakeCurrent(display, win, glc);
 
-	
+
 	if(glewInit()) {
 		Log("FATAL - glewInit failed.\n");
 		return 0;
@@ -70,9 +75,15 @@ int main() {
 	engine->SetViewport(1024,600);
 
 	while(1) {
+		engine->DrawFrame();
+		glXSwapBuffers(display, win);
+
+        if (!XPending(display))
+            continue;
+
 		XNextEvent(display, &xev);
-		
-		switch(xev.type) {  
+
+		switch(xev.type) {
 			case Expose:
 		 		XGetWindowAttributes(display, win, &gwa);
 				engine->DrawFrame();
@@ -81,7 +92,7 @@ int main() {
 
 			case KeyPress:
 				switch(XLookupKeysym(&xev.xkey, 0)) {
-					case XK_space:		
+					case XK_space:
 		 				glXMakeCurrent(display, None, NULL);
 						glXDestroyContext(display, glc);
 						XDestroyWindow(display, win);
@@ -100,7 +111,6 @@ int main() {
 			default:
 				break;
 		}
-		engine->DrawFrame();
-		glXSwapBuffers(display, win); }
-}	
+    }
+}
 
