@@ -1,1 +1,7 @@
-Legendary is awesome.
+Legendary is Awesome
+--------------------
+
+To build and run:
+----------------
+
+qmake && make && ./legendary
