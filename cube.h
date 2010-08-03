@@ -2,7 +2,7 @@
 #define __CUBE_H
 
 #include "base_texture.h"
-#include "texture.h"
+#include "rtt.h"
 #include "vbo_object.h"
 
 class cube : public vbo_object {

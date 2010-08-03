@@ -13,7 +13,7 @@ vbo_object::vbo_object() {
 }
 
 vbo_object::~vbo_object() {
-	if(!--count) 
+	if(!--count)
 		freeBO();
 }
 
@@ -37,19 +37,19 @@ bool vbo_object::genBO() {
 	Log("Vertsize %i, Colsize %i, coordsize %i, indices %i\n",
 			VBO_size_vertices,VBO_size_colours,VBO_size_coords,VBO_indices);
 
-	glGenBuffersARB(1, &VBO);
+    glGenBuffersARB(1, &VBO);
 	glBindBufferARB(GL_ARRAY_BUFFER_ARB, VBO);
-	glBufferDataARB(GL_ARRAY_BUFFER_ARB, sizeof(vertices) + sizeof(colours) + sizeof(coords), NULL, GL_STATIC_DRAW);
-	glBufferSubDataARB(GL_ARRAY_BUFFER_ARB, 0, sizeof(vertices), vertices);
-	glBufferSubDataARB(GL_ARRAY_BUFFER_ARB, sizeof(vertices), sizeof(colours), colours);
-	glBufferSubDataARB(GL_ARRAY_BUFFER_ARB, sizeof(vertices) + sizeof(colours), sizeof(coords), coords);
-	glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
+    glBufferDataARB(GL_ARRAY_BUFFER_ARB, VBO_size_vertices + VBO_size_colours + VBO_size_coords, NULL, GL_STATIC_DRAW);
+    glBufferSubDataARB(GL_ARRAY_BUFFER_ARB, 0, VBO_size_vertices, vertices);
+    glBufferSubDataARB(GL_ARRAY_BUFFER_ARB, VBO_size_vertices, VBO_size_colours, colours);
+    glBufferSubDataARB(GL_ARRAY_BUFFER_ARB, VBO_size_vertices + VBO_size_colours, VBO_size_coords, coords);
+    glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
 
 	glGenBuffersARB(1, &IBO);
 	glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, IBO);
-	glBufferDataARB(GL_ELEMENT_ARRAY_BUFFER_ARB, sizeof(indices), indices, GL_STATIC_DRAW);
+    glBufferDataARB(GL_ELEMENT_ARRAY_BUFFER_ARB, VBO_size_indices, indices, GL_STATIC_DRAW);
 	glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, 0);
-	
+
 	if ( vertices != NULL ) delete[] vertices;
 	if ( indices != NULL ) delete[] indices;
 	if ( colours != NULL ) delete[] colours;
@@ -77,15 +77,15 @@ void vbo_object::draw() {
 	glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, IBO);
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_COLOR_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+        glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
 	glVertexPointer(3, GL_FLOAT, 0, 0);
 	glColorPointer(3, GL_UNSIGNED_BYTE, 0, (GLvoid *)VBO_size_vertices);
-	glTexCoordPointer(2, GL_FLOAT, 0, (GLvoid *)(VBO_size_vertices+VBO_size_colours));
+        glTexCoordPointer(2, GL_FLOAT, 0, (GLvoid *)(VBO_size_vertices+VBO_size_colours));
 	glDrawElements(GL_TRIANGLES, VBO_indices, GL_UNSIGNED_INT, 0);
 
 	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_COLOR_ARRAY);
+        glDisableClientState(GL_COLOR_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
 	glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, 0);
