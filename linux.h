@@ -8,6 +8,8 @@
 #include <sys/time.h>
 #include "engine.h"
 
+class Sound;
+
 class LinuxEngine : public engine {
 public:
     LinuxEngine(void);
@@ -19,6 +21,7 @@ public:
 private:
     suseconds_t m_elapsed;
     time_t m_lastTick;
+    Sound *m_sound;
 };
 
 #endif

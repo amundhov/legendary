@@ -16,17 +16,17 @@ TEMPLATE = app
 
 
 SOURCES += \
-    vbo_object.cpp \
-    texture.cpp \
-    rtt.cpp \
-    obj.cpp \
-    msg.cpp \
-    material.cpp \
-    glrender.cpp \
-    engine.cpp \
-    cube.cpp \
+    base_texture.cpp \
 #    c3dsparser.cpp \
-    base_texture.cpp
+    cube.cpp \
+    engine.cpp \
+    glrender.cpp \
+    material.cpp \
+    msg.cpp \
+    obj.cpp \
+    rtt.cpp \
+    texture.cpp \
+    vbo_object.cpp
 
 OTHER_FILES += \
     README \
@@ -34,18 +34,18 @@ OTHER_FILES += \
     chunks.def \
 
 HEADERS += \
-    vbo_object.h \
-    types.h \
-    texture.h \
-    rtt.h \
-    obj.h \
-    msg.h \
-    material.h \
-    glrender.h \
-    engine.h \
-    cube.h \
+    base_texture.h \
 #    c3dsparser.h \
-    base_texture.h
+    cube.h \
+    engine.h \
+    glrender.h \
+    material.h \
+    msg.h \
+    obj.h \
+    rtt.h \
+    texture.h \
+    types.h \
+    vbo_object.h
 
 win32 {
     HEADERS += win.h
@@ -55,8 +55,14 @@ win32 {
 }
 
 unix {
-    HEADERS += linux.h
-    SOURCES += linux.cpp
+    HEADERS += linux.h \
+               sound.h \
+               fht.h
+    SOURCES += linux.cpp \
+               sound.cpp \
+               fht.cpp
     LIBS    += -lX11 \
-               -lGLEW
+               -lGLEW \
+               -lvorbisfile \
+               -lasound 
 }
