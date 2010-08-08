@@ -2,6 +2,7 @@
 #define __vbo_object_h_
 
 #include "types.h"
+#include <GL/glew.h>
 
 class vbo_object {
 public:
@@ -33,6 +34,8 @@ protected:
     static int VBO_size_coords;
     static int VBO_size_indices;
     static int VBO_indices;
+
+    static GLenum INDEX_SIZE;
 
     static unsigned int count;
 };

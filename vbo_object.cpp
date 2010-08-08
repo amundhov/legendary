@@ -86,7 +86,7 @@ void vbo_object::draw() {
     glVertexPointer(3, GL_FLOAT, 0, 0);
     glColorPointer(3, GL_UNSIGNED_BYTE, 0, (GLvoid *)VBO_size_vertices);
     glTexCoordPointer(2, GL_FLOAT, 0, (GLvoid *)(VBO_size_vertices+VBO_size_colours));
-    glDrawElements(GL_TRIANGLES, VBO_indices, GL_UNSIGNED_INT, 0);
+    glDrawElements(GL_TRIANGLES, VBO_indices, INDEX_SIZE, 0);
 
     glDisableClientState(GL_VERTEX_ARRAY);
     glDisableClientState(GL_COLOR_ARRAY);
@@ -103,3 +103,4 @@ int vbo_object::VBO_size_colours = 0;
 int vbo_object::VBO_size_coords = 0;
 int vbo_object::VBO_size_indices = 0;
 int vbo_object::VBO_indices = 0;
+GLenum vbo_object::INDEX_SIZE = GL_UNSIGNED_INT;
