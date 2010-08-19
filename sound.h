@@ -49,7 +49,7 @@ private:
     uint16_t *m_samples;
     snd_pcm_t *m_playbackHandle;
     float *m_history;
-    OggVorbis_File m_vorbisfile;
+    OggVorbis_File *m_vorbisfile;
     pthread_t *m_thread;
     pthread_mutex_t *m_mutex;
 };

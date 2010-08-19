@@ -91,12 +91,10 @@ void GLRender::loadShaders()
 
     const char *fragCode = File::readFile("shaders/simple.frag");
     glShaderSource(fragShader, 1, &fragCode, NULL);
-    printf("\n\n%s\n\n", fragCode);
     delete fragCode;
 
     const char *vertCode = File::readFile("shaders/simple.vertex");
     glShaderSource(vertShader, 1, &vertCode, NULL);
-    printf("\n\n%s\n\n", vertCode);
     delete vertCode;
 
     glCompileShader(fragShader);

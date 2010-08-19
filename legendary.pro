@@ -11,6 +11,7 @@ QT       -= gui
 TARGET = legendary
 CONFIG   += console
 CONFIG   -= app_bundle
+CONFIG += debug
 
 TEMPLATE = app
 

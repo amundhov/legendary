@@ -26,14 +26,17 @@ Sound::Sound (const char *device) :
     m_fht(BUFEXP), 
     m_stopping(false),
     m_samples(new uint16_t[64]),
-    m_history(new float[64])
+    m_history(new float[64]),
+    m_thread(0),
+    m_playbackHandle(0),
+    m_vorbisfile(0)
 {
-    if (ov_fopen("music.ogg", &m_vorbisfile)) {
-        fprintf(stderr, "unable to open music file!\n");
-        exit(1);
+    if (ov_fopen("music.ogg", m_vorbisfile)) {
+        fprintf(stderr, "FATAL: Unable to open music file!\n");
+        return;
     }
 
-    vorbis_info *info = ov_info(&m_vorbisfile, -1);
+    vorbis_info *info = ov_info(m_vorbisfile, -1);
     unsigned int channels = info->channels;
     unsigned int rate = info->rate;
     printf("Channels: %i\nRate: %i\nBuffer size:%i\n", channels, rate, BUFSIZE);
@@ -46,13 +49,13 @@ Sound::Sound (const char *device) :
              snd_strerror (m_err));
         exit (1);
     }
-       
+
     if ((m_err = snd_pcm_hw_params_malloc (&hw_params)) < 0) {
         fprintf (stderr, "cannot allocate hardware parameter structure (%s)\n",
              snd_strerror (m_err));
         exit (1);
     }
-             
+
     if ((m_err = snd_pcm_hw_params_any (m_playbackHandle, hw_params)) < 0) {
         fprintf (stderr, "cannot initialize hardware parameter structure (%s)\n",
              snd_strerror (m_err));
@@ -105,10 +108,12 @@ Sound::Sound (const char *device) :
 
 Sound::~Sound() {
     m_stopping = true;
-    pthread_join((*m_thread), 0);
+    if (m_thread)
+        pthread_join((*m_thread), 0);
 
-    snd_pcm_close (m_playbackHandle);
-    ov_clear(&m_vorbisfile);
+    if (m_playbackHandle)
+        snd_pcm_close (m_playbackHandle);
+    ov_clear(m_vorbisfile);
 }
 
 void *Sound::startLoop(void *obj) {
@@ -121,21 +126,20 @@ void Sound::mainloop() {
     uint16_t *buffer;
     while (!m_stopping && ret != 0) {
         buffer = (uint16_t*)calloc(sizeof(uint16_t), BUFSIZE);
-        ret = ov_read(&m_vorbisfile, reinterpret_cast<char*>(buffer), BUFSIZE, 0, 1, 1, &pos);
+        ret = ov_read(m_vorbisfile, reinterpret_cast<char*>(buffer), BUFSIZE, 0, 1, 1, &pos);
 
         snd_pcm_writei(m_playbackHandle, buffer, BUFSIZE/2);
         pthread_mutex_lock(m_mutex);
         delete m_samples;
         m_samples = buffer;
         pthread_mutex_unlock(m_mutex);
-        
     }
 }
 
 float *Sound::getBass()
 {
     int bass = 0;
-    
+
     float *buffer = new float[BUFSIZE];
     float input[BUFSIZE];
     pthread_mutex_lock(m_mutex);
