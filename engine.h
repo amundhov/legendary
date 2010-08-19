@@ -13,10 +13,10 @@ public:
     virtual				~engine( void ) {
         destroy();
     };
-    virtual int			msgBox(char *msg) {
+    virtual int			msgBox(char *) {
         return -1;
     };
-    virtual void		UpdateTimer() = 0;
+    virtual void		updateTimer() = 0;
 
     void 		init();
     void 		destroy();
@@ -38,7 +38,7 @@ protected:
     double		time;
 
 private:
-    glRender	*Render;
+    GLRender	*Render;
 };
 
 extern engine *p_engine;

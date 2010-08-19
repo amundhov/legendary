@@ -14,7 +14,7 @@ public:
     ~LinuxEngine(void);
 
     int msgBox(char *msg);
-    void UpdateTimer();
+    void updateTimer();
 
 private:
     suseconds_t m_elapsed;

@@ -15,7 +15,7 @@ void engine::init() {
 
 void engine::initRender()
 {
-    Render = new glRender;
+    Render = new GLRender;
     object = new vbo_object*[4];
     for ( int i=0; i<4; i++ ) {
         object[i] = new cube();
@@ -25,13 +25,14 @@ void engine::initRender()
     object[1]->locate( 100, -100, -200);
     object[2]->locate( 100, 100, -200);
     object[3]->locate( -100, -100, -200);
+
 }
 
 void engine::DrawFrame()
 {
     if (Render) {
-        UpdateTimer();
-        Render->DrawFrame();
+        updateTimer();
+        Render->drawFrame();
         for (int it = 0; it < 4; it++)
             object[it]->draw();
     }
@@ -39,13 +40,13 @@ void engine::DrawFrame()
 
 void engine::SetViewport(int x, int y) {
     if (Render) {
-        Render->SetViewport(x, y);
+        Render->setViewport(x, y);
     }
 }
 
 void engine::ToggleFrame() {
     if (Render)
-        Render->ToggleFrame();
+        Render->toggleFrame();
 }
 
 void engine::destroy() {

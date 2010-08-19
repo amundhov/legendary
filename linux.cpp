@@ -16,7 +16,8 @@ XEvent                  xev;
 LinuxEngine				*engine;
 
 LinuxEngine::LinuxEngine() :
-        m_elapsed(0) {
+        m_elapsed(0)
+{
     init();
     Log("LINUX ENGINE INITIALIZED!\n");
 }
@@ -26,12 +27,13 @@ LinuxEngine::~LinuxEngine() {
 }
 
 int LinuxEngine::msgBox(char *msg) {
+    printf("ATTENTION: %s\n", msg);
     //Forward to Log
     Log(msg);
     return 0;
 }
 
-void LinuxEngine::UpdateTimer() {
+void LinuxEngine::updateTimer() {
     struct timeval now;
     gettimeofday(&now, NULL);
     suseconds_t cur = (now.tv_sec * 1000000) + now.tv_usec;
@@ -41,6 +43,11 @@ void LinuxEngine::UpdateTimer() {
 
 int main() {
     engine = new LinuxEngine;
+    glewInit();
+    if (!glewIsSupported("GL_VERSION_2_0")) {
+        printf("FATAL! Needs OpenGL 2.0 or later!\n");
+//        return 255; glew be broken
+    }
     display = XOpenDisplay(NULL);
     if (!display) {
         Log("Couldn't open display, terminating.\n");
@@ -83,6 +90,7 @@ int main() {
 
         XNextEvent(display, &xev);
 
+            XResizeRequestEvent *rev = reinterpret_cast<XResizeRequestEvent*>(&xev);
         switch (xev.type) {
         case Expose:
             XGetWindowAttributes(display, win, &gwa);
@@ -106,7 +114,7 @@ int main() {
                 break;
             }
         case ResizeRequest:
-            //engine->SetViewport(&xev.width, &xev.height);
+            engine->SetViewport(rev->width, rev->height);
             break;
         default:
             break;

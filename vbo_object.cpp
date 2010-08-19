@@ -65,8 +65,8 @@ bool vbo_object::freeBO() {
 }
 
 void vbo_object::draw() {
-    static int i=0;
-    i++;
+    static float i=0;
+    i+=0.01;
 
     GLfloat transform[16] = {
         1,			0,		0,		0,

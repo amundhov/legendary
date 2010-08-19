@@ -1,36 +1,38 @@
-#ifndef __glRender_h_
-#define __glRender_h_
+#ifndef GLRENDER_H
+#define GLRENDER_H
 
 #include <GL/glew.h>
 
-class glRender
+class GLRender
 {
 public:
-    glRender();
-    ~glRender();
+    GLRender();
+    ~GLRender();
 
-    void DrawFrame();
+    void drawFrame();
 
-    void SetViewport(int x, int y);
-    void SetFrustum();
+    void setViewport(int x, int y);
+    void setFrustum();
 
-    void ToggleFrame();
+    void toggleFrame();
 
     int getResX()		{
-        return xRes;
+        return m_xRes;
     };
     int getResY()		{
-        return yRes;
+        return m_yRes;
     };
+    void loadShaders();
 
 private:
-    bool		fill;				//Filled triangles? (For wireframe mode feature)
+    bool m_fill;				//Filled triangles? (For wireframe mode feature)
 
-    int			xRes, yRes;
-    float		xPos, yPos, zPos;
+    int m_xRes, m_yRes;
+    float m_xPos, m_yPos, m_zPos;
 
-    float		zNear, zFar;
-    float		fov;
+    float m_zNear, m_zFar;
+    float m_fov;
 };
 
-#endif
+#endif//GLRENDER_H
+

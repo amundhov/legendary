@@ -18,6 +18,7 @@ TEMPLATE = app
 SOURCES += \
     vbo_object.cpp \
     texture.cpp \
+    file.cpp \
     rtt.cpp \
     obj.cpp \
     msg.cpp \
@@ -38,6 +39,7 @@ HEADERS += \
     types.h \
     texture.h \
     rtt.h \
+    file.h \
     obj.h \
     msg.h \
     material.h \
