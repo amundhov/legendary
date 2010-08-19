@@ -16,18 +16,18 @@ TEMPLATE = app
 
 
 SOURCES += \
-    vbo_object.cpp \
-    texture.cpp \
-    file.cpp \
-    rtt.cpp \
-    obj.cpp \
-    msg.cpp \
-    material.cpp \
-    glrender.cpp \
-    engine.cpp \
+    base_texture.cpp \
     cube.cpp \
-#    c3dsparser.cpp \
-    base_texture.cpp
+    engine.cpp \
+    file.cpp \
+    glrender.cpp \
+    material.cpp \
+    msg.cpp \
+    obj.cpp \
+    rtt.cpp \
+    texture.cpp \
+    vbo_object.cpp \
+#    c3dsparser.cpp
 
 OTHER_FILES += \
     README \
@@ -35,19 +35,20 @@ OTHER_FILES += \
     chunks.def \
 
 HEADERS += \
-    vbo_object.h \
-    types.h \
-    texture.h \
-    rtt.h \
-    file.h \
-    obj.h \
-    msg.h \
-    material.h \
-    glrender.h \
-    engine.h \
+    base_texture.h \
     cube.h \
-#    c3dsparser.h \
-    base_texture.h
+    engine.h \
+    file.h \
+    glrender.h \
+    material.h \
+    msg.h \
+    obj.h \
+    rtt.h \
+    texture.h \
+    types.h \
+    vbo_object.h \
+    vbo_object.h \
+#    c3dsparser.h
 
 win32 {
     HEADERS += win.h
@@ -57,8 +58,14 @@ win32 {
 }
 
 unix {
-    HEADERS += linux.h
-    SOURCES += linux.cpp
+    HEADERS += linux.h \
+               sound.h \
+               fht.h
+    SOURCES += linux.cpp \
+               sound.cpp \
+               fht.cpp
     LIBS    += -lX11 \
-               -lGLEW
+               -lGLEW \
+               -lvorbisfile \
+               -lasound
 }

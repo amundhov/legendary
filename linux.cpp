@@ -1,5 +1,6 @@
 #include <X11/keysymdef.h>
 #include "linux.h"
+#include "sound.h"
 #include "msg.h"
 
 Display                 *display;
@@ -16,14 +17,15 @@ XEvent                  xev;
 LinuxEngine				*engine;
 
 LinuxEngine::LinuxEngine() :
-        m_elapsed(0)
+        m_elapsed(0),
+        m_sound(new Sound("default"))
 {
     init();
     Log("LINUX ENGINE INITIALIZED!\n");
 }
 
 LinuxEngine::~LinuxEngine() {
-    //Stub
+    delete m_sound;
 }
 
 int LinuxEngine::msgBox(char *msg) {

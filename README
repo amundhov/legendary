@@ -1,6 +1,13 @@
 Legendary is Awesome
 --------------------
 
+Debian Lenny prerequisites:
+ * libasound2-dev
+ * libvorbis-dev
+ * libx11-dev
+ * libglew1.5-dev
+
+
 To build and run:
 ----------------
 
