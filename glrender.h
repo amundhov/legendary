@@ -24,6 +24,8 @@ public:
     };
     void loadShaders();
 
+    GLuint shaderProgram() { return m_shaderProgram; }
+
 private:
     bool m_fill;				//Filled triangles? (For wireframe mode feature)
 
@@ -32,6 +34,8 @@ private:
 
     float m_zNear, m_zFar;
     float m_fov;
+
+    GLuint m_shaderProgram;
 };
 
 #endif//GLRENDER_H

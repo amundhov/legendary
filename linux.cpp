@@ -6,13 +6,9 @@
 Display                 *display;
 Window                  root;
 GLint                   att[] = {GLX_RGBA, GLX_DEPTH_SIZE, 24, GLX_DOUBLEBUFFER, None };
-XVisualInfo             *vi;
 Colormap                cmap;
 XSetWindowAttributes    swa;
-Window                  win;
-GLXContext              glc;
 XWindowAttributes       gwa;
-XEvent                  xev;
 
 LinuxEngine				*engine;
 
@@ -22,6 +18,9 @@ LinuxEngine::LinuxEngine() :
 {
     init();
     Log("LINUX ENGINE INITIALIZED!\n");
+    printf("\n▛▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▜\n");
+    printf(  "▌ DIE LINUX TRIEBWERK INITIALISERT WURDE! ▐\n");
+    printf(  "▙▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▟\n\n");
 }
 
 LinuxEngine::~LinuxEngine() {
@@ -58,21 +57,22 @@ int main() {
     }
 
     root = DefaultRootWindow(display);
-    vi = glXChooseVisual(display, 0, att);
-    if (!vi) {
+    XVisualInfo *visualInfo = glXChooseVisual(display, 0, att);
+    if (!visualInfo) {
+        printf("FATAL: Unable to acquire visual!");
         delete engine;
         return 1;
     }
 
-    cmap = XCreateColormap(display, root, vi->visual, AllocNone);
+    cmap = XCreateColormap(display, root, visualInfo->visual, AllocNone);
     swa.colormap = cmap;
     swa.event_mask = ExposureMask | KeyPressMask | ResizeRedirectMask;
-    win = XCreateWindow(display, root, 0, 0, 1024, 600, 0, vi->depth, InputOutput, vi->visual, CWColormap | CWEventMask, &swa);
+    Window win = XCreateWindow(display, root, 0, 0, 1024, 600, 0, visualInfo->depth, InputOutput, visualInfo->visual, CWColormap | CWEventMask, &swa);
 
     XMapWindow(display, win);
-    XStoreName(display, win, "Legendary Alpha");
-    glc = glXCreateContext(display, vi, NULL, GL_TRUE);
-    glXMakeCurrent(display, win, glc);
+    XStoreName(display, win, "tenn0");
+    GLXContext context = glXCreateContext(display, visualInfo, NULL, GL_TRUE);
+    glXMakeCurrent(display, win, context);
 
 
     if (glewInit()) {
@@ -83,6 +83,7 @@ int main() {
     engine->initRender();
     engine->SetViewport(1024,600);
 
+    XEvent xev;
     while (1) {
         engine->DrawFrame();
         glXSwapBuffers(display, win);
@@ -102,9 +103,10 @@ int main() {
 
         case KeyPress:
             switch (XLookupKeysym(&xev.xkey, 0)) {
+            case XK_Escape:
             case XK_space:
                 glXMakeCurrent(display, None, NULL);
-                glXDestroyContext(display, glc);
+                glXDestroyContext(display, context);
                 XDestroyWindow(display, win);
                 XCloseDisplay(display);
                 delete engine;
@@ -113,7 +115,7 @@ int main() {
                 engine->ToggleFrame();
                 break;
             default:
-                break;
+                continue;
             }
         case ResizeRequest:
             engine->SetViewport(rev->width, rev->height);

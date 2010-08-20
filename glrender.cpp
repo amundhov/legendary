@@ -10,7 +10,8 @@ GLRender::GLRender():
     m_fill(true),
     m_zNear(0.1),
     m_zFar(1000),
-    m_fov(75)
+    m_fov(75),
+    m_shaderProgram(0)
 {
     glClearColor(0.0,0.0,0.0,0.0f);
     glCullFace(GL_BACK);
@@ -84,7 +85,7 @@ void GLRender::toggleFrame() {
 
 void GLRender::loadShaders()
 {
-    GLuint fragShader, vertShader, program;
+    GLuint fragShader, vertShader;
 
     fragShader = glCreateShader(GL_FRAGMENT_SHADER);
     vertShader = glCreateShader(GL_VERTEX_SHADER);
@@ -100,14 +101,18 @@ void GLRender::loadShaders()
     glCompileShader(fragShader);
     glCompileShader(vertShader);
 
-    program = glCreateProgram();
-    glAttachShader(program, vertShader);
-    glAttachShader(program, fragShader);
-    glLinkProgram(program);
-    glUseProgram(program);
+    m_shaderProgram = glCreateProgram();
+    glAttachShader(m_shaderProgram, vertShader);
+    glAttachShader(m_shaderProgram, fragShader);
+    glLinkProgram(m_shaderProgram);
+    glUseProgram(m_shaderProgram);
 
     char *log = new char[1000];
-    glGetProgramInfoLog(program, 1000, NULL, log);
-    printf("\n----------------------------\nShader program log:\n%s\n----------------------------\n", log);
+    glGetProgramInfoLog(m_shaderProgram, 1000, NULL, log);
+
+    printf("\n\033[91m%s\033[0m\n", log);
+
+
     delete log;
 }
+

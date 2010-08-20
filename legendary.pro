@@ -24,7 +24,6 @@ SOURCES += \
     glrender.cpp \
     material.cpp \
     msg.cpp \
-    obj.cpp \
     rtt.cpp \
     texture.cpp \
     vbo_object.cpp \
@@ -43,7 +42,6 @@ HEADERS += \
     glrender.h \
     material.h \
     msg.h \
-    obj.h \
     rtt.h \
     texture.h \
     types.h \
