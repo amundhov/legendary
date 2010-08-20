@@ -81,11 +81,11 @@ int main() {
     }
 
     engine->initRender();
-    engine->SetViewport(1024,600);
+    engine->setViewport(1024,600);
 
     XEvent xev;
     while (1) {
-        engine->DrawFrame();
+        engine->drawFrame();
         glXSwapBuffers(display, win);
 
         if (!XPending(display))
@@ -93,11 +93,11 @@ int main() {
 
         XNextEvent(display, &xev);
 
-            XResizeRequestEvent *rev = reinterpret_cast<XResizeRequestEvent*>(&xev);
+        XResizeRequestEvent *rev = reinterpret_cast<XResizeRequestEvent*>(&xev);
         switch (xev.type) {
         case Expose:
             XGetWindowAttributes(display, win, &gwa);
-            engine->DrawFrame();
+            engine->drawFrame();
             glXSwapBuffers(display, win);
             break;
 
@@ -112,13 +112,13 @@ int main() {
                 delete engine;
                 return(1);
             case XK_F2:
-                engine->ToggleFrame();
+                engine->toggleFrame();
                 break;
             default:
                 continue;
             }
         case ResizeRequest:
-            engine->SetViewport(rev->width, rev->height);
+            engine->setViewport(rev->width, rev->height);
             break;
         default:
             break;

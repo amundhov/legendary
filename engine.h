@@ -2,6 +2,7 @@
 #define __engine_h_
 
 #include "glrender.h"
+class vbo_object;
 
 typedef struct Vertex {
     unsigned char r, g, b, a;
@@ -22,23 +23,25 @@ public:
     void 		destroy();
 
     void		initRender();
-    void		DrawFrame();
+    void		drawFrame();
 
-    void		SetViewport(int x, int y);
-    void		SetFrustum();
+    void		setViewport(int x, int y);
+    void		setFrustum();
 
-    double		GetTime();
+    double		getTime();
 
-    void		ToggleFrame();
+    void		toggleFrame();
 
     int			getResX();
     int			getResY();
 
 protected:
-    double		time;
+    double		m_time;
 
 private:
-    GLRender	*Render;
+    GLRender *m_render;
+    engine *m_engine;
+    vbo_object *m_object;
 };
 
 extern engine *p_engine;
