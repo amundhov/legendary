@@ -3,6 +3,7 @@
 
 varying vec3 normal, lightDir;
 
+asdfasdf
 void main()
 {
 	float intensity;

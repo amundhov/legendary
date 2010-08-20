@@ -27,12 +27,14 @@ SOURCES += \
     rtt.cpp \
     texture.cpp \
     vbo_object.cpp \
-#    c3dsparser.cpp
+    c3dsparser.cpp \
+    c3ds_object.cpp
 
 OTHER_FILES += \
     README \
     debug.log \
     chunks.def \
+    cube.3ds
 
 HEADERS += \
     base_texture.h \
@@ -46,8 +48,8 @@ HEADERS += \
     texture.h \
     types.h \
     vbo_object.h \
-    vbo_object.h \
-#    c3dsparser.h
+    c3dsparser.h \
+    c3ds_object.h
 
 win32 {
     HEADERS += win.h

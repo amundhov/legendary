@@ -23,13 +23,13 @@
 #include "sound.h"
 
 Sound::Sound (const char *device) : 
-    m_fht(BUFEXP), 
     m_stopping(false),
+    m_fht(BUFEXP),
     m_samples(new uint16_t[64]),
-    m_history(new float[64]),
-    m_thread(0),
     m_playbackHandle(0),
-    m_vorbisfile(0)
+    m_history(new float[64]),
+    m_vorbisfile(0),
+    m_thread(0)
 {
     if (ov_fopen("music.ogg", m_vorbisfile)) {
         fprintf(stderr, "FATAL: Unable to open music file!\n");
@@ -118,6 +118,8 @@ Sound::~Sound() {
 
 void *Sound::startLoop(void *obj) {
     reinterpret_cast<Sound*>(obj)->mainloop();
+
+    return 0;
 }
 
 void Sound::mainloop() {
@@ -138,8 +140,6 @@ void Sound::mainloop() {
 
 float *Sound::getBass()
 {
-    int bass = 0;
-
     float *buffer = new float[BUFSIZE];
     float input[BUFSIZE];
     pthread_mutex_lock(m_mutex);

@@ -6,7 +6,6 @@
 #include "msg.h"
 
 FILE *logfile;
-char *logfilename;
 
 bool initLog(const char* filename) {
     if (logfile)
@@ -17,9 +16,6 @@ bool initLog(const char* filename) {
     if (!logfile)
         return false;
 
-    if (logfilename) free(logfilename);
-    logfilename = (char*)malloc(strlen(filename));
-    strcpy(logfilename, filename);
     time_t tmp_time;
     time(&tmp_time);
     Log("Legendary log system initialised %s", ctime(&tmp_time));

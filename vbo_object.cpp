@@ -4,7 +4,8 @@
 #include "msg.h"
 #include "vbo_object.h"
 
-vbo_object::vbo_object() {
+vbo_object::vbo_object()
+{
     loc.x = 0.0;
     loc.y = 0.0;
     loc.z = 0.0;
@@ -23,7 +24,7 @@ void vbo_object::locate(float x, float y, float z) {
     loc.z = z;
 }
 
-bool vbo_object::genBO() {
+void vbo_object::genBO() {
     float *vertices = NULL;
     int *indices = NULL;
     unsigned char *colours = NULL;
@@ -34,7 +35,7 @@ bool vbo_object::genBO() {
     colours = getColours();
     coords = getCoords();
 
-    Log("Vertsize %i, Colsize %i, coordsize %i, indices %i\n",
+    printf("Vertsize %i, Colsize %i, coordsize %i, indices %i\n",
         VBO_size_vertices,VBO_size_colours,VBO_size_coords,VBO_indices);
 
     glGenBuffersARB(1, &VBO);
@@ -57,11 +58,10 @@ bool vbo_object::genBO() {
     Log("Generated the Buffer Objects. VBO: %i IBO: %i\n", VBO, IBO);
 }
 
-bool vbo_object::freeBO() {
+void vbo_object::freeBO() {
     //Log("Freeing the Buffer Objects.\n");
     if (VBO) glDeleteBuffersARB(1, &VBO);
     if (IBO) glDeleteBuffersARB(1, &IBO);
-    return true;
 }
 
 void vbo_object::draw() {
@@ -86,7 +86,7 @@ void vbo_object::draw() {
     glVertexPointer(3, GL_FLOAT, 0, 0);
     glColorPointer(3, GL_UNSIGNED_BYTE, 0, (GLvoid *)VBO_size_vertices);
     glTexCoordPointer(2, GL_FLOAT, 0, (GLvoid *)(VBO_size_vertices+VBO_size_colours));
-    glDrawElements(GL_TRIANGLES, VBO_indices, GL_UNSIGNED_INT, 0);
+    glDrawElements(GL_TRIANGLES, VBO_indices, INDEX_SIZE, 0);
 
     glDisableClientState(GL_VERTEX_ARRAY);
     glDisableClientState(GL_COLOR_ARRAY);
@@ -103,3 +103,4 @@ int vbo_object::VBO_size_colours = 0;
 int vbo_object::VBO_size_coords = 0;
 int vbo_object::VBO_size_indices = 0;
 int vbo_object::VBO_indices = 0;
+GLenum vbo_object::INDEX_SIZE = GL_UNSIGNED_INT;

@@ -4,7 +4,7 @@
 #include "texture.h"
 #include "msg.h"
 
-CTexture::CTexture(char *filename) {
+CTexture::CTexture(const char *filename) {
     if (!count) {
         int len = strlen(filename);
         texturefile = (char*)malloc(len);

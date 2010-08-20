@@ -2,14 +2,15 @@
 #define __vbo_object_h_
 
 #include "types.h"
+#include <GL/glew.h>
 
 class vbo_object {
 public:
     vbo_object();
     ~vbo_object();
 
-    bool genBO();
-    bool freeBO();
+    void genBO();
+    void freeBO();
     virtual float* getVertices()=0;
     virtual int* getIndices()=0;
     virtual unsigned char* getColours()=0;
@@ -33,6 +34,8 @@ protected:
     static int VBO_size_coords;
     static int VBO_size_indices;
     static int VBO_indices;
+
+    static GLenum INDEX_SIZE;
 
     static unsigned int count;
 };

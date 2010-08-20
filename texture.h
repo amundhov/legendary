@@ -6,7 +6,7 @@
 
 class CTexture : public CBaseTexture {
 public:
-    CTexture(char *filename);
+    CTexture(const char *filename);
     ~CTexture();
 
     void Bind();
