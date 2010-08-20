@@ -1,0 +1,35 @@
+#define MAIN_CHUNK 0x4D4D
+ #define MAIN_VERSION 0x0002
+   #define EDITOR_CHUNK 0x3D3D
+      #define OBJECT_BLOCK 0x4000
+         #define TRIANGULAR_MESH 0x4100
+            #define VERTICES_LIST 0x4110
+            #define FACES_LIST 0x4120
+               #define FACES_MATERIAL 0x4130
+            #define MAPPING_COORDINATES_LIST 0x4140
+               #define SMOOTHING_GROUP_LIST 0x4150
+            #define LOCAL_COORDINATES_SYSTEM 0x4160
+         #define LIGHT 0x4600
+            #define SPOTLIGHT 0x4610
+         #define CAMERA 0x4700
+      #define MATERIAL_BLOCK 0xAFFF
+         #define MATERIAL_NAME 0xA000
+         #define AMBIENT_COLOR 0xA010
+             #define RGB1 0x0011
+         #define DIFFUSE_COLOR 0xA020
+         #define SPECULAR_COLOR 0xA030
+         #define TEXTURE_MAP 1 0xA200
+         #define BUMP_MAP 0xA230
+         #define REFLECTION_MAP 0xA220
+            #define MAPPING_FILENAME 0xA300
+            #define MAPPING_PARAMETERS 0xA351
+      #define KEYFRAMER_CHUNK 0xB000
+         #define MESH_INFORMATION_BLOCK 0xB002
+         #define SPOT_LIGHT_INFORMATION_BLOCK 0xB007
+         #define FRAMES (START_AND_END) 0xB008
+            #define OBJECT_NAME 0xB010
+            #define OBJECT_PIVOT_POINT 0xB013
+            #define POSITION_TRACK 0xB020
+            #define ROTATION_TRACK 0xB021
+            #define SCALE_TRACK 0xB022
+            #define HIERARCHY_POSITION 0xB030 
