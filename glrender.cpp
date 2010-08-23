@@ -110,7 +110,7 @@ void GLRender::loadShaders()
     char *log = new char[1000];
     glGetProgramInfoLog(m_shaderProgram, 1000, NULL, log);
 
-//    Log("\n\033[91m%s\033[0m\n", log);
+    std::cout << "\n\033[91m" << log << "\033[0m\n";
 
     delete [] log;
 }
