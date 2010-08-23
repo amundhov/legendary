@@ -1,20 +1,12 @@
-#-------------------------------------------------
-#
-# Project created by QtCreator 2010-07-28T21:59:19
-#
-#-------------------------------------------------
-
 QT       -= core
-
 QT       -= gui
 
 TARGET = legendary
-CONFIG   += console
-CONFIG   -= app_bundle
+CONFIG += console
 CONFIG += debug
+CONFIG -= app_bundle
 
 TEMPLATE = app
-
 
 SOURCES += \
     base_texture.cpp \
@@ -70,3 +62,4 @@ unix {
                -lvorbisfile \
                -lasound
 }
+
