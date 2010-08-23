@@ -118,7 +118,7 @@ void c3ds_object::parseFile(string fileName)
                     currCount = parser->extractCount();
                     //vertexCount.push_back(parser->extractCount());
                     //printf(" found %u vertices\n", vertexCount.back());
-                    parser->extractArray<float>(currCount*3,(float*)vertexPointer);
+                    parser->extractArray<float>(currCount*3, (float*)vertexPointer);
                     vertexPointer += currCount*3;
                     parser->skipChunk();
                     break;
@@ -128,13 +128,12 @@ void c3ds_object::parseFile(string fileName)
                     //VBO_indices += faceCount.back()*3;
                     //printf(" found %u faces\n", faceCount.back());
                     //parser->extractArray<face>(currCount, (face*)indexPointer, 2);
-                    parser->extractArray<uint16_t>(currCount*3,indexPointer,2);
+                    parser->extractArray<uint16_t>(currCount*3, indexPointer, 2);
                     indexPointer += currCount*3;
                     parser->skipChunk();
                     break;
 
                     case FACES_MATERIAL:
-                       printf(parser->extractStrData());
                        parser->skipChunk();
                        //faceMaterial[currentMesh] = new color[numFaces];
                        //printf("Colored faces: %hu\n", numFaces);
@@ -165,6 +164,9 @@ void c3ds_object::parseFile(string fileName)
             parser->skipChunk();
             break;
         }
+    }
+    for (int i=0; i<VBO_size_vertices; i++) {
+//        printf("%f\n", vertices[i]);
     }
 
     printf("Finished parsing!\n");

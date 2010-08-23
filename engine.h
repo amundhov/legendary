@@ -42,6 +42,7 @@ private:
     GLRender *m_render;
     engine *m_engine;
     vbo_object *m_object;
+    vbo_object *m_cube;
 };
 
 extern engine *p_engine;

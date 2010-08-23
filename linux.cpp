@@ -71,7 +71,7 @@ int main() {
     glXMakeCurrent(display, win, context);
 
     if (glewInit()) {
-        Log("FATAL - glewInit failed.\n");
+        Log("FATAL! glewInit failed!\n");
         return 0;
     }
 
@@ -82,7 +82,7 @@ int main() {
 
 
     engine->initRender();
-    engine->setViewport(1024,600);
+    engine->setViewport(1024,768);
 
     XEvent xev;
     while (1) {

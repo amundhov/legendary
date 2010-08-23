@@ -60,8 +60,7 @@ public:
         T* ret;
         if (pointer == NULL) {
             ret = new T[count];
-        }
-        else {
+        } else {
             ret = pointer;
         }
 
@@ -70,19 +69,19 @@ public:
 		}
 		else {
 			for ( unsigned int i=0; i<count; i++ ){
-				fread(&ret[i], sizeof(T), 1, m_file);
+                fread(&ret[i], sizeof(T), 1, m_file);
 				skip(tailSkip);
 			}
 		}
 		return ret;
 	}
-	
+
 	template <typename T> T extractValue(){
 		T ret;
 		fread(&ret, sizeof(T), 1, m_file);
 		return ret;
 	}
-		
+
 private:
 	chunkHeader m_currentHeader;
 	FILE *m_file;
