@@ -2,7 +2,7 @@ Legendary is Awesome
 --------------------
 
 Debian Lenny prerequisites:
- libasound2-dev libvorbis-dev libx11-dev libglew1.5-dev
+ libasound2-dev libvorbis-dev libx11-dev libglew1.5-dev qt4-qmake g++
 
 
 To build and run:

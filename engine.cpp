@@ -26,9 +26,9 @@ void engine::drawFrame()
 {
     if (m_render) {
         updateTimer();
+        m_render->drawFrame();
         m_object->draw();
         m_cube->draw();
-        m_render->drawFrame();
     }
 }
 
