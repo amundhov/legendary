@@ -114,6 +114,9 @@ Sound::~Sound() {
     if (m_playbackHandle)
         snd_pcm_close (m_playbackHandle);
     ov_clear(m_vorbisfile);
+
+    delete [] m_samples;
+    delete [] m_history;
 }
 
 void *Sound::startLoop(void *obj) {

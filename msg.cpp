@@ -38,6 +38,8 @@ void Log(const char * format, ...) {
     char buf[255];
     int len = vsnprintf(buf, 256, format, argptr);
     va_end(argptr);
+    std::cout << buf;
+    return;
     if (!logfile)
         return;
     if (!fwrite(buf, 1, len, logfile))

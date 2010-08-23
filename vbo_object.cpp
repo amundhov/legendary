@@ -25,15 +25,10 @@ void vbo_object::locate(float x, float y, float z) {
 }
 
 void vbo_object::genBO() {
-    float *vertices = NULL;
-    int *indices = NULL;
-    unsigned char *colours = NULL;
-    float *coords = NULL;
-
-    vertices = getVertices();
-    indices = getIndices();
-    colours = getColours();
-    coords = getCoords();
+    float *vertices = getVertices();
+    int *indices = getIndices();
+    unsigned char *colours = getColours();
+    float *coords = getCoords();
 
     printf("Vertsize %i, Colsize %i, coordsize %i, indices %i\n",
         VBO_size_vertices,VBO_size_colours,VBO_size_coords,VBO_indices);
@@ -55,11 +50,10 @@ void vbo_object::genBO() {
     if ( indices != NULL ) delete[] indices;
     if ( colours != NULL ) delete[] colours;
     if ( coords != NULL ) delete[] coords;
-    Log("Generated the Buffer Objects. VBO: %i IBO: %i\n", VBO, IBO);
+    printf("Generated the Buffer Objects. VBO: %i IBO: %i\n", VBO, IBO);
 }
 
 void vbo_object::freeBO() {
-    //Log("Freeing the Buffer Objects.\n");
     if (VBO) glDeleteBuffersARB(1, &VBO);
     if (IBO) glDeleteBuffersARB(1, &IBO);
 }

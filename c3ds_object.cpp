@@ -49,7 +49,7 @@ void c3ds_object::parseFile(string fileName)
     C3dsParser *parser = new C3dsParser(fileName);
 
     int currCount;
-    string currentMesh, currentMaterial;
+    //string currentMesh, currentMaterial;
     //map<string,int> vertCount;
     //map<string,int> faceCount;
 
@@ -93,32 +93,31 @@ void c3ds_object::parseFile(string fileName)
         parser->enterChunk();
         switch ( parser->getChunkId() ){
         case MAIN_CHUNK:
-            Log("Found main identifier %04x, length is %u bytes\n",parser->getChunkId(), parser->getChunkLength());
+            printf("Found main identifier 0x%04x, length is %u bytes\n",parser->getChunkId(), parser->getChunkLength());
             break;
 
         case MAIN_VERSION:
-            Log("3DS version: %u\n", parser->extractValue<unsigned short>()  );
+            printf("3DS version: %u\n", parser->extractValue<unsigned short>()  );
             parser->skipChunk();
             break;
 
         case EDITOR_CHUNK:
-            Log("Found editor chunk length %u\n",parser->getChunkId(), parser->getChunkLength());
             break;
 
         case OBJECT_BLOCK:
-            currentMesh = parser->extractStrData();
+            delete [] parser->extractStrData();
+            //currentMesh = parser->extractStrData();
             //meshNames.push_back(currentMesh);
-            //Log("Object block, name %s\n", currentMesh.c_str());
+            //printf("Object block, name %s\n", currentMesh.c_str());
             break;
 
             case TRIANGULAR_MESH:
-                Log("   Triangular mesh\n");
                 break;
 
                 case VERTICES_LIST:
                     currCount = parser->extractCount();
                     //vertexCount.push_back(parser->extractCount());
-                    //Log(" found %u vertices\n", vertexCount.back());
+                    //printf(" found %u vertices\n", vertexCount.back());
                     parser->extractArray<float>(currCount*3,(float*)vertexPointer);
                     vertexPointer += currCount*3;
                     parser->skipChunk();
@@ -127,8 +126,7 @@ void c3ds_object::parseFile(string fileName)
                 case FACES_LIST:
                     currCount = parser->extractCount();
                     //VBO_indices += faceCount.back()*3;
-                    //Log(" found %u faces\n", faceCount.back());
-                    Log("Offset: %x\n", parser->getChunkOffset());
+                    //printf(" found %u faces\n", faceCount.back());
                     //parser->extractArray<face>(currCount, (face*)indexPointer, 2);
                     parser->extractArray<uint16_t>(currCount*3,indexPointer,2);
                     indexPointer += currCount*3;
@@ -136,23 +134,20 @@ void c3ds_object::parseFile(string fileName)
                     break;
 
                     case FACES_MATERIAL:
-                       Log(parser->extractStrData());
-                       Log("Faces material count: %u\n",parser->extractValue<uint16_t>());
+                       printf(parser->extractStrData());
                        parser->skipChunk();
                        //faceMaterial[currentMesh] = new color[numFaces];
-                       //Log("Colored faces: %hu\n", numFaces);
+                       //printf("Colored faces: %hu\n", numFaces);
                        //for (uint16_t i=0; i<numFaces; i++) {
                        //    faceMaterial[currentMesh][i] = colors[mat];
                        //}
                        break;
 
         case MATERIAL_BLOCK:
-            Log("Material block length %u\n", parser->getChunkLength());
             break;
 
             case MATERIAL_NAME:
-                currentMaterial = parser->extractStrData();
-                Log("Material name: %s\n", currentMaterial.c_str());
+                //currentMaterial = parser->extractStrData();
                 parser->skipChunk();
                 break;
 
@@ -161,18 +156,18 @@ void c3ds_object::parseFile(string fileName)
 
                 case RGB1:
                     //colors[currentMaterial] = parser->extractValue<color>();
-                    //Log("Diffuse color: r:%i, g:%i, b:%i\n", colors[currentMaterial]);
+                    //printf("Diffuse color: r:%i, g:%i, b:%i\n", colors[currentMaterial]);
                     parser->skipChunk();
                     break;
 
         default:
-            Log("Unkown chunk %04x of length %u\n", parser->getChunkId(), parser->getChunkLength());
+            printf("Unknown chunk %04x of length %u\n", parser->getChunkId(), parser->getChunkLength());
             parser->skipChunk();
             break;
         }
     }
 
-    Log("Finished parsing!\n");
+    printf("Finished parsing!\n");
 
     delete parser;
 }

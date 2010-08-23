@@ -16,7 +16,7 @@ void engine::initRender()
 {
     m_render = new GLRender;
     m_object = new c3ds_object("cube.3ds");
-    m_object->locate(-100, 100, -200);
+    //m_object->locate(-100, 100, -200);
 }
 
 void engine::drawFrame()
@@ -41,6 +41,7 @@ void engine::toggleFrame() {
 
 void engine::destroy() {
     delete m_render;
+    delete m_object;
     closeLog();
 }
 
