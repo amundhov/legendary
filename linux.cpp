@@ -63,7 +63,8 @@ int main() {
     cmap = XCreateColormap(display, root, visualInfo->visual, AllocNone);
     swa.colormap = cmap;
     swa.event_mask = ExposureMask | KeyPressMask | ResizeRedirectMask;
-    Window win = XCreateWindow(display, root, 0, 0, 1024, 768, 0, visualInfo->depth, InputOutput, visualInfo->visual, CWBackPixel|CWBorderPixel|CWColormap, &swa);
+    Window win = XCreateWindow(display, root, 0, 0, 1024, 600, 0, visualInfo->depth, InputOutput, visualInfo->visual, CWColormap | CWEventMask, &swa);
+
 
     XMapWindow(display, win);
     XStoreName(display, win, "tenn0");
