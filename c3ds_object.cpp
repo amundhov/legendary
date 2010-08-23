@@ -3,7 +3,7 @@
 #include "chunks.def"
 #include "msg.h"
 
-c3ds_object::c3ds_object(std::string fileName) :
+c3ds_object::c3ds_object(std::string fileName) : vbo_object(),
     colours(0),
     coords(0)
 {
