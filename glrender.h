@@ -22,11 +22,13 @@ public:
     int getResY()		{
         return m_yRes;
     };
-    void loadShaders();
+
 
     GLuint shaderProgram() { return m_shaderProgram; }
 
 private:
+    void loadShaders();
+
     bool m_fill;				//Filled triangles? (For wireframe mode feature)
 
     int m_xRes, m_yRes;

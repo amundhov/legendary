@@ -44,11 +44,7 @@ void LinuxEngine::updateTimer() {
 
 int main() {
     engine = new LinuxEngine;
-    glewInit();
-    if (!glewIsSupported("GL_VERSION_2_0")) {
-        printf("FATAL! Needs OpenGL 2.0 or later!\n");
-//        return 255; glew be broken
-    }
+
     display = XOpenDisplay(NULL);
     if (!display) {
         Log("Couldn't open display, terminating.\n");
@@ -67,19 +63,23 @@ int main() {
     cmap = XCreateColormap(display, root, visualInfo->visual, AllocNone);
     swa.colormap = cmap;
     swa.event_mask = ExposureMask | KeyPressMask | ResizeRedirectMask;
-//    Window win = XCreateWindow(display, root, 0, 0, 1024, 800, 0, visualInfo->depth, InputOutput, visualInfo->visual, CWColormap | CWEventMask, &swa);
-    Window win = XCreateSimpleWindow(display, root, 0, 0, 1024, 800, 0, 0, 0);
+    Window win = XCreateWindow(display, root, 0, 0, 1024, 768, 0, visualInfo->depth, InputOutput, visualInfo->visual, CWBackPixel|CWBorderPixel|CWColormap, &swa);
 
     XMapWindow(display, win);
     XStoreName(display, win, "tenn0");
     GLXContext context = glXCreateContext(display, visualInfo, NULL, GL_TRUE);
     glXMakeCurrent(display, win, context);
 
-
     if (glewInit()) {
         Log("FATAL - glewInit failed.\n");
         return 0;
     }
+
+    if (!glewIsSupported("GL_VERSION_2_0")) {
+        printf("FATAL! Needs OpenGL 2.0 or later!\n");
+        return 255;
+    }
+
 
     engine->initRender();
     engine->setViewport(1024,600);

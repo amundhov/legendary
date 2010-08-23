@@ -8,6 +8,7 @@
 FILE *logfile;
 
 bool initLog(const char* filename) {
+    return true;
     if (logfile)
         if (!closeLog())
             return false;
@@ -24,6 +25,7 @@ bool initLog(const char* filename) {
 }
 
 bool closeLog() {
+    return true;
     Log("Legendary log system shutting down.\n");
     if (!logfile)
         return true;
@@ -33,6 +35,8 @@ bool closeLog() {
 }
 
 void Log(const char * format, ...) {
+    return;
+
     va_list argptr;
     va_start(argptr, format);
     char buf[255];

@@ -112,7 +112,6 @@ void GLRender::loadShaders()
 
 //    Log("\n\033[91m%s\033[0m\n", log);
 
-
     delete [] log;
 }
 
