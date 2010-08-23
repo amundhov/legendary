@@ -10,6 +10,16 @@ vbo_object::vbo_object()
     loc.y = 0.0;
     loc.z = 0.0;
 
+    count = 0;
+    VBO = 0;
+    IBO = 0;
+    VBO_size_vertices = 0;
+    VBO_size_colours = 0;
+    VBO_size_coords = 0;
+    VBO_size_indices = 0;
+    VBO_indices = 0;
+    INDEX_SIZE = GL_UNSIGNED_INT;
+
     count++;
 }
 
@@ -88,13 +98,4 @@ void vbo_object::draw() {
     glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
     glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, 0);
 }
-
-int unsigned vbo_object::count = 0;
-GLuint vbo_object::VBO = 0;
-GLuint vbo_object::IBO = 0;
-int vbo_object::VBO_size_vertices = 0;
-int vbo_object::VBO_size_colours = 0;
-int vbo_object::VBO_size_coords = 0;
-int vbo_object::VBO_size_indices = 0;
-int vbo_object::VBO_indices = 0;
-GLenum vbo_object::INDEX_SIZE = GL_UNSIGNED_INT;
+unsigned int vbo_object::count = 0;

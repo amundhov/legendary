@@ -62,7 +62,7 @@ int main() {
 
     cmap = XCreateColormap(display, root, visualInfo->visual, AllocNone);
     swa.colormap = cmap;
-    swa.event_mask = ExposureMask | KeyPressMask | ResizeRedirectMask;
+    swa.event_mask = ExposureMask | KeyPressMask;// | ResizeRedirectMask;
     Window win = XCreateWindow(display, root, 0, 0, 1024, 600, 0, visualInfo->depth, InputOutput, visualInfo->visual, CWColormap | CWEventMask, &swa);
 
 
@@ -99,6 +99,7 @@ int main() {
         switch (xev.type) {
         case Expose:
             XGetWindowAttributes(display, win, &gwa);
+            engine->setViewport(gwa.width, gwa.height);
             engine->drawFrame();
             glXSwapBuffers(display, win);
             break;
@@ -119,9 +120,13 @@ int main() {
             default:
                 continue;
             }
+/*        case ConfigureNotify:
+            engine->setViewport(xev.xconfigure.width, xev.xconfigure.height);
+            break;
         case ResizeRequest:
             engine->setViewport(rev->width, rev->height);
-            break;
+            glXMakeCurrent(display, win, context);
+            break;*/
         default:
             break;
         }

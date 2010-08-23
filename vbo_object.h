@@ -25,17 +25,17 @@ private:
     float roll;
     float yaw;
 
-    static GLuint VBO;
-    static GLuint IBO;
+    GLuint VBO;
+    GLuint IBO;
 
 protected:
-    static int VBO_size_vertices;
-    static int VBO_size_colours;
-    static int VBO_size_coords;
-    static int VBO_size_indices;
-    static int VBO_indices;
+    int VBO_size_vertices;
+    int VBO_size_colours;
+    int VBO_size_coords;
+    int VBO_size_indices;
+    int VBO_indices;
 
-    static GLenum INDEX_SIZE;
+    GLenum INDEX_SIZE;
 
     static unsigned int count;
 };

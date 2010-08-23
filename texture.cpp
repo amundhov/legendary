@@ -48,3 +48,4 @@ void CTexture::genTO() {
 
     free(tex_buf);
 }
+

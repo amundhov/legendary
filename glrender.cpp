@@ -24,7 +24,7 @@ GLRender::GLRender():
     glPolygonMode(GL_FRONT, GL_FILL);
     glPolygonMode(GL_BACK, GL_LINE);
 
-    loadShaders();
+//    loadShaders();
 
     const int lightPos[] = {100, 100, -200, 0};
     glLightiv(GL_LIGHT0, GL_POSITION, lightPos);
@@ -46,7 +46,7 @@ void GLRender::setViewport(int x, int y)
 {
     m_xRes = x;
     m_yRes = y;
-    glViewport(0, 0, (GLsizei)x, (GLsizei)y);
+    glViewport(0, 0, x, y);
     setFrustum();
 }
 
