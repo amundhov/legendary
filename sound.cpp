@@ -28,7 +28,7 @@ Sound::Sound (const char *device) :
     m_samples(new uint16_t[64]),
     m_playbackHandle(0),
     m_history(new float[64]),
-    m_vorbisfile(0),
+    m_vorbisfile(new OggVorbis_File),
     m_thread(0)
 {
     if (ov_fopen("music.ogg", m_vorbisfile)) {
