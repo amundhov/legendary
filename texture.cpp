@@ -6,11 +6,8 @@
 
 CTexture::CTexture(const char *filename) {
     if (!count) {
-        int len = strlen(filename);
-        texturefile = (char*)malloc(len);
-        strcpy(texturefile, filename);
+        texturefile = filename;
 
-        Log("CTexture :: Filename: %s\n", texturefile);
         genTO();
     }
     count++;
@@ -19,8 +16,6 @@ CTexture::CTexture(const char *filename) {
 CTexture::~CTexture() {
     if (!--count)
         freeTO();
-    if (texturefile)
-        free(texturefile);
 }
 
 void CTexture::genTO() {
@@ -39,13 +34,13 @@ void CTexture::genTO() {
     char *tex_buf;
     tex_buf = new char[height*width*3];
 
-    if (!(tex_file = fopen(texturefile, "r"))) Log("fopen fail.\n");
+    if (!(tex_file = fopen(texturefile.c_str(), "r"))) Log("fopen fail.\n");
     fread(tex_buf, height*width*3, 1, tex_file);
     fclose(tex_file);
 
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, height, width, 0, GL_RGB, GL_UNSIGNED_BYTE, tex_buf);
     //glGenerateMipmap(GL_TEXTURE_2D);
 
-    free(tex_buf);
+    delete [] tex_buf;
 }
 

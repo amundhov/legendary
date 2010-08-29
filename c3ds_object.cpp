@@ -105,7 +105,6 @@ void c3ds_object::parseFile(string fileName)
             break;
 
         case OBJECT_BLOCK:
-            delete [] parser->extractStrData();
             //currentMesh = parser->extractStrData();
             //meshNames.push_back(currentMesh);
             //printf("Object block, name %s\n", currentMesh.c_str());

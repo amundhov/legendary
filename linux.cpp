@@ -120,13 +120,6 @@ int main() {
             default:
                 continue;
             }
-/*        case ConfigureNotify:
-            engine->setViewport(xev.xconfigure.width, xev.xconfigure.height);
-            break;
-        case ResizeRequest:
-            engine->setViewport(rev->width, rev->height);
-            glXMakeCurrent(display, win, context);
-            break;*/
         default:
             break;
         }

@@ -3,6 +3,8 @@
 
 #include <GL/glew.h>
 #include "base_texture.h"
+#include <string>
+
 
 class CTexture : public CBaseTexture {
 public:
@@ -14,7 +16,7 @@ public:
 protected:
     void genTO();
 
-    char *texturefile;
+    std::string texturefile;
 };
 
 #endif

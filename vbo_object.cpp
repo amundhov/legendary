@@ -43,18 +43,18 @@ void vbo_object::genBO() {
     printf("Vertsize %i, Colsize %i, coordsize %i, indices %i\n",
         VBO_size_vertices,VBO_size_colours,VBO_size_coords,VBO_indices);
 
-    glGenBuffersARB(1, &VBO);
-    glBindBufferARB(GL_ARRAY_BUFFER_ARB, VBO);
-    glBufferDataARB(GL_ARRAY_BUFFER_ARB, VBO_size_vertices + VBO_size_colours + VBO_size_coords, NULL, GL_STATIC_DRAW);
-    glBufferSubDataARB(GL_ARRAY_BUFFER_ARB, 0, VBO_size_vertices, vertices);
-    glBufferSubDataARB(GL_ARRAY_BUFFER_ARB, VBO_size_vertices, VBO_size_colours, colours);
-    glBufferSubDataARB(GL_ARRAY_BUFFER_ARB, VBO_size_vertices + VBO_size_colours, VBO_size_coords, coords);
-    glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
+    glGenBuffers(1, &VBO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, VBO_size_vertices + VBO_size_colours + VBO_size_coords, NULL, GL_STATIC_DRAW);
+    glBufferSubData(GL_ARRAY_BUFFER, 0, VBO_size_vertices, vertices);
+    glBufferSubData(GL_ARRAY_BUFFER, VBO_size_vertices, VBO_size_colours, colours);
+    glBufferSubData(GL_ARRAY_BUFFER, VBO_size_vertices + VBO_size_colours, VBO_size_coords, coords);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-    glGenBuffersARB(1, &IBO);
-    glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, IBO);
-    glBufferDataARB(GL_ELEMENT_ARRAY_BUFFER_ARB, VBO_size_indices, indices, GL_STATIC_DRAW);
-    glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, 0);
+    glGenBuffers(1, &IBO);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, VBO_size_indices, indices, GL_STATIC_DRAW);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
     if ( vertices != NULL ) delete[] vertices;
     if ( indices != NULL ) delete[] indices;
@@ -64,8 +64,8 @@ void vbo_object::genBO() {
 }
 
 void vbo_object::freeBO() {
-    if (VBO) glDeleteBuffersARB(1, &VBO);
-    if (IBO) glDeleteBuffersARB(1, &IBO);
+    if (VBO) glDeleteBuffers(1, &VBO);
+    if (IBO) glDeleteBuffers(1, &IBO);
 }
 
 void vbo_object::draw() {
@@ -80,8 +80,8 @@ void vbo_object::draw() {
     };
     glLoadMatrixf(transform);
 
-    glBindBufferARB(GL_ARRAY_BUFFER_ARB, VBO);
-    glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, IBO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
     glEnableClientState(GL_VERTEX_ARRAY);
     glEnableClientState(GL_COLOR_ARRAY);
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -95,7 +95,7 @@ void vbo_object::draw() {
     glDisableClientState(GL_VERTEX_ARRAY);
     glDisableClientState(GL_COLOR_ARRAY);
     glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-    glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
-    glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, 0);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 unsigned int vbo_object::count = 0;
