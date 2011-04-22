@@ -108,9 +108,11 @@ void GLRender::loadShaders()
     glUseProgram(m_shaderProgram);
 
     char *log = new char[1000];
-    glGetProgramInfoLog(m_shaderProgram, 1000, NULL, log);
+    GLint success;
+    glGetProgramInfoLog(m_shaderProgram, 1000, &success, log);
 
-    std::cout << "\n\033[91m" << log << "\033[0m\n";
+    if (!success) // Something bad happened
+        std::cout << "\n\033[91m" << log << "\033[0m\n";
 
     delete [] log;
 }
