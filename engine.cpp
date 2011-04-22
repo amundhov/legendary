@@ -16,10 +16,10 @@ void engine::initRender()
 {
     m_render = new GLRender;
     m_object = new c3ds_object("cube.3ds");
-    m_object->locate(-100, 100, -200);
+    m_object->locate(0, 0, -200);
 
     m_cube = new cube();
-    m_cube->locate(-100, 100, -200);
+    m_cube->locate(0, 0, -200);
 }
 
 void engine::drawFrame()
@@ -28,7 +28,7 @@ void engine::drawFrame()
         updateTimer();
         m_render->drawFrame();
         m_object->draw();
-//        m_cube->draw();
+        m_cube->draw();
     }
 }
 
