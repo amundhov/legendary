@@ -112,8 +112,9 @@ void GLRender::loadShaders()
     GLint success;
     glGetProgramInfoLog(m_shaderProgram, 1000, &success, log);
 
-    if (!success) { // Something bad happened
-        std::cout << "\n\033[91m" << log << "\033[0m\n";
+
+    if (success != 0) { // Something bad happened
+        std::cout << "\n\033[91m ERROR WHILE COMPILING SHADER:\n" << log << "\033[0m\n" << std::endl;
         delete [] log;
         return;
     }
@@ -124,9 +125,9 @@ void GLRender::loadShaders()
     GLint imageLoc = glGetUniformLocation(m_shaderProgram, "image");
     GLint normalLoc = glGetUniformLocation(m_shaderProgram, "normal");
     GLint shadowLoc = glGetUniformLocation(m_shaderProgram, "shadow");
-    glUniform1i(imageLoc, IMAGEOFFSET);
-    glUniform1i(normalLoc, NORMALOFFSET);
-    glUniform1i(shadowLoc, SHADOWOFFSET);
+    glUniform1i(imageLoc, GL_TEXTURE0 + IMAGEOFFSET);
+    glUniform1i(normalLoc, GL_TEXTURE0 +  NORMALOFFSET);
+    glUniform1i(shadowLoc, GL_TEXTURE0 + SHADOWOFFSET);
 
 }
 

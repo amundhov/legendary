@@ -26,7 +26,8 @@ OTHER_FILES += \
     README \
     debug.log \
     chunks.def \
-    cube.3ds
+    cube.3ds \
+    shaders/frag-bloom.glsl
 
 HEADERS += \
     cube.h \

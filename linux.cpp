@@ -13,8 +13,8 @@ XWindowAttributes       gwa;
 LinuxEngine				*engine;
 
 LinuxEngine::LinuxEngine() :
-        m_elapsed(0),
-        m_sound(new Sound("default"))
+        m_elapsed(0)/*,
+        m_sound(new Sound("default"))*/
 {
     init();
     Log("LINUX ENGINE INITIALIZED!\n");
@@ -39,6 +39,7 @@ void LinuxEngine::updateTimer() {
     gettimeofday(&now, NULL);
     suseconds_t cur = (now.tv_sec * 1000000) + now.tv_usec;
     m_elapsed = cur - m_lastTick;
+    //printf("FPS: %i\n", int(1000000.0/ m_elapsed));
     m_lastTick = cur;
 }
 
