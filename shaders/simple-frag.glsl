@@ -14,6 +14,7 @@ void main()
     gl_FragColor[1] = gl_FragCoord[1] / 400.0;
     gl_FragColor[2] = 1.0;*/
     vec4 color = texture2D(image, gl_TexCoord[0].st);
-    color.xyz = color.xyz * (sin(gl_FragCoord.y) + 2);
+//    color.xyz = color.xyz * (sin(gl_FragCoord.y) + 2);
+    color.xyz = color.xyz * rand(gl_FragCoord.xy);
     gl_FragColor = color;
 }

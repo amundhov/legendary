@@ -79,19 +79,16 @@ void vbo_object::draw() {
         loc.x,		loc.y,	loc.z,	1
     };
     glLoadMatrixf(transform);
-
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
     glEnableClientState(GL_VERTEX_ARRAY);
     glEnableClientState(GL_COLOR_ARRAY);
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
     glRotatef(i, 1, 1, 1);
-
     glVertexPointer(3, GL_FLOAT, 0, 0);
     glColorPointer(3, GL_UNSIGNED_BYTE, 0, (GLvoid *)VBO_size_vertices);
     glTexCoordPointer(2, GL_FLOAT, 0, (GLvoid *)(VBO_size_vertices+VBO_size_colours));
     glDrawElements(GL_TRIANGLES, VBO_indices, INDEX_SIZE, 0);
-
     glDisableClientState(GL_VERTEX_ARRAY);
     glDisableClientState(GL_COLOR_ARRAY);
     glDisableClientState(GL_TEXTURE_COORD_ARRAY);

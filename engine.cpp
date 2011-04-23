@@ -7,7 +7,9 @@
 #include "c3ds_object.h"
 
 
-void engine::init() {
+void engine::init()
+{
+    m_cube = 0;
     initLog("debug.log");
     m_engine = this;
 }
@@ -16,10 +18,10 @@ void engine::initRender()
 {
     m_render = new GLRender;
     m_object = new c3ds_object("cube.3ds");
-    m_object->locate(0, 0, -200);
+    m_object->locate(0, 0, -2);
 
-    m_cube = new cube();
-    m_cube->locate(0, 0, -200);
+//    m_cube = new cube();
+//    m_cube->locate(0, 0, -200);
 }
 
 void engine::drawFrame()
@@ -28,7 +30,7 @@ void engine::drawFrame()
         updateTimer();
         m_render->drawFrame();
         m_object->draw();
-        m_cube->draw();
+        //m_cube->draw();
     }
 }
 

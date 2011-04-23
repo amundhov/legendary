@@ -24,10 +24,10 @@ public:
 private:
     void parseFile(string fileName);
 
-    float *vertices;
-    uint16_t *indices;
-    unsigned char *colours;
-    float *coords;
+    float *m_vertices;
+    int *m_indices;
+    unsigned char *m_colours;
+    float *m_coords;
 
 };
 

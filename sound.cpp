@@ -25,7 +25,7 @@
 Sound::Sound (const char *device) : 
     m_stopping(false),
     m_fht(BUFEXP),
-    m_samples(new uint16_t[64]),
+    m_samples(0),
     m_playbackHandle(0),
     m_history(new float[64]),
     m_vorbisfile(new OggVorbis_File),
@@ -115,7 +115,7 @@ Sound::~Sound() {
         snd_pcm_close (m_playbackHandle);
     ov_clear(m_vorbisfile);
 
-    delete [] m_samples;
+    free(m_samples);
     delete [] m_history;
 }
 
@@ -135,7 +135,7 @@ void Sound::mainloop() {
 
         snd_pcm_writei(m_playbackHandle, buffer, BUFSIZE/2);
         pthread_mutex_lock(m_mutex);
-        delete m_samples;
+        free(m_samples);
         m_samples = buffer;
         pthread_mutex_unlock(m_mutex);
     }
