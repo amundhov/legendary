@@ -13,8 +13,8 @@ XWindowAttributes       gwa;
 LinuxEngine				*engine;
 
 LinuxEngine::LinuxEngine() :
-        m_elapsed(0)/*,
-        m_sound(new Sound("default"))*/
+        m_elapsed(0),
+        m_sound(new Sound("default"))
 {
     init();
     Log("LINUX ENGINE INITIALIZED!\n");
