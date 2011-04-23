@@ -9,7 +9,6 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 SOURCES += \
-    base_texture.cpp \
     cube.cpp \
     engine.cpp \
     file.cpp \
@@ -17,19 +16,20 @@ SOURCES += \
     material.cpp \
     msg.cpp \
     rtt.cpp \
-    texture.cpp \
     vbo_object.cpp \
     c3dsparser.cpp \
-    c3ds_object.cpp
+    c3ds_object.cpp \
+    rawtexture.cpp \
+    texture.cpp
 
 OTHER_FILES += \
     README \
     debug.log \
     chunks.def \
-    cube.3ds
+    cube.3ds \
+    shaders/frag-bloom.glsl
 
 HEADERS += \
-    base_texture.h \
     cube.h \
     engine.h \
     file.h \
@@ -37,11 +37,12 @@ HEADERS += \
     material.h \
     msg.h \
     rtt.h \
-    texture.h \
     types.h \
     vbo_object.h \
     c3dsparser.h \
-    c3ds_object.h
+    c3ds_object.h \
+    rawtexture.h \
+    texture.h
 
 win32 {
     HEADERS += win.h
@@ -62,4 +63,3 @@ unix {
                -lvorbisfile \
                -lasound
 }
-

@@ -40,6 +40,7 @@ void LinuxEngine::updateTimer() {
     gettimeofday(&now, NULL);
     suseconds_t cur = (now.tv_sec * 1000000) + now.tv_usec;
     m_elapsed = cur - m_lastTick;
+    //printf("FPS: %i\n", int(1000000.0/ m_elapsed));
     m_lastTick = cur;
 }
 
@@ -96,7 +97,7 @@ int main() {
 
         XNextEvent(display, &xev);
 
-        XResizeRequestEvent *rev = reinterpret_cast<XResizeRequestEvent*>(&xev);
+        //XResizeRequestEvent *rev = reinterpret_cast<XResizeRequestEvent*>(&xev);
         switch (xev.type) {
         case Expose:
             XGetWindowAttributes(display, win, &gwa);

@@ -2,8 +2,8 @@
 
 C3dsParser::C3dsParser(string filename){
 
-	m_currentHeader.length = NULL;
-	m_currentHeader.chunkId = NULL;
+        m_currentHeader.length = 0;
+        m_currentHeader.chunkId = 0;
 	m_file = fopen(filename.c_str(), "rb");	
 	// if (!m_file) TODO: log error
 	fseek(m_file, 0, SEEK_END);
