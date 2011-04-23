@@ -27,10 +27,11 @@ LinuxEngine::~LinuxEngine() {
     delete m_sound;
 }
 
-int LinuxEngine::msgBox(char *msg) {
-    printf("ATTENTION: %s\n", msg);
+int LinuxEngine::msgBox(std::string msg) {
+    //printf("ATTENTION: %s\n", msg);
+    system(std::string("zenity --info --text='" + msg + "'").c_str());
     //Forward to Log
-    Log(msg);
+    Log(msg.c_str());
     return 0;
 }
 

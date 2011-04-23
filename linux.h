@@ -6,6 +6,7 @@
 #include <GL/glew.h>
 #include <GL/glx.h>
 #include <sys/time.h>
+#include <string>
 #include "engine.h"
 
 class Sound;
@@ -15,7 +16,7 @@ public:
     LinuxEngine(void);
     ~LinuxEngine(void);
 
-    int msgBox(char *msg);
+    int msgBox(std::string msg);
     void updateTimer();
 
 private:
