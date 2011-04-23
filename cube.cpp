@@ -1,12 +1,12 @@
 #include "cube.h"
 
 #include "msg.h"
-#include "texture.h"
+#include "rawtexture.h"
 
 cube::cube() : vbo_object() {
     if (count == 1) {
         genBO();
-        mat = new CTexture("legendary.raw");
+        mat = new RawTexture("legendary.raw");
         //mat = new CRenderToTextureMaterial;
         Log("Cube VBO generated\n");
     }

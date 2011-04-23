@@ -1,7 +1,7 @@
 #ifndef __CUBE_H
 #define __CUBE_H
 
-#include "base_texture.h"
+#include "texture.h"
 #include "rtt.h"
 #include "vbo_object.h"
 
@@ -16,7 +16,7 @@ public:
     void draw();
 
 private:
-    CBaseTexture *mat;
+    Texture *mat;
 };
 
 #endif

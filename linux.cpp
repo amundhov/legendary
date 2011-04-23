@@ -95,7 +95,7 @@ int main() {
 
         XNextEvent(display, &xev);
 
-        XResizeRequestEvent *rev = reinterpret_cast<XResizeRequestEvent*>(&xev);
+        //XResizeRequestEvent *rev = reinterpret_cast<XResizeRequestEvent*>(&xev);
         switch (xev.type) {
         case Expose:
             XGetWindowAttributes(display, win, &gwa);

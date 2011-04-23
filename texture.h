@@ -1,22 +1,27 @@
-#ifndef __texture_h_
-#define __texture_h_
+#ifndef TEXTURE_H
+#define TEXTURE_H
 
 #include <GL/glew.h>
-#include "base_texture.h"
-#include <string>
 
 
-class CTexture : public CBaseTexture {
+#define IMAGEOFFSET 0
+#define NORMALOFFSET 2
+#define SHADOWOFFSET 4
+
+
+class Texture {
 public:
-    CTexture(const char *filename);
-    ~CTexture();
+    Texture();
+    ~Texture();
 
     void Bind();
 
 protected:
-    void genTO();
+    void freeTO();
+    virtual void genTO() = 0;
 
-    std::string texturefile;
+    static GLuint TO;
+    static unsigned int count;
 };
 
-#endif
+#endif//TEXTURE_H

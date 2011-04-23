@@ -3,6 +3,7 @@
 #include "glrender.h"
 #include "engine.h"
 #include "file.h"
+#include "texture.h"
 
 #define PI 3.14159265358979323846
 
@@ -90,11 +91,11 @@ void GLRender::loadShaders()
     fragShader = glCreateShader(GL_FRAGMENT_SHADER);
     vertShader = glCreateShader(GL_VERTEX_SHADER);
 
-    const char *fragCode = File::readFile("shaders/simple.frag");
+    const char *fragCode = File::readFile("shaders/simple-frag.glsl");
     glShaderSource(fragShader, 1, &fragCode, NULL);
     delete [] fragCode;
 
-    const char *vertCode = File::readFile("shaders/simple.vertex");
+    const char *vertCode = File::readFile("shaders/simple-vertex.glsl");
     glShaderSource(vertShader, 1, &vertCode, NULL);
     delete [] vertCode;
 
@@ -111,9 +112,21 @@ void GLRender::loadShaders()
     GLint success;
     glGetProgramInfoLog(m_shaderProgram, 1000, &success, log);
 
-    if (!success) // Something bad happened
+    if (!success) { // Something bad happened
         std::cout << "\n\033[91m" << log << "\033[0m\n";
+        delete [] log;
+        return;
+    }
 
     delete [] log;
+
+    // Set up uniform variables for textures
+    GLint imageLoc = glGetUniformLocation(m_shaderProgram, "image");
+    GLint normalLoc = glGetUniformLocation(m_shaderProgram, "normal");
+    GLint shadowLoc = glGetUniformLocation(m_shaderProgram, "shadow");
+    glUniform1i(imageLoc, IMAGEOFFSET);
+    glUniform1i(normalLoc, NORMALOFFSET);
+    glUniform1i(shadowLoc, SHADOWOFFSET);
+
 }
 
