@@ -2,7 +2,7 @@
 #define __engine_h_
 
 #include "glrender.h"
-class vbo_object;
+class VboObject;
 
 typedef struct Vertex {
     unsigned char r, g, b, a;
@@ -41,8 +41,8 @@ protected:
 private:
     GLRender *m_render;
     engine *m_engine;
-    vbo_object *m_object;
-    vbo_object *m_cube;
+    VboObject *m_object;
+    VboObject *m_cube;
 };
 
 extern engine *p_engine;

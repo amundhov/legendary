@@ -3,7 +3,7 @@
 #include "msg.h"
 #include "rawtexture.h"
 
-cube::cube() : vbo_object() {
+cube::cube() : VboObject() {
     if (count == 1) {
         genBO();
         mat = new RawTexture("legendary.raw");
@@ -18,7 +18,7 @@ cube::~cube() {
 
 void cube::draw() {
     mat->Bind();
-    vbo_object::draw();
+    VboObject::draw();
 }
 
 float* cube::getVertices() {

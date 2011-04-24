@@ -3,9 +3,9 @@
 
 #include "texture.h"
 #include "rtt.h"
-#include "vbo_object.h"
+#include "vboobject.h"
 
-class cube : public vbo_object {
+class cube : public VboObject {
 public:
     cube();
     ~cube();

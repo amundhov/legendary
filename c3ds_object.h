@@ -1,7 +1,7 @@
 #ifndef C3DS_OBJECT_H
 #define C3DS_OBJECT_H
 
-#include "vbo_object.h"
+#include "vboobject.h"
 
 #include "c3dsparser.h"
 
@@ -11,7 +11,7 @@
 
 using std::string;
 
-class c3ds_object : public vbo_object
+class c3ds_object : public VboObject
 {
 public:
     c3ds_object(string fileName);

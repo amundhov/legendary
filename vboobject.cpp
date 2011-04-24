@@ -2,9 +2,9 @@
 #include <fstream>
 #include <GL/glew.h>
 #include "msg.h"
-#include "vbo_object.h"
+#include "vboobject.h"
 
-vbo_object::vbo_object()
+VboObject::VboObject()
 {
     loc.x = 0.0;
     loc.y = 0.0;
@@ -23,18 +23,18 @@ vbo_object::vbo_object()
     count++;
 }
 
-vbo_object::~vbo_object() {
+VboObject::~VboObject() {
     if (!--count)
         freeBO();
 }
 
-void vbo_object::locate(float x, float y, float z) {
+void VboObject::locate(float x, float y, float z) {
     loc.x = x;
     loc.y = y;
     loc.z = z;
 }
 
-void vbo_object::genBO() {
+void VboObject::genBO() {
     float *vertices = getVertices();
     int *indices = getIndices();
     unsigned char *colours = getColours();
@@ -63,12 +63,12 @@ void vbo_object::genBO() {
     printf("Generated the Buffer Objects. VBO: %i IBO: %i\n", VBO, IBO);
 }
 
-void vbo_object::freeBO() {
+void VboObject::freeBO() {
     if (VBO) glDeleteBuffers(1, &VBO);
     if (IBO) glDeleteBuffers(1, &IBO);
 }
 
-void vbo_object::draw() {
+void VboObject::draw() {
     static float i=0;
     i+=0.01;
 
@@ -95,4 +95,4 @@ void vbo_object::draw() {
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
-unsigned int vbo_object::count = 0;
+unsigned int VboObject::count = 0;

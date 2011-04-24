@@ -3,7 +3,7 @@
 #include "engine.h"
 #include "msg.h"
 #include "cube.h"
-#include "vbo_object.h"
+#include "vboobject.h"
 #include "c3ds_object.h"
 
 
