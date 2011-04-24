@@ -45,12 +45,12 @@ LRESULT CALLBACK MainWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
     switch (msg)
     {
     case WM_KEYDOWN:
-        engine->KeyDown(wParam, lParam);
+        Engine->KeyDown(wParam, lParam);
         break;
     case WM_KEYUP:
         break;
     case WM_CREATE:
-        engine = new WinEngine;
+        Engine = new WinEngine;
 
         mainDC = GetDC(hwnd);
         InitPixelFormat(mainDC);
@@ -68,30 +68,30 @@ LRESULT CALLBACK MainWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
         if (glewInit()) {
             Log("FATAL - glewInit: Failed.\n");
-            engine->msgBox("A fatal error occured, check your log file.");
+            Engine->msgBox("A fatal error occured, check your log file.");
             DestroyWindow(hwnd);
             return 0;
         }
 
-        engine->initRender();
-        engine->SetViewport(((CREATESTRUCT*)lParam)->cx,((CREATESTRUCT*)lParam)->cy);
+        Engine->initRender();
+        Engine->SetViewport(((CREATESTRUCT*)lParam)->cx,((CREATESTRUCT*)lParam)->cy);
         break;
 
     case WM_SIZE:
-        engine->SetViewport(lParam & 0x0000FFFF, lParam >> 16);
+        Engine->SetViewport(lParam & 0x0000FFFF, lParam >> 16);
         SwapBuffers(mainDC);
         break;
 
     case WM_PAINT:
-        if (engine) {
-            engine->DrawFrame();
+        if (Engine) {
+            Engine->DrawFrame();
         }
         SwapBuffers(mainDC);
         //ValidateRect(mainWindow, NULL);
         break;
 
     case WM_DESTROY:
-        delete engine;
+        delete Engine;
         wglMakeCurrent(mainDC, NULL);
         wglDeleteContext(mainGLRC);
         ReleaseDC(hwnd, mainDC);

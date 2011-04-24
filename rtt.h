@@ -4,10 +4,10 @@
 #include <GL/glew.h>
 #include "material.h"
 
-class CRenderToTextureMaterial : public Material {
+class RenderToTextureMaterial : public Material {
 public:
-    CRenderToTextureMaterial();
-    ~CRenderToTextureMaterial();
+    RenderToTextureMaterial();
+    ~RenderToTextureMaterial();
 
     void Bind();
 

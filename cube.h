@@ -5,10 +5,10 @@
 #include "rtt.h"
 #include "vboobject.h"
 
-class cube : public VboObject {
+class Cube : public VboObject {
 public:
-    cube();
-    ~cube();
+    Cube();
+    ~Cube();
     float* getVertices();
     int* getIndices();
     unsigned char* getColours();

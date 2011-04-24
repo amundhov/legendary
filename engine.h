@@ -9,9 +9,9 @@ typedef struct Vertex {
     GLfloat x, y, z;
 } Vertex;
 
-class engine {
+class Engine {
 public:
-    virtual				~engine( void ) {
+    virtual				~Engine( void ) {
         destroy();
     };
     virtual int			msgBox(char *) {
@@ -40,11 +40,11 @@ protected:
 
 private:
     GLRender *m_render;
-    engine *m_engine;
+    Engine *m_engine;
     VboObject *m_object;
     VboObject *m_cube;
 };
 
-extern engine *p_engine;
+extern Engine *p_engine;
 
 #endif

@@ -7,14 +7,14 @@
 #include "c3dsobject.h"
 
 
-void engine::init()
+void Engine::init()
 {
     m_cube = 0;
     initLog("debug.log");
     m_engine = this;
 }
 
-void engine::initRender()
+void Engine::initRender()
 {
     m_render = new GLRender;
     m_object = new C3dsObject("cube.3ds");
@@ -24,7 +24,7 @@ void engine::initRender()
 //    m_cube->locate(0, 0, -200);
 }
 
-void engine::drawFrame()
+void Engine::drawFrame()
 {
     if (m_render) {
         updateTimer();
@@ -34,32 +34,32 @@ void engine::drawFrame()
     }
 }
 
-void engine::setViewport(int x, int y) {
+void Engine::setViewport(int x, int y) {
     if (m_render) {
         m_render->setViewport(x, y);
     }
 }
 
-void engine::toggleFrame() {
+void Engine::toggleFrame() {
     if (m_render)
         m_render->toggleFrame();
 }
 
-void engine::destroy() {
+void Engine::destroy() {
     delete m_render;
     delete m_object;
     closeLog();
 }
 
-double engine::getTime() {
+double Engine::getTime() {
     return m_time;
 }
 
-int engine::getResX() {
+int Engine::getResX() {
     return m_render->getResX();
 }
 
-int engine::getResY() {
+int Engine::getResY() {
     return m_render->getResY();
 }
 

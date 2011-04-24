@@ -10,7 +10,7 @@ Colormap                cmap;
 XSetWindowAttributes    swa;
 XWindowAttributes       gwa;
 
-LinuxEngine				*engine;
+LinuxEngine				*Engine;
 
 LinuxEngine::LinuxEngine() :
         m_elapsed(0),
@@ -45,12 +45,12 @@ void LinuxEngine::updateTimer() {
 }
 
 int main() {
-    engine = new LinuxEngine;
+    Engine = new LinuxEngine;
 
     display = XOpenDisplay(NULL);
     if (!display) {
         Log("Couldn't open display, terminating.\n");
-        delete engine;
+        delete Engine;
         return 1;
     }
 
@@ -58,7 +58,7 @@ int main() {
     XVisualInfo *visualInfo = glXChooseVisual(display, 0, att);
     if (!visualInfo) {
         printf("FATAL: Unable to acquire visual!");
-        delete engine;
+        delete Engine;
         return 1;
     }
 
@@ -84,12 +84,12 @@ int main() {
     }
 
 
-    engine->initRender();
-    engine->setViewport(1024,768);
+    Engine->initRender();
+    Engine->setViewport(1024,768);
 
     XEvent xev;
     while (1) {
-        engine->drawFrame();
+        Engine->drawFrame();
         glXSwapBuffers(display, win);
 
         if (!XPending(display))
@@ -101,8 +101,8 @@ int main() {
         switch (xev.type) {
         case Expose:
             XGetWindowAttributes(display, win, &gwa);
-            engine->setViewport(gwa.width, gwa.height);
-            engine->drawFrame();
+            Engine->setViewport(gwa.width, gwa.height);
+            Engine->drawFrame();
             glXSwapBuffers(display, win);
             break;
 
@@ -114,10 +114,10 @@ int main() {
                 glXDestroyContext(display, context);
                 XDestroyWindow(display, win);
                 XCloseDisplay(display);
-                delete engine;
+                delete Engine;
                 return(1);
             case XK_F2:
-                engine->toggleFrame();
+                Engine->toggleFrame();
                 break;
             default:
                 continue;

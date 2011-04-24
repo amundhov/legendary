@@ -8,7 +8,7 @@
 
 LRESULT CALLBACK MainWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
-class WinEngine : public engine {
+class WinEngine : public Engine {
 public:
     WinEngine( void );
     virtual ~WinEngine( void );
@@ -22,7 +22,7 @@ private:
     UINT64		timer;
 };
 
-WinEngine  *engine;
+WinEngine  *Engine;
 HWND		mainWindow;
 MSG			mainMsg;
 HDC			mainDC;

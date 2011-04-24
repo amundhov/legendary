@@ -3,7 +3,7 @@
 #include "glrender.h"
 #include "engine.h"
 #include "file.h"
-#include "texture.h"
+#include "material.h"
 
 #define PI 3.14159265358979323846
 

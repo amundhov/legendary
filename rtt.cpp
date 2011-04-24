@@ -1,18 +1,18 @@
 #include "rtt.h"
 #include "msg.h"
 
-CRenderToTextureMaterial::CRenderToTextureMaterial() {
+RenderToTextureMaterial::RenderToTextureMaterial() {
     if (!count)
         genTO();
     count++;
 }
 
-CRenderToTextureMaterial::~CRenderToTextureMaterial() {
+RenderToTextureMaterial::~RenderToTextureMaterial() {
     if (!--count)
         freeTO();
 }
 
-void CRenderToTextureMaterial::genTO() {
+void RenderToTextureMaterial::genTO() {
     GLuint FBO;
     GLuint RBO;
 
