@@ -2,9 +2,9 @@
 #define __RTT_H_
 
 #include <GL/glew.h>
-#include "texture.h"
+#include "material.h"
 
-class CRenderToTextureMaterial : public Texture {
+class CRenderToTextureMaterial : public Material {
 public:
     CRenderToTextureMaterial();
     ~CRenderToTextureMaterial();

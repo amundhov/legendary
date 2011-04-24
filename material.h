@@ -1,23 +1,27 @@
-#ifndef __material_h_
-#define __material_h_
+#ifndef TEXTURE_H
+#define TEXTURE_H
 
 #include <GL/glew.h>
 
-class CMaterial {
+
+#define IMAGEOFFSET 0
+#define NORMALOFFSET 2
+#define SHADOWOFFSET 4
+
+
+class Material {
 public:
-    CMaterial(char *filename);
-    ~CMaterial();
+    Material();
+    ~Material();
 
     void Bind();
 
-private:
-    void genTO();
+protected:
     void freeTO();
-
-    char *texturefile;
+    virtual void genTO() = 0;
 
     static GLuint TO;
     static unsigned int count;
 };
 
-#endif
+#endif//TEXTURE_H

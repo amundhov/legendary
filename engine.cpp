@@ -4,7 +4,7 @@
 #include "msg.h"
 #include "cube.h"
 #include "vboobject.h"
-#include "c3ds_object.h"
+#include "c3dsobject.h"
 
 
 void engine::init()
