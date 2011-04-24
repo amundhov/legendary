@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "c3ds_object.h"
+#include "c3dsobject.h"
 
 #include "chunks.def"
 #include "msg.h"
 
-c3ds_object::c3ds_object(std::string fileName) : VboObject(),
+C3dsObject::C3dsObject(std::string fileName) : VboObject(),
     m_colours(0),
     m_coords(0)
 {
@@ -25,27 +25,27 @@ c3ds_object::c3ds_object(std::string fileName) : VboObject(),
 
 }
 
-unsigned char* c3ds_object::getColours()
+unsigned char* C3dsObject::getColours()
 {
     return m_colours;
 }
 
-float* c3ds_object::getCoords()
+float* C3dsObject::getCoords()
 {
     return m_coords;
 }
 
-int* c3ds_object::getIndices()
+int* C3dsObject::getIndices()
 {
     return m_indices;
 }
 
-float* c3ds_object::getVertices()
+float* C3dsObject::getVertices()
 {
     return m_vertices;
 }
 
-void c3ds_object::parseFile(string filename)
+void C3dsObject::parseFile(string filename)
 {
     C3dsParser parser(filename);
 

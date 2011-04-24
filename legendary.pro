@@ -17,10 +17,10 @@ SOURCES += \
     msg.cpp \
     rtt.cpp \
     c3dsparser.cpp \
-    c3ds_object.cpp \
     rawtexture.cpp \
     texture.cpp \
-    vboobject.cpp
+    vboobject.cpp \
+    c3dsobject.cpp
 
 OTHER_FILES += \
     README \
@@ -39,10 +39,10 @@ HEADERS += \
     rtt.h \
     types.h \
     c3dsparser.h \
-    c3ds_object.h \
     rawtexture.h \
     texture.h \
-    vboobject.h
+    vboobject.h \
+    c3dsobject.h
 
 win32 {
     HEADERS += win.h
