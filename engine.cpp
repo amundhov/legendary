@@ -20,8 +20,8 @@ void Engine::initRender()
     m_object = new C3dsObject("cube.3ds");
     m_object->locate(0, 0, -2);
 
-//    m_cube = new cube();
-//    m_cube->locate(0, 0, -200);
+    //m_cube = new Cube();
+    //m_cube->locate(0, 0, -200);
 }
 
 void Engine::drawFrame()

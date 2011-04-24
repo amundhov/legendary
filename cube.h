@@ -16,7 +16,7 @@ public:
     void draw();
 
 private:
-    Material *mat;
+    Material *m_material;
 };
 
 #endif

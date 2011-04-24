@@ -120,7 +120,8 @@ void C3dsObject::parseFile(string filename)
     }
 
     VBO_size_vertices = vertices.size() * 3;
-    VBO_size_indices = vertices.size();
+    VBO_size_indices = vertices.size() * sizeof(int);
+    VBO_indices = vertices.size();
     m_vertices = new float[vertices.size() * 3];
     m_indices = new int[vertices.size()];
 

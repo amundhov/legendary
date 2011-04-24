@@ -6,18 +6,18 @@
 Cube::Cube() : VboObject() {
     if (count == 1) {
         genBO();
-        mat = new RawTexture("legendary.raw");
+        m_material = new RawTexture("legendary.raw");
         //mat = new CRenderToTextureMaterial;
         Log("Cube VBO generated\n");
     }
 }
 
 Cube::~Cube() {
-    delete mat;
+    delete m_material;
 }
 
 void Cube::draw() {
-    mat->Bind();
+    m_material->Bind();
     VboObject::draw();
 }
 
