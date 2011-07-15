@@ -18,7 +18,7 @@ vbo_object::vbo_object()
     VBO_size_coords = 0;
     VBO_size_indices = 0;
     VBO_indices = 0;
-    INDEX_SIZE = GL_UNSIGNED_INT;
+    INDEX_SIZE = GL_UNSIGNED_SHORT;
 
     count++;
 }
@@ -45,10 +45,10 @@ void vbo_object::genBO() {
 
     glGenBuffers(1, &VBO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, VBO_size_vertices + VBO_size_colours + VBO_size_coords, NULL, GL_STATIC_DRAW);
-    glBufferSubData(GL_ARRAY_BUFFER, 0, VBO_size_vertices, vertices);
-    glBufferSubData(GL_ARRAY_BUFFER, VBO_size_vertices, VBO_size_colours, colours);
-    glBufferSubData(GL_ARRAY_BUFFER, VBO_size_vertices + VBO_size_colours, VBO_size_coords, coords);
+    glBufferData(GL_ARRAY_BUFFER, VBO_size_vertices, vertices, GL_STATIC_DRAW);
+    //glBufferSubData(GL_ARRAY_BUFFER, 0, VBO_size_vertices, vertices);
+    //glBufferSubData(GL_ARRAY_BUFFER, VBO_size_vertices, VBO_size_colours, colours);
+    //glBufferSubData(GL_ARRAY_BUFFER, VBO_size_vertices + VBO_size_colours, VBO_size_coords, coords);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     glGenBuffers(1, &IBO);
@@ -70,7 +70,7 @@ void vbo_object::freeBO() {
 
 void vbo_object::draw() {
     static float i=0;
-    i+=0.01;
+    i+=0.20;
 
     GLfloat transform[16] = {
         1,			0,		0,		0,
@@ -82,16 +82,16 @@ void vbo_object::draw() {
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
     glEnableClientState(GL_VERTEX_ARRAY);
-    glEnableClientState(GL_COLOR_ARRAY);
-    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+    //glEnableClientState(GL_COLOR_ARRAY);
+    //glEnableClientState(GL_TEXTURE_COORD_ARRAY);
     glRotatef(i, 1, 1, 1);
     glVertexPointer(3, GL_FLOAT, 0, 0);
-    glColorPointer(3, GL_UNSIGNED_BYTE, 0, (GLvoid *)VBO_size_vertices);
-    glTexCoordPointer(2, GL_FLOAT, 0, (GLvoid *)(VBO_size_vertices+VBO_size_colours));
+    //glColorPointer(3, GL_UNSIGNED_BYTE, 0, (GLvoid *)VBO_size_vertices);
+    //glTexCoordPointer(2, GL_FLOAT, 0, (GLvoid *)(VBO_size_vertices+VBO_size_colours));
     glDrawElements(GL_TRIANGLES, VBO_indices, INDEX_SIZE, 0);
     glDisableClientState(GL_VERTEX_ARRAY);
-    glDisableClientState(GL_COLOR_ARRAY);
-    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+    //glDisableClientState(GL_COLOR_ARRAY);
+    //glDisableClientState(GL_TEXTURE_COORD_ARRAY);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
