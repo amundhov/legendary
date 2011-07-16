@@ -60,7 +60,7 @@ public:
                         fread(ret, sizeof(T), count, m_file);
                 }
                 else {
-                        for ( int i=0; i<count; i++ ){
+                        for (unsigned int i=0; i<count; i++ ){
                                 fread(&ret[i], sizeof(T), 1, m_file);
                                 skip(tailSkip);
                         }
