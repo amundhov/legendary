@@ -25,9 +25,9 @@ GLRender::GLRender():
     glPolygonMode(GL_FRONT, GL_FILL);
     glPolygonMode(GL_BACK, GL_LINE);
 
-    loadShaders();
+    //loadShaders();
 
-    const int lightPos[] = {100, 100, -200, 0};
+    const int lightPos[] = {0, 0, -20, 0};
     glLightiv(GL_LIGHT0, GL_POSITION, lightPos);
 
     return;
