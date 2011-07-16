@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "c3dsobject.h"
 
+#include "c3dsobject.h"
 #include "chunks.def"
 #include "msg.h"
 
@@ -150,7 +150,7 @@ void C3dsScene::parseFile(string filename)
 
 
 
-    printf("Finished parsing!\n");
+    LOG("Finished parsing!");
 
     /*vec3 *vertex;
     face *cface;

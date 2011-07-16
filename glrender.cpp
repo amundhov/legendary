@@ -114,7 +114,7 @@ void GLRender::loadShaders()
 
 
     if (success != 0) { // Something bad happened
-        std::cout << "\n\033[91m ERROR WHILE COMPILING SHADER:\n" << log << "\033[0m\n" << std::endl;
+        LOG("\n\033[91m ERROR WHILE COMPILING SHADER:\n" << log << "\033[0m\n" << std::endl);
         delete [] log;
         return;
     }

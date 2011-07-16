@@ -17,10 +17,8 @@ LinuxEngine::LinuxEngine() :
         m_sound(new Sound("default"))
 {
     init();
-    Log("LINUX ENGINE INITIALIZED!\n");
-    printf("\n▛▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▜\n");
-    printf(  "▌ DIE LINUX TRIEBWERK INITIALISERT WURDE! ▐\n");
-    printf(  "▙▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▟\n\n");
+    LOG("LINUX ENGINE LOADED");
+    m_sound->play();
 }
 
 LinuxEngine::~LinuxEngine() {
@@ -57,7 +55,7 @@ int main() {
     root = DefaultRootWindow(display);
     XVisualInfo *visualInfo = glXChooseVisual(display, 0, att);
     if (!visualInfo) {
-        printf("FATAL: Unable to acquire visual!");
+        LOG("FATAL: Unable to acquire visual!");
         delete Engine;
         return 1;
     }
@@ -79,7 +77,7 @@ int main() {
     }
 
     if (!glewIsSupported("GL_VERSION_2_0")) {
-        printf("FATAL! Needs OpenGL 2.0 or later!\n");
+        LOG("FATAL! Needs OpenGL 2.0 or later!");
         return 255;
     }
 

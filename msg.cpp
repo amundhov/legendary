@@ -34,6 +34,7 @@ bool closeLog() {
     return true;
 }
 
+
 void Log(const char * format, ...) {
     return;
 
@@ -42,7 +43,7 @@ void Log(const char * format, ...) {
     char buf[255];
     int len = vsnprintf(buf, 256, format, argptr);
     va_end(argptr);
-    std::cout << buf;
+    LOG(buf);
     return;
     if (!logfile)
         return;

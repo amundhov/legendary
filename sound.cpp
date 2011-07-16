@@ -21,6 +21,7 @@
 #include <stdlib.h>
 
 #include "sound.h"
+#include "msg.h"
 
 Sound::Sound (const char *device) : 
     m_stopping(false),
@@ -39,7 +40,7 @@ Sound::Sound (const char *device) :
     vorbis_info *info = ov_info(m_vorbisfile, -1);
     unsigned int channels = info->channels;
     unsigned int rate = info->rate;
-    printf("Channels: %i\nRate: %i\nBuffer size:%i\n", channels, rate, BUFSIZE);
+    LOG("Channels: " << channels << " Rate: " << rate << " Buffer size: " << BUFSIZE);
 
     snd_pcm_hw_params_t *hw_params;
 
@@ -102,8 +103,6 @@ Sound::Sound (const char *device) :
 
     m_mutex = (pthread_mutex_t*)malloc(sizeof(pthread_mutex_t)); 
     pthread_mutex_init(m_mutex, 0); // fuck error handling
-    m_thread = (pthread_t*)malloc(sizeof(pthread_t));
-    pthread_create(m_thread, 0, &Sound::startLoop, this);
 }
 
 Sound::~Sound() {
@@ -119,6 +118,20 @@ Sound::~Sound() {
     delete [] m_history;
 }
 
+void Sound::play()
+{
+    if (!m_thread) {
+        m_thread = (pthread_t*)malloc(sizeof(pthread_t));
+        pthread_create(m_thread, 0, &Sound::startLoop, this);
+    }
+    pthread_mutex_unlock(m_mutex);
+}
+
+void Sound::pause()
+{
+    pthread_mutex_lock(m_mutex);
+}
+
 void *Sound::startLoop(void *obj) {
     reinterpret_cast<Sound*>(obj)->mainloop();
 
@@ -129,6 +142,7 @@ void Sound::mainloop() {
     long ret = 1L;
     int pos;
     uint16_t *buffer;
+    LOG("playing lol");
     while (!m_stopping && ret != 0) {
         buffer = (uint16_t*)calloc(sizeof(uint16_t), BUFSIZE);
         ret = ov_read(m_vorbisfile, reinterpret_cast<char*>(buffer), BUFSIZE, 0, 1, 1, &pos);
@@ -141,7 +155,7 @@ void Sound::mainloop() {
     }
 }
 
-float *Sound::getBass()
+/*float *Sound::getBass()
 {
     float *buffer = new float[BUFSIZE];
     float input[BUFSIZE];
@@ -168,5 +182,5 @@ float *Sound::getBass()
 //    delete buffer;
 
     return buffer;
-}
+}*/
 
