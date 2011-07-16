@@ -5,7 +5,7 @@
 #include "chunks.def"
 #include "msg.h"
 
-c3ds_object::c3ds_object(std::string fileName) : vbo_object(),
+c3ds_scene::c3ds_scene(std::string fileName) : vbo_object(),
     m_colours(0),
     m_coords(0)
 {
@@ -25,27 +25,27 @@ c3ds_object::c3ds_object(std::string fileName) : vbo_object(),
 
 }
 
-unsigned char* c3ds_object::getColours()
+unsigned char* c3ds_scene::getColours()
 {
     return m_colours;
 }
 
-float* c3ds_object::getCoords()
+float* c3ds_scene::getCoords()
 {
     return m_coords;
 }
 
-int* c3ds_object::getIndices()
+int* c3ds_scene::getIndices()
 {
     return m_indices;
 }
 
-float* c3ds_object::getVertices()
+float* c3ds_scene::getVertices()
 {
     return m_vertices;
 }
 
-void c3ds_object::parseFile(string filename)
+void c3ds_scene::parseFile(string filename)
 {
     C3dsParser parser(filename);
 
@@ -58,43 +58,45 @@ void c3ds_object::parseFile(string filename)
     map<string, color>   faceMaterial;
     map<string, color>    colors;
 
+    /* Do a speed run accumulating counts */
+
     while ( !parser.eof() ) {
-            parser.enterChunk();
-            switch ( parser.getChunkId() ){
-                        case MAIN_CHUNK:
-                                break;
+        parser.enterChunk();
+        switch ( parser.getChunkId() ){
+            case MAIN_CHUNK:
+               break;
 
-                        case MAIN_VERSION:
-                                parser.skipChunk();
-                                break;
+            case MAIN_VERSION:
+               parser.skipChunk();
+               break;
 
-                        case EDITOR_CHUNK:
-                                break;
+            case EDITOR_CHUNK:
+               break;
 
-                        case OBJECT_BLOCK:
-                                currentMesh = parser.extractStrData();
-                                break;
+            case OBJECT_BLOCK:
+               currentMesh = parser.extractStrData();
+               break;
 
-                        case TRIANGULAR_MESH:
-                        break;
+            case TRIANGULAR_MESH:
+                break;
 
-                    case VERTICES_LIST:
-                                vertCount[currentMesh] = parser.extractCount();
-                                vertices[currentMesh] = parser.extractArray<vec3>(vertCount[currentMesh]);
-                        break;
+            case VERTICES_LIST:
+                vertCount[currentMesh] = parser.extractCount();
+                vertices[currentMesh] = parser.extractArray<vec3>(vertCount[currentMesh]);
+                break;
 
-                        case FACES_LIST:
-                                faceCount[currentMesh] = parser.extractCount();
-                                faces[currentMesh] = parser.extractArray<face>(faceCount[currentMesh], 2);
-                        break;
+            case FACES_LIST:
+                faceCount[currentMesh] = parser.extractCount();
+                faces[currentMesh] = parser.extractArray<face>(faceCount[currentMesh],2);
+                break;
 
-                        case MATERIAL_BLOCK:
-                                break;
+            case MATERIAL_BLOCK:
+                break;
 
-                        case MATERIAL_NAME:
-                                currentMaterial = parser.extractStrData();
-                                parser.skipChunk();
-                                break;
+            case MATERIAL_NAME:
+                currentMaterial = parser.extractStrData();
+                parser.skipChunk();
+                break;
 
             case DIFFUSE_COLOR:
                 break;
@@ -111,36 +113,40 @@ void c3ds_object::parseFile(string filename)
                 parser.skipChunk();
                 break;
 
-                        default:
-                                printf("Unkown chunk %04x of length %u\n", parser.getChunkId(), parser.getChunkLength());
-                                parser.skipChunk();
-                                break;
+            default:
+                printf("Unkown chunk %04x of length %u\n", parser.getChunkId(), parser.getChunkLength());
+                parser.skipChunk();
+                break;
 
-            }
+        }
     }
 
-    VBO_size_vertices = vertices.size() * 3;
-    VBO_size_indices = vertices.size();
-    m_vertices = new float[vertices.size() * 3];
-    m_indices = new int[vertices.size()];
+    string foo = string("fkLogo_None");
+    VBO_size_vertices = vertCount[foo]*sizeof(vec3);
+    VBO_size_indices = faceCount[foo]*sizeof(face);
+    VBO_size_colours = 0;
+    VBO_size_coords = 0;
+    VBO_indices = faceCount[foo]*3;
+    m_vertices = (float*)vertices[foo];
+    m_indices =  (int*)faces[foo];
 
-    int i=0;
-    for (map<string, vec3*>::iterator it = vertices.begin(); it != vertices.end(); it++) {
-        m_indices[i/3] = i;
-        m_vertices[i++] = (*it).second->x * 100;
-        m_vertices[i++] = (*it).second->y * 100;
-        m_vertices[i++] = (*it).second->z * 100;
-        printf("%f\n", (*it).second->x);
-    }
+    // int i=0;
+    // for (map<string, vec3*>::iterator it = vertices.begin(); it != vertices.end(); it++) {
+    //     m_indices[i/3] = i;
+    //     m_vertices[i++] = (*it).second->x;
+    //     m_vertices[i++] = (*it).second->y;
+    //     m_vertices[i++] = (*it).second->z;
+    //     printf("%f\n", (*it).second->x);
+    // }
 
-    VBO_size_colours = colors.size();
-    m_colours = new unsigned char[VBO_size_colours * 3];
-    i = 0;
-    for (map<string, color>::iterator it = colors.begin(); it != colors.end(); it++) {
-        m_colours[i++] = (*it).second.r;
-        m_colours[i++] = (*it).second.g;
-        m_colours[i++] = (*it).second.b;
-    }
+    //VBO_size_colours = colors.size();
+    //m_colours = new unsigned char[VBO_size_colours * 3];
+    //i = 0;
+    //for (map<string, color>::iterator it = colors.begin(); it != colors.end(); it++) {
+    //    m_colours[i++] = (*it).second.r;
+    //    m_colours[i++] = (*it).second.g;
+    //    m_colours[i++] = (*it).second.b;
+    //}
 
 
 

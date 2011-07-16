@@ -11,10 +11,10 @@
 
 using std::string;
 
-class c3ds_object : public vbo_object
+class c3ds_scene : public vbo_object
 {
 public:
-    c3ds_object(string fileName);
+    c3ds_scene(string fileName);
 
     float* getVertices();
     int* getIndices();
