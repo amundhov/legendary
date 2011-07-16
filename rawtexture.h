@@ -2,10 +2,10 @@
 #define RAWTEXTURE_H
 
 #include <GL/glew.h>
-#include "texture.h"
+#include "material.h"
 #include <string>
 
-class RawTexture : public Texture {
+class RawTexture : public Material {
 public:
     RawTexture(const char *filename);
     ~RawTexture();

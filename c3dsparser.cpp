@@ -3,8 +3,10 @@
 C3dsParser::C3dsParser(string filename) :
     m_file(0)
 {
-        if (!m_file) printf("FUCK SHIT\n");
+        m_currentHeader.length = 0;
+        m_currentHeader.chunkId = 0;
         m_file = fopen(filename.c_str(), "rb");
+        if (!m_file) printf("Unable to open 3ds file\n");
         fseek(m_file, 0, SEEK_END);
         m_fileLength = ftell(m_file);
         reset();

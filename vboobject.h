@@ -4,10 +4,10 @@
 #include "types.h"
 #include <GL/glew.h>
 
-class vbo_object {
+class VboObject {
 public:
-    vbo_object();
-    ~vbo_object();
+    VboObject();
+    ~VboObject();
 
     void genBO();
     void freeBO();

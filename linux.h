@@ -11,7 +11,7 @@
 
 class Sound;
 
-class LinuxEngine : public engine {
+class LinuxEngine : public Engine {
 public:
     LinuxEngine(void);
     ~LinuxEngine(void);

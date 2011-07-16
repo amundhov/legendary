@@ -3,25 +3,25 @@
 #include "msg.h"
 #include "rawtexture.h"
 
-cube::cube() : vbo_object() {
+Cube::Cube() : VboObject() {
     if (count == 1) {
         genBO();
-        mat = new RawTexture("legendary.raw");
+        m_material = new RawTexture("legendary.raw");
         //mat = new CRenderToTextureMaterial;
         Log("Cube VBO generated\n");
     }
 }
 
-cube::~cube() {
-    delete mat;
+Cube::~Cube() {
+    delete m_material;
 }
 
-void cube::draw() {
-    mat->Bind();
-    vbo_object::draw();
+void Cube::draw() {
+    m_material->Bind();
+    VboObject::draw();
 }
 
-float* cube::getVertices() {
+float* Cube::getVertices() {
     float vcube[] =
         {	-50.0, -50.0,  50.0, 	// 4 Front	0
           50.0,  50.0,  50.0,		// 1
@@ -62,7 +62,7 @@ float* cube::getVertices() {
     return ret;
 }
 
-int* cube::getIndices() {
+int* Cube::getIndices() {
     unsigned int icube[] = {
         0, 1, 2,		1, 0, 3,
         4, 5, 6,		4, 6, 7,
@@ -80,7 +80,7 @@ int* cube::getIndices() {
     return ret;
 }
 
-unsigned char* cube::getColours() {
+unsigned char* Cube::getColours() {
     unsigned char ccube[] = {
         000, 000, 000,  255, 255, 255,  255, 255, 255,  000, 000, 000, // Front
         000, 000, 000,  000, 000, 000,  000, 000, 000,  255, 255, 255, // Right
@@ -98,7 +98,7 @@ unsigned char* cube::getColours() {
     return ret;
 }
 
-float* cube::getCoords() {
+float* Cube::getCoords() {
     float tcube[] =
         {	0.0, 1.0,  1.0, 0.0,  0.0, 0.0,  1.0, 1.0,
           0.0, 1.0,  1.0, 1.0,  1.0, 0.0,  0.0, 0.0,

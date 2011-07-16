@@ -1,7 +1,7 @@
 #ifndef C3DS_OBJECT_H
 #define C3DS_OBJECT_H
 
-#include "vbo_object.h"
+#include "vboobject.h"
 
 #include "c3dsparser.h"
 
@@ -11,10 +11,10 @@
 
 using std::string;
 
-class c3ds_scene : public vbo_object
+class C3dsScene : public VboObject
 {
 public:
-    c3ds_scene(string fileName);
+    C3dsScene(string fileName);
 
     float* getVertices();
     int* getIndices();

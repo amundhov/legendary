@@ -1,14 +1,14 @@
 #ifndef __CUBE_H
 #define __CUBE_H
 
-#include "texture.h"
+#include "material.h"
 #include "rtt.h"
-#include "vbo_object.h"
+#include "vboobject.h"
 
-class cube : public vbo_object {
+class Cube : public VboObject {
 public:
-    cube();
-    ~cube();
+    Cube();
+    ~Cube();
     float* getVertices();
     int* getIndices();
     unsigned char* getColours();
@@ -16,7 +16,7 @@ public:
     void draw();
 
 private:
-    Texture *mat;
+    Material *m_material;
 };
 
 #endif

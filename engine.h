@@ -2,16 +2,16 @@
 #define __engine_h_
 
 #include "glrender.h"
-class vbo_object;
+class VboObject;
 
 typedef struct Vertex {
     unsigned char r, g, b, a;
     GLfloat x, y, z;
 } Vertex;
 
-class engine {
+class Engine {
 public:
-    virtual				~engine( void ) {
+    virtual				~Engine( void ) {
         destroy();
     };
     virtual int			msgBox(char *) {
@@ -40,11 +40,11 @@ protected:
 
 private:
     GLRender *m_render;
-    engine *m_engine;
-    vbo_object *m_object;
-    vbo_object *m_cube;
+    Engine *m_engine;
+    VboObject *m_object;
+    VboObject *m_cube;
 };
 
-extern engine *p_engine;
+extern Engine *p_engine;
 
 #endif
