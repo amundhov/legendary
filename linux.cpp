@@ -18,6 +18,7 @@ LinuxEngine::LinuxEngine() :
 {
     init();
     LOG("LINUX ENGINE LOADED");
+    m_sound->play();
 }
 
 LinuxEngine::~LinuxEngine() {

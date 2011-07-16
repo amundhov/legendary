@@ -37,7 +37,10 @@ class Sound {
 public:
     Sound(const char *device);
     ~Sound();
-    float *getBass();
+    void play();
+    void pause();
+
+    //float *getBass();
 
 private:
     static void *startLoop(void *);
