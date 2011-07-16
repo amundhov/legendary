@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "c3dsobject.h"
 
+#include "c3dsobject.h"
 #include "chunks.def"
 #include "msg.h"
 
@@ -112,7 +112,7 @@ void C3dsObject::parseFile(string filename)
                 break;
 
                         default:
-                                printf("Unkown chunk %04x of length %u\n", parser.getChunkId(), parser.getChunkLength());
+                                LOG("Unkown chunk " << parser.getChunkId() << " of length " << parser.getChunkLength());
                                 parser.skipChunk();
                                 break;
 
@@ -131,7 +131,6 @@ void C3dsObject::parseFile(string filename)
         m_vertices[i++] = (*it).second->x * 100;
         m_vertices[i++] = (*it).second->y * 100;
         m_vertices[i++] = (*it).second->z * 100;
-        printf("%f\n", (*it).second->x);
     }
 
     VBO_size_colours = colors.size();
@@ -145,7 +144,7 @@ void C3dsObject::parseFile(string filename)
 
 
 
-    printf("Finished parsing!\n");
+    LOG("Finished parsing!");
 
     /*vec3 *vertex;
     face *cface;

@@ -21,6 +21,7 @@
 #include <stdlib.h>
 
 #include "sound.h"
+#include "msg.h"
 
 Sound::Sound (const char *device) : 
     m_stopping(false),
@@ -39,7 +40,7 @@ Sound::Sound (const char *device) :
     vorbis_info *info = ov_info(m_vorbisfile, -1);
     unsigned int channels = info->channels;
     unsigned int rate = info->rate;
-    printf("Channels: %i\nRate: %i\nBuffer size:%i\n", channels, rate, BUFSIZE);
+    LOG("Channels: " << channels << " Rate: " << rate << " Buffer size: " << BUFSIZE);
 
     snd_pcm_hw_params_t *hw_params;
 

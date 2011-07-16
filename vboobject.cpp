@@ -40,8 +40,10 @@ void VboObject::genBO() {
     unsigned char *colours = getColours();
     float *coords = getCoords();
 
-    printf("Vertsize %i, Colsize %i, coordsize %i, indices %i\n",
-        VBO_size_vertices,VBO_size_colours,VBO_size_coords,VBO_indices);
+    LOG("Vertsize: " << VBO_size_vertices);
+    LOG("colsize:" << VBO_size_colours); 
+    LOG("coordsize:" << VBO_size_coords);
+    LOG("indices:" << VBO_indices);
 
     glGenBuffers(1, &VBO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
@@ -60,7 +62,9 @@ void VboObject::genBO() {
     if ( indices != NULL ) delete[] indices;
     if ( colours != NULL ) delete[] colours;
     if ( coords != NULL ) delete[] coords;
-    printf("Generated the Buffer Objects. VBO: %i IBO: %i\n", VBO, IBO);
+    LOG("Generated the Buffer Objects.");
+    LOG("VBO: " << VBO);
+    LOG("IBO: " << IBO);
 }
 
 void VboObject::freeBO() {
