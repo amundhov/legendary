@@ -3,18 +3,22 @@
 C3dsParser::C3dsParser(string filename) :
     m_file(0)
 {
-
-        m_currentHeader.length = NULL;
-        m_currentHeader.chunkId = NULL;
-        m_file = fopen(filename.c_str(), "rb");
         if (!m_file) printf("FUCK SHIT\n");
+        m_file = fopen(filename.c_str(), "rb");
         fseek(m_file, 0, SEEK_END);
         m_fileLength = ftell(m_file);
-        fseek(m_file, 0, SEEK_SET);
+        reset();
 }
 
 C3dsParser::~C3dsParser(){
         if ( m_file != 0 ) fclose(m_file);
+}
+
+void C3dsParser::reset()
+{
+    m_currentHeader.length = NULL;
+    m_currentHeader.chunkId = NULL;
+    fseek(m_file, 0, SEEK_SET);
 }
 
 void  C3dsParser::enterChunk(){

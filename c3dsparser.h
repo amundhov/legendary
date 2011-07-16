@@ -18,9 +18,10 @@ typedef struct __attribute__ ((__packed__)) chunkHeader {
 
 class C3dsParser {
 public:
-        //C3dsParser(void);
         C3dsParser(string filename);
         ~C3dsParser(void);
+
+        void reset();
 
         /* ChunkID	   2 bytes
          * ChunkLength     4 bytes
@@ -34,7 +35,7 @@ public:
         void skipChunk(void);
         unsigned short getChunkId(void);
         unsigned int getChunkLength(void);
-    long int getChunkOffset(void);
+        long int getChunkOffset(void);
         // Skip ahead past null-byte terminating string
         void skipStrData(void);
         // Determine length of string at current offset
