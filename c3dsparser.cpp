@@ -18,8 +18,8 @@ C3dsParser::~C3dsParser(){
 
 void C3dsParser::reset()
 {
-    m_currentHeader.length = NULL;
-    m_currentHeader.chunkId = NULL;
+    m_currentHeader.length = 0;
+    m_currentHeader.chunkId = 0;
     fseek(m_file, 0, SEEK_SET);
 }
 
