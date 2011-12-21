@@ -57,6 +57,7 @@ unix {
                sound.cpp \
                fht.cpp
     LIBS    += -lX11 \
+               -lGL \
                -lGLEW \
                -lvorbisfile \
                -lasound
