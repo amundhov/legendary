@@ -78,10 +78,11 @@ void GLRender::drawFrame()
 void GLRender::toggleFrame() {
     glPolygonMode(GL_FRONT, m_fill ? GL_LINE : GL_FILL);
     m_fill ^= 1;
-    if (m_fill)
-        Log("Wireframe off.\n");
-    else
-        Log("Wireframe on.\n");
+    if (m_fill) {
+        LOG("Wireframe off.");
+    } else {
+        LOG("Wireframe on.");
+    }
 }
 
 void GLRender::loadShaders()

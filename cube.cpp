@@ -8,7 +8,7 @@ Cube::Cube() : VboObject() {
         genBO();
         m_material = new RawTexture("legendary.raw");
         //mat = new CRenderToTextureMaterial;
-        Log("Cube VBO generated\n");
+        LOG("Cube VBO generated");
     }
 }
 
