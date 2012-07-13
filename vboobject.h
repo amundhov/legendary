@@ -7,7 +7,7 @@
 class VboObject {
 public:
     VboObject();
-    ~VboObject();
+    virtual ~VboObject();
 
     void genBO();
     void freeBO();

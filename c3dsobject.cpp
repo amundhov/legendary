@@ -84,7 +84,7 @@ void C3dsScene::parseFile(string filename)
 
             case OBJECT_BLOCK:
                currentMesh = parser.extractStrData();
-               Log("Mesh: %s\n", currentMesh.c_str());
+               LOG("Mesh:" << currentMesh.c_str());
                break;
 
             case TRIANGULAR_MESH:
@@ -121,6 +121,7 @@ void C3dsScene::parseFile(string filename)
             case FACES_MATERIAL:
                 mat = parser.extractStrData();
                 numFaces = parser.extractValue<uint16_t>();
+                LOG("Faces: " << numFaces);
                 faceMaterial[currentMesh] = colors[mat];
                 parser.skipChunk();
                 break;
@@ -148,9 +149,9 @@ void C3dsScene::parseFile(string filename)
 //
     //}
 
-    int offset = 0;
-    void *vertDestination = m_vertices;
-    void *indexDestination = m_indices;
+    vec3 *offset = 0;
+    float *vertDestination = m_vertices;
+    int *indexDestination = m_indices;
     for (map<string, int>::iterator it = vertCount.begin(); it != vertCount.end(); it++) {
         int indices = faceCount[it->first]*3;
         indexCounts.push_back(indices);
@@ -167,13 +168,12 @@ void C3dsScene::parseFile(string filename)
 
 void C3dsScene::drawElements() {
     //VboObject::drawElements();
-    int indexStart = 0;
     int i=0;
     vector<short int>::iterator it = indexCounts.begin();
     for (i=0 ; it != indexCounts.end(); it++, i++){
         glVertexPointer(3, GL_FLOAT, 0, (GLvoid*)vertexOffsets.at(i));
         glDrawElements(GL_TRIANGLES, *it, INDEX_SIZE, 0);
-        Log("Drawing %i vertices, pointer offset %x\n",*it, vertexOffsets.at(i));
+        LOG("Drawing " << *it << " vertices, pointer offset" << vertexOffsets.at(i));
         //glDrawRangeElements(GL_TRIANGLES, 0 , *it, *it, INDEX_SIZE, 0);
    }
 }

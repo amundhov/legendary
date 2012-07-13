@@ -8,7 +8,7 @@
 class Cube : public VboObject {
 public:
     Cube();
-    ~Cube();
+    virtual ~Cube();
     float* getVertices();
     float* getNormals();
     int* getIndices();

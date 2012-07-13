@@ -12,7 +12,7 @@
 class Material {
 public:
     Material();
-    ~Material();
+    virtual ~Material();
 
     void Bind();
 

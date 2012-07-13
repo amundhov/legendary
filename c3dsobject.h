@@ -33,7 +33,7 @@ private:
     float *m_normals;
 
     vector<short int> indexCounts;
-    vector<int> vertexOffsets;
+    vector<GLvoid*> vertexOffsets;
 
 
 };

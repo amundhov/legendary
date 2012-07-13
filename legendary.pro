@@ -8,6 +8,8 @@ CONFIG -= app_bundle
 
 TEMPLATE = app
 
+QMAKE_CXXFLAGS+=-Werror
+
 SOURCES += \
     cube.cpp \
     engine.cpp \
