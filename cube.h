@@ -10,6 +10,7 @@ public:
     Cube();
     ~Cube();
     float* getVertices();
+    float* getNormals();
     int* getIndices();
     unsigned char* getColours();
     float* getCoords();

@@ -14,7 +14,7 @@ LinuxEngine				*Engine;
 
 LinuxEngine::LinuxEngine() :
         m_elapsed(0),
-        m_sound(new Sound("default"))
+        m_sound(new Sound("null"))
 {
     init();
     LOG("LINUX ENGINE LOADED");
@@ -38,8 +38,10 @@ void LinuxEngine::updateTimer() {
     gettimeofday(&now, NULL);
     suseconds_t cur = (now.tv_sec * 1000000) + now.tv_usec;
     m_elapsed = cur - m_lastTick;
-    //printf("FPS: %i\n", int(1000000.0/ m_elapsed));
+    //Log("FPS: %i\n", int(1000000.0/ m_elapsed));
     m_lastTick = cur;
+
+    //m_sound->getBass();
 }
 
 int main() {
@@ -72,7 +74,7 @@ int main() {
     glXMakeCurrent(display, win, context);
 
     if (glewInit()) {
-        Log("FATAL! glewInit failed!\n");
+        LOG("FATAL! glewInit failed!\n");
         return 0;
     }
 
@@ -80,6 +82,10 @@ int main() {
         LOG("FATAL! Needs OpenGL 2.0 or later!");
         return 255;
     }
+    //if (!glewIsSupported("GL_EXT_geometry_shader4")) {
+    //    LOG("FATAL! Needs geometry shader support!");
+    //    return 255;
+    //}
 
 
     Engine->initRender();

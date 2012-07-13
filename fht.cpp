@@ -22,6 +22,8 @@
 #include <string.h>
 #include "fht.h"
 
+#include <stdio.h>
+
 
 FHT::FHT(int n) :
     m_buf(0),

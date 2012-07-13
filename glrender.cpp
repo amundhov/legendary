@@ -25,10 +25,12 @@ GLRender::GLRender():
     glPolygonMode(GL_FRONT, GL_FILL);
     glPolygonMode(GL_BACK, GL_LINE);
 
-    //loadShaders();
+    loadShaders();
 
     const int lightPos[] = {0, 0, -20, 0};
+    const float color[] = { 0.8, 0.8, 0.8, 0.8 };
     glLightiv(GL_LIGHT0, GL_POSITION, lightPos);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, color);
 
     return;
 }
@@ -78,10 +80,12 @@ void GLRender::drawFrame()
 void GLRender::toggleFrame() {
     glPolygonMode(GL_FRONT, m_fill ? GL_LINE : GL_FILL);
     m_fill ^= 1;
-    if (m_fill)
-        Log("Wireframe off.\n");
-    else
-        Log("Wireframe on.\n");
+    if (m_fill) {
+        LOG("Wireframe off.\n");
+    }
+    else {
+        LOG("Wireframe on.\n");
+    }
 }
 
 void GLRender::loadShaders()

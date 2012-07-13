@@ -3,6 +3,7 @@
 #include "engine.h"
 #include "msg.h"
 #include "cube.h"
+#include "sound.h"
 #include "vboobject.h"
 #include "c3dsobject.h"
 
@@ -17,8 +18,8 @@ void Engine::init()
 void Engine::initRender()
 {
     m_render = new GLRender;
-    m_object = new C3dsScene("cube.3ds");
-    m_object->locate(0, 0,-5);
+    m_object = new C3dsScene("test.3ds");
+    m_object->locate(0, 0,-10);
 
 }
 

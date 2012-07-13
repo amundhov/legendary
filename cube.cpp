@@ -8,7 +8,7 @@ Cube::Cube() : VboObject() {
         genBO();
         m_material = new RawTexture("legendary.raw");
         //mat = new CRenderToTextureMaterial;
-        Log("Cube VBO generated\n");
+        LOG("Cube VBO generated\n");
     }
 }
 
@@ -114,4 +114,9 @@ float* Cube::getCoords() {
         ret[i] = tcube[i];
     }
     return ret;
+}
+
+
+float* Cube::getNormals() {
+    return NULL;
 }
