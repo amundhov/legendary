@@ -126,7 +126,7 @@ void C3dsScene::parseFile(string filename)
                 break;
 
             default:
-                Log("Unkown chunk %04x of length %u\n", parser.getChunkId(), parser.getChunkLength());
+                //Log("Unkown chunk %04x of length %u\n", parser.getChunkId(), parser.getChunkLength());
                 parser.skipChunk();
                 break;
 

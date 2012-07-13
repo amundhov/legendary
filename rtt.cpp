@@ -16,7 +16,7 @@ void RenderToTextureMaterial::genTO() {
     GLuint FBO;
     GLuint RBO;
 
-    Log("Generating texture\n");
+    LOG("Generating texture");
 
     glGenTextures(1, &TO);
     glBindTexture(GL_TEXTURE_2D, TO);
@@ -37,7 +37,7 @@ void RenderToTextureMaterial::genTO() {
     glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_TEXTURE_2D, TO, 0);
     glFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT_EXT, GL_RENDERBUFFER_EXT, RBO);
     if (glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT) != GL_FRAMEBUFFER_COMPLETE_EXT)
-        Log("Framebuffer panic!\n");
+        LOG("Framebuffer panic!\n");
 
     glPushAttrib(GL_VIEWPORT_BIT);
     glViewport(0, 0, 512, 512);

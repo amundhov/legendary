@@ -29,7 +29,7 @@ int LinuxEngine::msgBox(std::string msg) {
     //printf("ATTENTION: %s\n", msg);
     system(std::string("zenity --info --text='" + msg + "'").c_str());
     //Forward to Log
-    Log(msg.c_str());
+    LOG(msg.c_str());
     return 0;
 }
 
@@ -49,7 +49,7 @@ int main() {
 
     display = XOpenDisplay(NULL);
     if (!display) {
-        Log("Couldn't open display, terminating.\n");
+        LOG("Couldn't open display, terminating.");
         delete Engine;
         return 1;
     }

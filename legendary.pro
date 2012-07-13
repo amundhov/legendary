@@ -13,7 +13,6 @@ SOURCES += \
     engine.cpp \
     file.cpp \
     glrender.cpp \
-    msg.cpp \
     rtt.cpp \
     c3dsparser.cpp \
     rawtexture.cpp \
@@ -60,5 +59,6 @@ unix {
                -lGL \
                -lGLEW \
                -lvorbisfile \
-               -lasound
+               -lasound \
+               -lGL
 }

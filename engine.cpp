@@ -11,7 +11,6 @@
 void Engine::init()
 {
     m_cube = 0;
-    initLog("debug.log");
     m_engine = this;
 }
 
@@ -47,7 +46,6 @@ void Engine::toggleFrame() {
 void Engine::destroy() {
     delete m_render;
     delete m_object;
-    closeLog();
 }
 
 double Engine::getTime() {

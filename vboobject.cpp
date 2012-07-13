@@ -78,26 +78,38 @@ void VboObject::draw() {
     static float i=0;
     i+=0.20;
 
-    GLfloat transform[16] = {
+
+    // Set an identity matrix
+    const GLfloat transform[16] = {
         1,			0,		0,		0,
         0,			1,		0,		0,
         0,			0,		1,		0,
         loc.x,		loc.y,	loc.z,	1
     };
     glLoadMatrixf(transform);
+
+    // Bind our buffers
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
+
+    // Enable shit
     glEnableClientState(GL_VERTEX_ARRAY);
-    //glEnableClientState(GL_COLOR_ARRAY);
-    //glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+    glEnableClientState(GL_COLOR_ARRAY);
+    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+    // Rotate to base
     glRotatef(i, 1, 1, 1);
+
+    // Point to our vertices
     glVertexPointer(3, GL_FLOAT, 0, 0);
     //glColorPointer(3, GL_UNSIGNED_BYTE, 0, (GLvoid *)VBO_size_vertices);
     //glTexCoordPointer(2, GL_FLOAT, 0, (GLvoid *)(VBO_size_vertices+VBO_size_colours));
     drawElements();
+    // Return to previous state
     glDisableClientState(GL_VERTEX_ARRAY);
-    //glDisableClientState(GL_COLOR_ARRAY);
-    //glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+    glDisableClientState(GL_COLOR_ARRAY);
+    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
