@@ -1,13 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "c3dsobject.h"
 #include "chunks.def"
 #include "msg.h"
 
 C3dsScene::C3dsScene(std::string fileName) : VboObject(),
-    m_colours(0),
-    m_coords(0)
+    m_colours(NULL),
+    m_coords(NULL),
+    m_normals(NULL)
 {
     if (count == 1)
     {
@@ -45,6 +47,11 @@ float* C3dsScene::getVertices()
     return m_vertices;
 }
 
+float* C3dsScene::getNormals()
+{
+    return m_normals;
+}
+
 void C3dsScene::parseFile(string filename)
 {
     C3dsParser parser(filename);
@@ -53,12 +60,14 @@ void C3dsScene::parseFile(string filename)
     uint16_t numFaces;
     map<string, face*>    faces;
     map<string, vec3*> vertices;
+    map<string, vec3*> normals;
     map<string, int>      vertCount;
     map<string, int>      faceCount;
     map<string, color>   faceMaterial;
     map<string, color>    colors;
 
-    /* Do a speed run accumulating counts */
+    int totalVertCount = 0;
+    int totalFaceCount = 0;
 
     while ( !parser.eof() ) {
         parser.enterChunk();
@@ -75,6 +84,7 @@ void C3dsScene::parseFile(string filename)
 
             case OBJECT_BLOCK:
                currentMesh = parser.extractStrData();
+               Log("Mesh: %s\n", currentMesh.c_str());
                break;
 
             case TRIANGULAR_MESH:
@@ -82,11 +92,13 @@ void C3dsScene::parseFile(string filename)
 
             case VERTICES_LIST:
                 vertCount[currentMesh] = parser.extractCount();
+                totalVertCount += vertCount[currentMesh];
                 vertices[currentMesh] = parser.extractArray<vec3>(vertCount[currentMesh]);
                 break;
 
             case FACES_LIST:
                 faceCount[currentMesh] = parser.extractCount();
+                totalFaceCount += faceCount[currentMesh];
                 faces[currentMesh] = parser.extractArray<face>(faceCount[currentMesh],2);
                 break;
 
@@ -121,14 +133,50 @@ void C3dsScene::parseFile(string filename)
         }
     }
 
-    string foo = string("fkLogo_None");
-    VBO_size_vertices = vertCount[foo]*sizeof(vec3);
-    VBO_size_indices = faceCount[foo]*sizeof(face);
+    LOG("Finished parsing!");
+
+    VBO_size_vertices = totalFaceCount*sizeof(vec3);
+    VBO_size_indices = totalFaceCount*sizeof(face);
+    VBO_size_normals = totalVertCount*sizeof(vec3);
     VBO_size_colours = 0;
     VBO_size_coords = 0;
-    VBO_indices = faceCount[foo]*3;
-    m_vertices = (float*)vertices[foo];
-    m_indices =  (int*)faces[foo];
+    VBO_indices = totalFaceCount*3;
+    m_vertices = new float[VBO_size_vertices];
+    m_indices  = new int[VBO_size_indices];
+
+    //for (map<string, int>::iterator it = normals.begin(); it != normals.end(); it++) {
+//
+    //}
+
+    int offset = 0;
+    void *vertDestination = m_vertices;
+    void *indexDestination = m_indices;
+    for (map<string, int>::iterator it = vertCount.begin(); it != vertCount.end(); it++) {
+        int indices = faceCount[it->first]*3;
+        indexCounts.push_back(indices);
+
+        memcpy(vertDestination, vertices[it->first], it->second*sizeof(vec3));
+        memcpy(indexDestination, faces[it->first], faceCount[it->first]*sizeof(face));
+        vertDestination += it->second*sizeof(vec3);
+        indexDestination += faceCount[it->first]*sizeof(face);
+        vertexOffsets.push_back(offset);
+        offset += it->second*sizeof(vec3);
+    }
+
+}
+
+void C3dsScene::drawElements() {
+    //VboObject::drawElements();
+    int indexStart = 0;
+    int i=0;
+    vector<short int>::iterator it = indexCounts.begin();
+    for (i=0 ; it != indexCounts.end(); it++, i++){
+        glVertexPointer(3, GL_FLOAT, 0, (GLvoid*)vertexOffsets.at(i));
+        glDrawElements(GL_TRIANGLES, *it, INDEX_SIZE, 0);
+        Log("Drawing %i vertices, pointer offset %x\n",*it, vertexOffsets.at(i));
+        //glDrawRangeElements(GL_TRIANGLES, 0 , *it, *it, INDEX_SIZE, 0);
+   }
+}
 
     // int i=0;
     // for (map<string, vec3*>::iterator it = vertices.begin(); it != vertices.end(); it++) {
@@ -150,7 +198,6 @@ void C3dsScene::parseFile(string filename)
 
 
 
-    LOG("Finished parsing!");
 
     /*vec3 *vertex;
     face *cface;
@@ -182,4 +229,3 @@ void C3dsScene::parseFile(string filename)
         }
         glEndList();
     }*/
-}

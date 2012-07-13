@@ -39,6 +39,7 @@ void VboObject::genBO() {
     int *indices = getIndices();
     unsigned char *colours = getColours();
     float *coords = getCoords();
+    float *normals = getNormals();
 
     LOG("Vertsize: " << VBO_size_vertices);
     LOG("colsize:" << VBO_size_colours); 
@@ -48,7 +49,8 @@ void VboObject::genBO() {
     glGenBuffers(1, &VBO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, VBO_size_vertices, vertices, GL_STATIC_DRAW);
-    //glBufferSubData(GL_ARRAY_BUFFER, 0, VBO_size_vertices, vertices);
+    glBufferSubData(GL_ARRAY_BUFFER, 0, VBO_size_vertices, vertices);
+    if ( normals != NULL ) glBufferSubData(GL_ARRAY_BUFFER, VBO_size_vertices, VBO_size_normals, normals);
     //glBufferSubData(GL_ARRAY_BUFFER, VBO_size_vertices, VBO_size_colours, colours);
     //glBufferSubData(GL_ARRAY_BUFFER, VBO_size_vertices + VBO_size_colours, VBO_size_coords, coords);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -92,11 +94,17 @@ void VboObject::draw() {
     glVertexPointer(3, GL_FLOAT, 0, 0);
     //glColorPointer(3, GL_UNSIGNED_BYTE, 0, (GLvoid *)VBO_size_vertices);
     //glTexCoordPointer(2, GL_FLOAT, 0, (GLvoid *)(VBO_size_vertices+VBO_size_colours));
-    glDrawElements(GL_TRIANGLES, VBO_indices, INDEX_SIZE, 0);
+    drawElements();
     glDisableClientState(GL_VERTEX_ARRAY);
     //glDisableClientState(GL_COLOR_ARRAY);
     //glDisableClientState(GL_TEXTURE_COORD_ARRAY);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
+
+/* Default implementation draws all vertices in one batch */
+void VboObject::drawElements() {
+    glDrawElements(GL_TRIANGLES, VBO_indices, INDEX_SIZE, 0);
+}
+
 unsigned int VboObject::count = 0;

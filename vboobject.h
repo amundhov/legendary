@@ -15,6 +15,7 @@ public:
     virtual int* getIndices()=0;
     virtual unsigned char* getColours()=0;
     virtual float* getCoords()=0;
+    virtual float* getNormals()=0;
     void draw();
 
     void locate(float x, float y, float z);
@@ -29,7 +30,10 @@ private:
     GLuint IBO;
 
 protected:
+    virtual void drawElements();
+
     int VBO_size_vertices;
+    int VBO_size_normals;
     int VBO_size_colours;
     int VBO_size_coords;
     int VBO_size_indices;
