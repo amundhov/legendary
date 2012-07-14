@@ -19,13 +19,13 @@ GLRender::GLRender():
 
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
-    glEnable(GL_TEXTURE_2D);
+    //glEnable(GL_TEXTURE_2D);
     glHint(GL_GENERATE_MIPMAP_HINT, GL_NICEST);
 
     glPolygonMode(GL_FRONT, GL_FILL);
     glPolygonMode(GL_BACK, GL_LINE);
 
-    loadShaders();
+    //loadShaders();
 
     const int lightPos[] = {0, 0, -20, 0};
     const float color[] = { 0.8, 0.8, 0.8, 0.8 };

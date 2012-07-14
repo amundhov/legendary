@@ -127,7 +127,7 @@ void C3dsScene::parseFile(string filename)
                 break;
 
             default:
-                //Log("Unkown chunk %04x of length %u\n", parser.getChunkId(), parser.getChunkLength());
+                //Log("Unkown chunk " << parser.getChunkId() << " of length " << parser.getChunkLength());
                 parser.skipChunk();
                 break;
 
@@ -171,9 +171,10 @@ void C3dsScene::drawElements() {
     int i=0;
     vector<short int>::iterator it = indexCounts.begin();
     for (i=0 ; it != indexCounts.end(); it++, i++){
+        glColorPointer(4, GL_UNSIGNED_BYTE, 0, (GLvoid*)vertexOffsets.at(i));
         glVertexPointer(3, GL_FLOAT, 0, (GLvoid*)vertexOffsets.at(i));
         glDrawElements(GL_TRIANGLES, *it, INDEX_SIZE, 0);
-        LOG("Drawing " << *it << " vertices, pointer offset" << vertexOffsets.at(i));
+        //LOG("Drawing " << *it << " vertices, pointer offset" << vertexOffsets.at(i));
         //glDrawRangeElements(GL_TRIANGLES, 0 , *it, *it, INDEX_SIZE, 0);
    }
 }

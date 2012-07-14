@@ -51,8 +51,8 @@ void VboObject::genBO() {
     glBufferData(GL_ARRAY_BUFFER, VBO_size_vertices, vertices, GL_STATIC_DRAW);
     glBufferSubData(GL_ARRAY_BUFFER, 0, VBO_size_vertices, vertices);
     if ( normals != NULL ) glBufferSubData(GL_ARRAY_BUFFER, VBO_size_vertices, VBO_size_normals, normals);
-    //glBufferSubData(GL_ARRAY_BUFFER, VBO_size_vertices, VBO_size_colours, colours);
-    //glBufferSubData(GL_ARRAY_BUFFER, VBO_size_vertices + VBO_size_colours, VBO_size_coords, coords);
+    glBufferSubData(GL_ARRAY_BUFFER, VBO_size_vertices, VBO_size_colours, colours);
+    glBufferSubData(GL_ARRAY_BUFFER, VBO_size_vertices + VBO_size_colours, VBO_size_coords, coords);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     glGenBuffers(1, &IBO);
@@ -95,7 +95,7 @@ void VboObject::draw() {
     // Enable shit
     glEnableClientState(GL_VERTEX_ARRAY);
     glEnableClientState(GL_COLOR_ARRAY);
-    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+    //glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
     // Rotate to base
     glRotatef(i, 1, 1, 1);
@@ -108,7 +108,7 @@ void VboObject::draw() {
     // Return to previous state
     glDisableClientState(GL_VERTEX_ARRAY);
     glDisableClientState(GL_COLOR_ARRAY);
-    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+    //glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);

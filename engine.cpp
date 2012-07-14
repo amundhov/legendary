@@ -18,6 +18,7 @@ void Engine::initRender()
 {
     m_render = new GLRender;
     m_object = new C3dsScene("cube.3ds");
+    //m_object = new Cube;
     m_object->locate(0, 0,-10);
 
 }
