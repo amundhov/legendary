@@ -46,9 +46,11 @@ void VboObject::genBO() {
     LOG("coordsize:" << VBO_size_coords);
     LOG("indices:" << indices);
 
+    const int VBO_total_size = VBO_size_colours + VBO_size_coords + VBO_size_normals + VBO_size_vertices;
+
     glGenBuffers(1, &VBO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, VBO_size_vertices, vertices, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, VBO_total_size, vertices, GL_STATIC_DRAW);
     glBufferSubData(GL_ARRAY_BUFFER, 0, VBO_size_vertices, vertices);
     if ( normals != NULL ) glBufferSubData(GL_ARRAY_BUFFER, VBO_size_vertices, VBO_size_normals, normals);
     glBufferSubData(GL_ARRAY_BUFFER, VBO_size_vertices, VBO_size_colours, colours);
