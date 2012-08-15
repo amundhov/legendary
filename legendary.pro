@@ -8,7 +8,7 @@ CONFIG -= app_bundle
 
 TEMPLATE = app
 
-QMAKE_CXXFLAGS+=-Werror
+QMAKE_CXXFLAGS+=-Werror -Wno-error=int-to-pointer-cast
 
 SOURCES += \
     cube.cpp \
