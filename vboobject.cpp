@@ -10,21 +10,21 @@ VboObject::VboObject()
     loc.y = 0.0;
     loc.z = 0.0;
 
-    count = 0;
+    reference_count = 0;
     VBO = 0;
     IBO = 0;
     VBO_size_vertices = 0;
     VBO_size_colours = 0;
     VBO_size_coords = 0;
-    VBO_size_indices = 0;
-    VBO_indices = 0;
+    IBO_size_indices = 0;
+    indices = 0;
     INDEX_SIZE = GL_UNSIGNED_SHORT;
 
-    count++;
+    reference_count++;
 }
 
 VboObject::~VboObject() {
-    if (!--count)
+    if (!--reference_count)
         freeBO();
 }
 
@@ -44,7 +44,7 @@ void VboObject::genBO() {
     LOG("Vertsize: " << VBO_size_vertices);
     LOG("colsize:" << VBO_size_colours); 
     LOG("coordsize:" << VBO_size_coords);
-    LOG("indices:" << VBO_indices);
+    LOG("indices:" << indices);
 
     glGenBuffers(1, &VBO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
@@ -116,7 +116,7 @@ void VboObject::draw() {
 
 /* Default implementation draws all vertices in one batch */
 void VboObject::drawElements() {
-    glDrawElements(GL_TRIANGLES, VBO_indices, INDEX_SIZE, 0);
+    glDrawElements(GL_TRIANGLES, indices, INDEX_SIZE, 0);
 }
 
-unsigned int VboObject::count = 0;
+unsigned int VboObject::reference_count = 0;

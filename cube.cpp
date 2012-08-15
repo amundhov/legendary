@@ -4,7 +4,7 @@
 #include "rawtexture.h"
 
 Cube::Cube() : VboObject() {
-    if (count == 1) {
+    if (reference_count == 1) {
         genBO();
         m_material = new RawTexture("legendary.raw");
         //mat = new CRenderToTextureMaterial;
@@ -71,10 +71,10 @@ int* Cube::getIndices() {
         16, 17, 18,		18, 17, 23,
         20, 21, 22,		22, 23, 20
     };
-    VBO_size_indices = sizeof(icube);
-    VBO_indices = sizeof(icube)/sizeof(int);
-    int *ret = new int[VBO_indices];
-    for ( int i=0; i < VBO_indices; i++ ) {
+    IBO_size_indices = sizeof(icube);
+    indices = sizeof(icube)/sizeof(unsigned short int);
+    unsigned short int *ret = new unsigned short int[indices];
+    for ( int i=0; i < indices; i++ ) {
         ret[i] = icube[i];
     }
     return ret;

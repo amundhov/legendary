@@ -36,12 +36,12 @@ protected:
     int VBO_size_normals;
     int VBO_size_colours;
     int VBO_size_coords;
-    int VBO_size_indices;
-    int VBO_indices;
+    int IBO_size_indices;
+    int indices;
 
     GLenum INDEX_SIZE;
 
-    static unsigned int count;
+    static unsigned int reference_count;
 };
 
 #endif

@@ -11,12 +11,12 @@ C3dsScene::C3dsScene(std::string fileName) : VboObject(),
     m_coords(NULL),
     m_normals(NULL)
 {
-    if (count == 1)
+    if (reference_count == 1)
     {
-        VBO_indices=0;
+        indices=0;
         VBO_size_colours=0;
         VBO_size_coords=0;
-        VBO_size_indices=0;
+        IBO_size_indices=0;
         VBO_size_vertices=0;
         INDEX_SIZE = GL_UNSIGNED_SHORT;
 
@@ -137,17 +137,14 @@ void C3dsScene::parseFile(string filename)
     LOG("Finished parsing!");
 
     VBO_size_vertices = totalFaceCount*sizeof(vec3);
-    VBO_size_indices = totalFaceCount*sizeof(face);
-    VBO_size_normals = totalVertCount*sizeof(vec3);
+    IBO_size_indices = totalFaceCount*sizeof(face);
+    //VBO_size_normals = totalVertCount*sizeof(vec3);
+    VBO_size_normals = 0;
     VBO_size_colours = 0;
     VBO_size_coords = 0;
-    VBO_indices = totalFaceCount*3;
-    m_vertices = new float[VBO_size_vertices];
-    m_indices  = new int[VBO_size_indices];
-
-    //for (map<string, int>::iterator it = normals.begin(); it != normals.end(); it++) {
-//
-    //}
+    indices = totalFaceCount*3;
+    m_vertices = new float[totalFaceCount*3];
+    m_indices  = new unsigned short int[totalFaceCount*3];
 
     vec3 *offset = 0;
     float *vertDestination = m_vertices;
