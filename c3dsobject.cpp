@@ -37,7 +37,7 @@ float* C3dsScene::getCoords()
     return m_coords;
 }
 
-int* C3dsScene::getIndices()
+unsigned int* C3dsScene::getIndices()
 {
     return m_indices;
 }
@@ -148,7 +148,7 @@ void C3dsScene::parseFile(string filename)
 
     vec3 *offset = 0;
     float *vertDestination = m_vertices;
-    int *indexDestination = m_indices;
+    unsigned int *indexDestination = m_indices;
     for (map<string, int>::iterator it = vertCount.begin(); it != vertCount.end(); it++) {
         int indices = faceCount[it->first]*3;
         indexCounts.push_back(indices);

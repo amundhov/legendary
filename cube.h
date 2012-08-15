@@ -11,7 +11,7 @@ public:
     virtual ~Cube();
     float* getVertices();
     float* getNormals();
-    int* getIndices();
+    unsigned int* getIndices();
     unsigned char* getColours();
     float* getCoords();
     void draw();

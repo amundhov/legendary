@@ -18,7 +18,7 @@ public:
 
     float* getVertices();
     float* getNormals();
-    int* getIndices();
+    unsigned int* getIndices();
     unsigned char* getColours();
     float* getCoords();
 
@@ -27,7 +27,7 @@ private:
     void drawElements();
 
     float *m_vertices;
-    int *m_indices;
+    unsigned short int *m_indices;
     unsigned char *m_colours;
     float *m_coords;
     float *m_normals;

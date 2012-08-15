@@ -12,7 +12,7 @@ public:
     void genBO();
     void freeBO();
     virtual float* getVertices()=0;
-    virtual int* getIndices()=0;
+    virtual unsigned int* getIndices()=0;
     virtual unsigned char* getColours()=0;
     virtual float* getCoords()=0;
     virtual float* getNormals()=0;
