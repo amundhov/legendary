@@ -62,7 +62,7 @@ float* Cube::getVertices() {
     return ret;
 }
 
-unsigned int* Cube::getIndices() {
+unsigned short int* Cube::getIndices() {
     unsigned short int icube[] = {
         0, 1, 2,		1, 0, 3,
         4, 5, 6,		4, 6, 7,
@@ -77,7 +77,7 @@ unsigned int* Cube::getIndices() {
     for ( int i=0; i < indices; i++ ) {
         ret[i] = icube[i];
     }
-    return (unsigned int*)ret;
+    return ret;
 }
 
 unsigned char* Cube::getColours() {

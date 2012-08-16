@@ -37,7 +37,7 @@ float* C3dsScene::getCoords()
     return m_coords;
 }
 
-unsigned int* C3dsScene::getIndices()
+unsigned short int* C3dsScene::getIndices()
 {
     return m_indices;
 }
@@ -148,7 +148,7 @@ void C3dsScene::parseFile(string filename)
 
     vec3 *offset = 0;
     float *vertDestination = m_vertices;
-    unsigned int *indexDestination = m_indices;
+    unsigned short int *indexDestination = m_indices;
     for (map<string, int>::iterator it = vertCount.begin(); it != vertCount.end(); it++) {
         int indices = faceCount[it->first]*3;
         indexCounts.push_back(indices);
@@ -166,7 +166,7 @@ void C3dsScene::parseFile(string filename)
 void C3dsScene::drawElements() {
     //VboObject::drawElements();
     int i=0;
-    vector<short int>::iterator it = indexCounts.begin();
+    vector<unsigned short int>::iterator it = indexCounts.begin();
     for (i=0 ; it != indexCounts.end(); it++, i++){
         glColorPointer(4, GL_UNSIGNED_BYTE, 0, (GLvoid*)vertexOffsets.at(i));
         glVertexPointer(3, GL_FLOAT, 0, (GLvoid*)vertexOffsets.at(i));

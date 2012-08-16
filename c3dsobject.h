@@ -18,7 +18,7 @@ public:
 
     float* getVertices();
     float* getNormals();
-    unsigned int* getIndices();
+    unsigned short int* getIndices();
     unsigned char* getColours();
     float* getCoords();
 

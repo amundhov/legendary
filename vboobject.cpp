@@ -36,7 +36,7 @@ void VboObject::locate(float x, float y, float z) {
 
 void VboObject::genBO() {
     float *vertices = getVertices();
-    unsigned int *indices = getIndices();
+    unsigned short int *indices = getIndices();
     unsigned char *colours = getColours();
     float *coords = getCoords();
     float *normals = getNormals();
