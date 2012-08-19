@@ -109,12 +109,8 @@ void VboObject::draw() {
     // Rotate to base
     glRotatef(i, 1, 1, 1);
 
-    // Point to our vertices
-    glVertexPointer(3, GL_FLOAT, 0, 0);
-    if (VBO_size_normals) glNormalPointer(GL_FLOAT,0,(GLvoid*)VBO_size_vertices);
-    if (VBO_size_colours) glColorPointer(3, GL_UNSIGNED_BYTE, 0, (GLvoid *)(VBO_size_vertices+VBO_size_normals));
-    if (VBO_size_coords)  glTexCoordPointer(2, GL_FLOAT, 0, (GLvoid *)(VBO_size_vertices+VBO_size_normals+VBO_size_colours));
     drawElements();
+
     // Return to previous state
     glDisableClientState(GL_VERTEX_ARRAY);
     if (VBO_size_normals) glDisableClientState(GL_NORMAL_ARRAY);
@@ -127,6 +123,11 @@ void VboObject::draw() {
 
 /* Default implementation draws all vertices in one batch */
 void VboObject::drawElements() {
+    // Point to our vertices
+    glVertexPointer(3, GL_FLOAT, 0, 0);
+    if (VBO_size_normals) glNormalPointer(GL_FLOAT,0,(GLvoid*)VBO_size_vertices);
+    if (VBO_size_colours) glColorPointer(3, GL_UNSIGNED_BYTE, 0, (GLvoid *)(VBO_size_vertices+VBO_size_normals));
+    if (VBO_size_coords)  glTexCoordPointer(2, GL_FLOAT, 0, (GLvoid *)(VBO_size_vertices+VBO_size_normals+VBO_size_colours));
     glDrawElements(GL_TRIANGLES, indices, INDEX_SIZE, 0);
 }
 
