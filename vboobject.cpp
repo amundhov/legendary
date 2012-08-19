@@ -14,6 +14,7 @@ VboObject::VboObject()
     VBO = 0;
     IBO = 0;
     VBO_size_vertices = 0;
+    VBO_size_normals = 0;
     VBO_size_colours = 0;
     VBO_size_coords = 0;
     IBO_size_indices = 0;
