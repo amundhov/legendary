@@ -33,6 +33,7 @@ private:
     vec3 *m_normals;
 
     vector<C3dsParser::index> indexCounts;
+    vector<GLvoid*> indexOffsets;
     vector<GLvoid*> vertexOffsets;
 
 
