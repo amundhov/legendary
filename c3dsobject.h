@@ -27,7 +27,7 @@ private:
     void drawElements();
 
     vec3 *m_vertices;
-    unsigned short int *m_indices;
+    C3dsParser::face *m_indices;
     unsigned char *m_colours;
     float *m_coords;
     vec3 *m_normals;

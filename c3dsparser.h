@@ -17,10 +17,10 @@ public:
     C3dsParser(string filename);
     ~C3dsParser(void);
 
-    typedef struct { uint16_t a,b,c; } face;
+    typedef uint16_t index;
     typedef struct { uint8_t r,g,b; } color;
     typedef struct { color diffuse,specular; } material;
-    typedef uint16_t index;
+    typedef struct { index a,b,c; } face;
 
     void reset();
 

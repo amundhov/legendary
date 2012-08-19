@@ -144,13 +144,13 @@ void C3dsScene::parseFile(string filename)
     VBO_size_coords = 0;
     IBO_indices = totalFaceCount*3;
     m_vertices = new vec3[totalFaceCount];
-    m_indices  = new C3dsParser::index [totalFaceCount*3];
+    m_indices  = new C3dsParser::face [totalFaceCount];
 
     LOG("Total face count: " << totalFaceCount << "\nTotal vertex count: " << totalVertCount);
 
     vec3 *vertexOffset = 0;
     vec3 *vertDestination = m_vertices;
-    C3dsParser::index *indexDestination = m_indices;
+    C3dsParser::face *indexDestination = m_indices;
     for (map<string, int>::iterator it = vertCount.begin(); it != vertCount.end(); it++) {
         int indices = faceCount[it->first]*3;
         indexCounts.push_back(indices);
