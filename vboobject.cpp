@@ -84,7 +84,7 @@ void VboObject::freeBO() {
 
 void VboObject::draw() {
     static float i=0;
-    i+=0.20;
+    i+=1.00;
 
 
     // Set an identity matrix
