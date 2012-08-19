@@ -39,7 +39,7 @@ float* C3dsScene::getCoords()
 
 unsigned short int* C3dsScene::getIndices()
 {
-    return m_indices;
+    return (C3dsParser::index*)m_indices;
 }
 
 vec3* C3dsScene::getVertices()
@@ -136,7 +136,7 @@ void C3dsScene::parseFile(string filename)
 
     LOG("Finished parsing!");
 
-    VBO_size_vertices = totalFaceCount*sizeof(vec3);
+    VBO_size_vertices = totalVertCount*sizeof(vec3);
     IBO_size_indices = totalFaceCount*sizeof(C3dsParser::face);
     //VBO_size_normals = totalVertCount*sizeof(vec3);
     VBO_size_normals = 0;
