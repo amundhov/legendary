@@ -146,6 +146,7 @@ void C3dsScene::parseFile(string filename)
     m_vertices = new vec3[totalFaceCount];
     m_indices  = new C3dsParser::index [totalFaceCount*3];
 
+    LOG("Total face count: " << totalFaceCount << "\nTotal vertex count: " << totalVertCount);
 
     vec3 *vertexOffset = 0;
     vec3 *vertDestination = m_vertices;
@@ -154,12 +155,15 @@ void C3dsScene::parseFile(string filename)
         int indices = faceCount[it->first]*3;
         indexCounts.push_back(indices);
 
+
         memcpy(vertDestination, vertices[it->first], it->second*sizeof(vec3));
         memcpy(indexDestination, faces[it->first], faceCount[it->first]*sizeof(C3dsParser::face));
         vertDestination += it->second;//*sizeof(vec3);
         indexDestination += faceCount[it->first];//*sizeof(face);
         vertexOffsets.push_back(vertexOffset);
         vertexOffset += it->second;
+        LOG("Indices: " << indices << "\nVertices: " << vertices[it->first]
+            << "\nVertOffset: " << vertexOffset << "\nIndexOffset: " << indexDestination);
     }
 
 }
