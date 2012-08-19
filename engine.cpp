@@ -29,7 +29,6 @@ void Engine::drawFrame()
         updateTimer();
         m_render->drawFrame();
         m_object->draw();
-        //m_cube->draw();
     }
 }
 

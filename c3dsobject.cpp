@@ -153,14 +153,14 @@ void C3dsScene::parseFile(string filename)
     vec3 *vertDestination = m_vertices;
     C3dsParser::face *indexDestination = m_indices;
     for (map<string, int>::iterator it = vertCount.begin(); it != vertCount.end(); it++) {
-        int indices = faceCount[it->first]*3;
-        indexCounts.push_back(indices);
-
+        indexCounts.push_back(faceCount[it->first]*3);
 
         memcpy(vertDestination, vertices[it->first], it->second*sizeof(vec3));
         memcpy(indexDestination, faces[it->first], faceCount[it->first]*sizeof(C3dsParser::face));
-        vertDestination += it->second;//*sizeof(vec3);
-        indexDestination += faceCount[it->first];//*sizeof(face);
+
+        vertDestination += it->second;
+        indexDestination += faceCount[it->first];
+
         vertexOffsets.push_back(vertexOffset);
         vertexOffset += it->second;
 
@@ -172,10 +172,8 @@ void C3dsScene::parseFile(string filename)
 
 void C3dsScene::drawElements() {
     //VboObject::drawElements();
-    int i=0;
     vector<unsigned short int>::iterator it = indexCounts.begin();
-    for (i=0 ; it != indexCounts.end(); it++, i++){
-        glColorPointer(4, GL_UNSIGNED_BYTE, 0, (GLvoid*)vertexOffsets.at(i));
+    for (int i=0 ; it != indexCounts.end(); it++, i++){
         glVertexPointer(3, GL_FLOAT, 0, (GLvoid*)vertexOffsets.at(i));
         glDrawElements(GL_TRIANGLES, *it, INDEX_SIZE, indexOffsets.at(i));
    }
