@@ -72,9 +72,9 @@ unsigned short int* Cube::getIndices() {
         20, 21, 22,		22, 23, 20
     };
     IBO_size_indices = sizeof(icube);
-    indices = sizeof(icube)/sizeof(unsigned short int);
-    unsigned short int *ret = new unsigned short int[indices];
-    for ( int i=0; i < indices; i++ ) {
+    IBO_indices = sizeof(icube)/sizeof(unsigned short int);
+    unsigned short int *ret = new unsigned short int[IBO_indices];
+    for ( int i=0; i < IBO_indices; i++ ) {
         ret[i] = icube[i];
     }
     return ret;

@@ -18,7 +18,7 @@ VboObject::VboObject()
     VBO_size_colours = 0;
     VBO_size_coords = 0;
     IBO_size_indices = 0;
-    indices = 0;
+    IBO_indices = 0;
     INDEX_SIZE = GL_UNSIGNED_SHORT;
 
     reference_count++;
@@ -42,10 +42,10 @@ void VboObject::genBO() {
     float *coords = getCoords();
     vec3 *normals = getNormals();
 
-    LOG("Vertsize: " << VBO_size_vertices);
-    LOG("colsize:" << VBO_size_colours); 
-    LOG("coordsize:" << VBO_size_coords);
-    LOG("indices:" << indices);
+    LOG("Vert size: " << VBO_size_vertices);
+    LOG("Color size:" << VBO_size_colours);
+    LOG("coord size:" << VBO_size_coords);
+    LOG("indices:" << IBO_indices);
 
     const int VBO_total_size = VBO_size_colours + VBO_size_coords + VBO_size_normals + VBO_size_vertices;
 
@@ -129,7 +129,7 @@ void VboObject::drawElements() {
     if (VBO_size_normals) glNormalPointer(GL_FLOAT,0,(GLvoid*)VBO_size_vertices);
     if (VBO_size_colours) glColorPointer(3, GL_UNSIGNED_BYTE, 0, (GLvoid *)(VBO_size_vertices+VBO_size_normals));
     if (VBO_size_coords)  glTexCoordPointer(2, GL_FLOAT, 0, (GLvoid *)(VBO_size_vertices+VBO_size_normals+VBO_size_colours));
-    glDrawElements(GL_TRIANGLES, indices, INDEX_SIZE, 0);
+    glDrawElements(GL_TRIANGLES, IBO_indices, INDEX_SIZE, 0);
 }
 
 unsigned int VboObject::reference_count = 0;

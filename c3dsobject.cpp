@@ -13,7 +13,7 @@ C3dsScene::C3dsScene(std::string fileName) : VboObject(),
 {
     if (reference_count == 1)
     {
-        indices=0;
+        IBO_indices=0;
         VBO_size_colours=0;
         VBO_size_coords=0;
         IBO_size_indices=0;
@@ -142,7 +142,7 @@ void C3dsScene::parseFile(string filename)
     VBO_size_normals = 0;
     VBO_size_colours = 0;
     VBO_size_coords = 0;
-    indices = totalFaceCount*3;
+    IBO_indices = totalFaceCount*3;
     m_vertices = new vec3[totalFaceCount];
     m_indices  = new C3dsParser::index [totalFaceCount*3];
 

@@ -37,7 +37,7 @@ protected:
     int VBO_size_colours;
     int VBO_size_coords;
     int IBO_size_indices;
-    int indices;
+    int IBO_indices;
 
     GLenum INDEX_SIZE;
 
