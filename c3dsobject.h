@@ -16,8 +16,8 @@ class C3dsScene : public VboObject
 public:
     C3dsScene(string fileName);
 
-    float* getVertices();
-    float* getNormals();
+    vec3* getVertices();
+    vec3* getNormals();
     unsigned short int* getIndices();
     unsigned char* getColours();
     float* getCoords();
@@ -26,13 +26,13 @@ private:
     void parseFile(string fileName);
     void drawElements();
 
-    float *m_vertices;
+    vec3 *m_vertices;
     unsigned short int *m_indices;
     unsigned char *m_colours;
     float *m_coords;
-    float *m_normals;
+    vec3 *m_normals;
 
-    vector<short int> indexCounts;
+    vector<C3dsParser::index> indexCounts;
     vector<GLvoid*> vertexOffsets;
 
 

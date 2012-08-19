@@ -42,12 +42,12 @@ unsigned short int* C3dsScene::getIndices()
     return m_indices;
 }
 
-float* C3dsScene::getVertices()
+vec3* C3dsScene::getVertices()
 {
     return m_vertices;
 }
 
-float* C3dsScene::getNormals()
+vec3* C3dsScene::getNormals()
 {
     return m_normals;
 }
@@ -58,13 +58,13 @@ void C3dsScene::parseFile(string filename)
 
     string currentMesh, currentMaterial, mat;
     uint16_t numFaces;
-    map<string, face*>    faces;
+    map<string, C3dsParser::face*>    faces;
     map<string, vec3*> vertices;
     map<string, vec3*> normals;
     map<string, int>      vertCount;
     map<string, int>      faceCount;
-    map<string, color>   faceMaterial;
-    map<string, color>    colors;
+    map<string, C3dsParser::color>   faceMaterial;
+    map<string, C3dsParser::color>    colors;
 
     int totalVertCount = 0;
     int totalFaceCount = 0;
@@ -99,7 +99,7 @@ void C3dsScene::parseFile(string filename)
             case FACES_LIST:
                 faceCount[currentMesh] = parser.extractCount();
                 totalFaceCount += faceCount[currentMesh];
-                faces[currentMesh] = parser.extractArray<face>(faceCount[currentMesh],2);
+                faces[currentMesh] = parser.extractArray<C3dsParser::face>(faceCount[currentMesh],2);
                 break;
 
             case MATERIAL_BLOCK:
@@ -114,7 +114,7 @@ void C3dsScene::parseFile(string filename)
                 break;
 
             case RGB1:
-                colors[currentMaterial] = parser.extractValue<color>();
+                colors[currentMaterial] = parser.extractValue<C3dsParser::color>();
                 parser.skipChunk();
                 break;
 
@@ -127,7 +127,7 @@ void C3dsScene::parseFile(string filename)
                 break;
 
             default:
-                //Log("Unkown chunk " << parser.getChunkId() << " of length " << parser.getChunkLength());
+                LOG("Unkown chunk " << parser.getChunkId() << " of length " << parser.getChunkLength());
                 parser.skipChunk();
                 break;
 
@@ -137,28 +137,29 @@ void C3dsScene::parseFile(string filename)
     LOG("Finished parsing!");
 
     VBO_size_vertices = totalFaceCount*sizeof(vec3);
-    IBO_size_indices = totalFaceCount*sizeof(face);
+    IBO_size_indices = totalFaceCount*sizeof(C3dsParser::face);
     //VBO_size_normals = totalVertCount*sizeof(vec3);
     VBO_size_normals = 0;
     VBO_size_colours = 0;
     VBO_size_coords = 0;
     indices = totalFaceCount*3;
-    m_vertices = new float[totalFaceCount*3];
-    m_indices  = new unsigned short int[totalFaceCount*3];
+    m_vertices = new vec3[totalFaceCount];
+    m_indices  = new C3dsParser::index [totalFaceCount*3];
 
-    vec3 *offset = 0;
-    float *vertDestination = m_vertices;
-    unsigned short int *indexDestination = m_indices;
+
+    vec3 *vertexOffset = 0;
+    vec3 *vertDestination = m_vertices;
+    C3dsParser::index *indexDestination = m_indices;
     for (map<string, int>::iterator it = vertCount.begin(); it != vertCount.end(); it++) {
         int indices = faceCount[it->first]*3;
         indexCounts.push_back(indices);
 
         memcpy(vertDestination, vertices[it->first], it->second*sizeof(vec3));
-        memcpy(indexDestination, faces[it->first], faceCount[it->first]*sizeof(face));
-        vertDestination += it->second*sizeof(vec3);
-        indexDestination += faceCount[it->first]*sizeof(face);
-        vertexOffsets.push_back(offset);
-        offset += it->second*sizeof(vec3);
+        memcpy(indexDestination, faces[it->first], faceCount[it->first]*sizeof(C3dsParser::face));
+        vertDestination += it->second;//*sizeof(vec3);
+        indexDestination += faceCount[it->first];//*sizeof(face);
+        vertexOffsets.push_back(vertexOffset);
+        vertexOffset += it->second;
     }
 
 }

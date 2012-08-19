@@ -11,11 +11,11 @@ public:
 
     void genBO();
     void freeBO();
-    virtual float* getVertices()=0;
+    virtual vec3* getVertices()=0;
     virtual unsigned short int* getIndices()=0;
     virtual unsigned char* getColours()=0;
     virtual float* getCoords()=0;
-    virtual float* getNormals()=0;
+    virtual vec3* getNormals()=0;
     void draw();
 
     void locate(float x, float y, float z);

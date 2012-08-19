@@ -35,11 +35,11 @@ void VboObject::locate(float x, float y, float z) {
 }
 
 void VboObject::genBO() {
-    float *vertices = getVertices();
+    vec3 *vertices = getVertices();
     unsigned short int *indices = getIndices();
     unsigned char *colours = getColours();
     float *coords = getCoords();
-    float *normals = getNormals();
+    vec3 *normals = getNormals();
 
     LOG("Vertsize: " << VBO_size_vertices);
     LOG("colsize:" << VBO_size_colours); 
