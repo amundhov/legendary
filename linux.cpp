@@ -14,7 +14,7 @@ LinuxEngine				*Engine;
 
 LinuxEngine::LinuxEngine() :
         m_elapsed(0),
-        m_sound(new Sound("null"))
+        m_sound(new Sound("default", "music.ogg"))
 {
     init();
     LOG("LINUX ENGINE LOADED");

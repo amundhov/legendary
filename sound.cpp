@@ -23,7 +23,7 @@
 #include "sound.h"
 #include "msg.h"
 
-Sound::Sound (const char *device) : 
+Sound::Sound (const char *device, const char *file) : 
     m_stopping(false),
     m_fht(BUFEXP),
     m_samples(0),
@@ -32,7 +32,8 @@ Sound::Sound (const char *device) :
     m_vorbisfile(new OggVorbis_File),
     m_thread(0)
 {
-    if (ov_fopen("music.ogg", m_vorbisfile)) {
+    LOG("opening file: " << file);
+    if (ov_fopen(file, m_vorbisfile)) {
         fprintf(stderr, "FATAL: Unable to open music file!\n");
         return;
     }
@@ -142,8 +143,8 @@ void Sound::mainloop() {
     long ret = 1L;
     int pos;
     uint16_t *buffer;
-    LOG("playing lol");
-    while (!m_stopping && ret != 0) {
+    LOG("playing");
+    while (!m_stopping && ret > 0) {
         buffer = (uint16_t*)calloc(sizeof(uint16_t), BUFSIZE);
         ret = ov_read(m_vorbisfile, reinterpret_cast<char*>(buffer), BUFSIZE, 0, 1, 1, &pos);
 
@@ -152,6 +153,18 @@ void Sound::mainloop() {
         free(m_samples);
         m_samples = buffer;
         pthread_mutex_unlock(m_mutex);
+    }
+
+    if (ret == 0) {
+        LOG("finished playing, end of file");
+    } else if (ret == OV_HOLE) {
+        LOG("finished playing, corrupt data");
+    } else if (ret == OV_EBADLINK) {
+        LOG("finished playing, invalid stream");
+    } else if (ret == OV_EINVAL) {
+        LOG("unable to read headers");
+    } else {
+        LOG("finished playing, unknown error");
     }
 }
 

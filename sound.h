@@ -35,7 +35,7 @@
 
 class Sound {
 public:
-    Sound(const char *device);
+    Sound(const char *device, const char *file);
     ~Sound();
     void play();
     void pause();
