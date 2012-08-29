@@ -46,7 +46,7 @@ private:
     static void *startLoop(void *);
     void mainloop();
 
-    bool m_stopping;
+    bool m_running;
     int m_err;
     FHT m_fht;
     uint16_t *m_samples;

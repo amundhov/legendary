@@ -24,7 +24,7 @@
 #include "msg.h"
 
 Sound::Sound (const char *device, const char *file) : 
-    m_stopping(false),
+    m_running(true),
     m_fht(BUFEXP),
     m_samples(0),
     m_playbackHandle(0),
@@ -35,6 +35,7 @@ Sound::Sound (const char *device, const char *file) :
     LOG("opening file: " << file);
     if (ov_fopen(file, m_vorbisfile)) {
         fprintf(stderr, "FATAL: Unable to open music file!\n");
+        m_running = false;
         return;
     }
 
@@ -107,7 +108,7 @@ Sound::Sound (const char *device, const char *file) :
 }
 
 Sound::~Sound() {
-    m_stopping = true;
+    m_running = false;
     if (m_thread)
         pthread_join((*m_thread), 0);
 
@@ -121,6 +122,9 @@ Sound::~Sound() {
 
 void Sound::play()
 {
+    if (!m_running)
+        return;
+
     if (!m_thread) {
         m_thread = (pthread_t*)malloc(sizeof(pthread_t));
         pthread_create(m_thread, 0, &Sound::startLoop, this);
@@ -144,7 +148,7 @@ void Sound::mainloop() {
     int pos;
     uint16_t *buffer;
     LOG("playing");
-    while (!m_stopping && ret > 0) {
+    while (m_running && ret > 0) {
         buffer = (uint16_t*)calloc(sizeof(uint16_t), BUFSIZE);
         ret = ov_read(m_vorbisfile, reinterpret_cast<char*>(buffer), BUFSIZE, 0, 1, 1, &pos);
 
