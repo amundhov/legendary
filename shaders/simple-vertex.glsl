@@ -1,11 +1,10 @@
-/* Vertex shader */
-uniform float waveTime;
-uniform float waveWidth;
-uniform float waveHeight;
- 
-void main(void)
+varying float intensity;
+
+void main()
 {
-    vec4 v = vec4(gl_Vertex);
-    gl_Position = gl_ModelViewProjectionMatrix * v;
-    gl_TexCoord[0] = gl_TextureMatrix[0] * gl_MultiTexCoord0;
+    vec3 lightDir = normalize(vec3(gl_LightSource[0].position));
+    intensity = dot(lightDir,gl_Normal);
+
+    gl_Position = ftransform();
 }
+

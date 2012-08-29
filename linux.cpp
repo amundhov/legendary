@@ -123,6 +123,9 @@ int main() {
             case XK_F2:
                 Engine->toggleFrame();
                 break;
+            case XK_F3:
+                Engine->reloadShaders();
+                break;
             default:
                 continue;
             }

@@ -43,6 +43,12 @@ void Engine::toggleFrame() {
         m_render->toggleFrame();
 }
 
+void Engine::reloadShaders()
+{
+    if (m_render)
+        m_render->loadShaders();
+}
+
 void Engine::destroy() {
     delete m_render;
     delete m_object;

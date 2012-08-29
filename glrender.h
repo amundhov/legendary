@@ -25,9 +25,9 @@ public:
 
 
     GLuint shaderProgram() { return m_shaderProgram; }
+    void loadShaders();
 
 private:
-    void loadShaders();
 
     bool m_fill;				//Filled triangles? (For wireframe mode feature)
 

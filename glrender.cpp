@@ -25,7 +25,7 @@ GLRender::GLRender():
     glPolygonMode(GL_FRONT, GL_FILL);
     glPolygonMode(GL_BACK, GL_LINE);
 
-    //loadShaders();
+    loadShaders();
 
     const int lightPos[] = {0, 0, -20, 0};
     const float color[] = { 0.8, 0.8, 0.8, 0.8 };
@@ -106,6 +106,8 @@ void GLRender::loadShaders()
     glCompileShader(fragShader);
     glCompileShader(vertShader);
 
+    if (m_shaderProgram) // if we are reloading we need to delete the old one first
+        glDeleteProgram(m_shaderProgram);
     m_shaderProgram = glCreateProgram();
     glAttachShader(m_shaderProgram, vertShader);
     glAttachShader(m_shaderProgram, fragShader);
@@ -120,6 +122,8 @@ void GLRender::loadShaders()
     if (success != 0) { // Something bad happened
         LOG("\n\033[91m ERROR WHILE COMPILING SHADER:\n" << log << "\033[0m\n" << std::endl);
         delete [] log;
+        glDeleteProgram(m_shaderProgram);
+        m_shaderProgram = 0;
         return;
     }
 
@@ -132,6 +136,5 @@ void GLRender::loadShaders()
     glUniform1i(imageLoc, GL_TEXTURE0 + IMAGEOFFSET);
     glUniform1i(normalLoc, GL_TEXTURE0 +  NORMALOFFSET);
     glUniform1i(shadowLoc, GL_TEXTURE0 + SHADOWOFFSET);
-
 }
 

@@ -19,21 +19,23 @@ public:
     };
     virtual void		updateTimer() = 0;
 
-    void 		init();
-    void 		destroy();
+    void init();
+    void destroy();
 
-    void		initRender();
-    void		drawFrame();
+    void initRender();
+    void drawFrame();
 
-    void		setViewport(int x, int y);
-    void		setFrustum();
+    void setViewport(int x, int y);
+    void setFrustum();
 
-    double		getTime();
+    double getTime();
 
-    void		toggleFrame();
+    void toggleFrame();
 
-    int			getResX();
-    int			getResY();
+    void reloadShaders();
+
+    int getResX();
+    int getResY();
 
 protected:
     double		m_time;

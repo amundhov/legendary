@@ -1,20 +1,19 @@
-/* Fragment shader */
-
-uniform sampler2D image;
-
-
-float rand(vec2 co){
-    return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
-}
-
+varying float intensity;
 
 void main()
 {
-    /*gl_FragColor[0] = gl_FragCoord[0] / 400.0;
-    gl_FragColor[1] = gl_FragCoord[1] / 400.0;
-    gl_FragColor[2] = 1.0;*/
-    vec4 color = texture2D(image, gl_TexCoord[0].st);
-//    color.xyz = color.xyz * (sin(gl_FragCoord.y) + 2);
-    color.xyz = color.xyz * rand(gl_FragCoord.xy);
+    vec4 color;
+    if (intensity > 0.95)
+
+        color = vec4(1.0,0.5,0.5,1.0);
+    else if (intensity > 0.5)
+        color = vec4(0.6,0.3,0.3,1.0);
+    else if (intensity > 0.25)
+        color = vec4(0.4,0.2,0.2,1.0);
+    else
+        color = vec4(0.2,0.1,0.1,1.0);
+    color = vec4(0.2,0.1,0.1,1.0);
     gl_FragColor = color;
+
 }
+
