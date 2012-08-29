@@ -22,7 +22,7 @@ C3dsObject::C3dsObject(std::string fileName) : VboObject(),
 
         parseFile(fileName);
 
-        genBO();
+        VboObject::genBO();
     }
 
 }

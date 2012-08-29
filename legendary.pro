@@ -20,7 +20,8 @@ SOURCES += \
     rawtexture.cpp \
     vboobject.cpp \
     c3dsobject.cpp \
-    material.cpp
+    material.cpp \
+    scene.cpp
 
 OTHER_FILES += \
     README \
@@ -41,7 +42,8 @@ HEADERS += \
     rawtexture.h \
     vboobject.h \
     c3dsobject.h \
-    material.h
+    material.h \
+    scene.h
 
 win32 {
     HEADERS += win.h
