@@ -90,6 +90,7 @@ void GLRender::toggleFrame() {
 
 void GLRender::loadShaders()
 {
+    LOG("loading shaders...");
     GLuint fragShader, vertShader;
 
     fragShader = glCreateShader(GL_FRAGMENT_SHADER);

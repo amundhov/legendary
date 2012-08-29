@@ -11,10 +11,10 @@
 
 using std::string;
 
-class C3dsScene : public VboObject
+class C3dsObject : public VboObject
 {
 public:
-    C3dsScene(string fileName);
+    C3dsObject(string fileName);
 
     vec3* getVertices();
     vec3* getNormals();

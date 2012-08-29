@@ -6,7 +6,7 @@
 #include "chunks.def"
 #include "msg.h"
 
-C3dsScene::C3dsScene(std::string fileName) : VboObject(),
+C3dsObject::C3dsObject(std::string fileName) : VboObject(),
     m_colours(NULL),
     m_coords(NULL),
     m_normals(NULL)
@@ -27,32 +27,32 @@ C3dsScene::C3dsScene(std::string fileName) : VboObject(),
 
 }
 
-unsigned char* C3dsScene::getColours()
+unsigned char* C3dsObject::getColours()
 {
     return m_colours;
 }
 
-float* C3dsScene::getCoords()
+float* C3dsObject::getCoords()
 {
     return m_coords;
 }
 
-unsigned short int* C3dsScene::getIndices()
+unsigned short int* C3dsObject::getIndices()
 {
     return (C3dsParser::index*)m_indices;
 }
 
-vec3* C3dsScene::getVertices()
+vec3* C3dsObject::getVertices()
 {
     return m_vertices;
 }
 
-vec3* C3dsScene::getNormals()
+vec3* C3dsObject::getNormals()
 {
     return m_normals;
 }
 
-void C3dsScene::parseFile(string filename)
+void C3dsObject::parseFile(string filename)
 {
     C3dsParser parser(filename);
 
@@ -170,7 +170,7 @@ void C3dsScene::parseFile(string filename)
 
 }
 
-void C3dsScene::drawElements() {
+void C3dsObject::drawElements() {
     //VboObject::drawElements();
     vector<unsigned short int>::iterator it = indexCounts.begin();
     for (int i=0 ; it != indexCounts.end(); it++, i++){
