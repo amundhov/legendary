@@ -3,13 +3,13 @@
 
 #include "GL/glew.h"
 
-
 class vec3 {
 public:
 	float x,y,z;
 	vec3 operator+(const vec3 &other) const;
 	vec3 operator-(const vec3 &other) const;
 	vec3 operator+=(const vec3 &other);
+	vec3 operator-=(const vec3 &other);
 	vec3 operator*(const double foo) const;
 	vec3 operator/(const double foo) const;
 

@@ -4,13 +4,13 @@ CFLAGS=-c -DGLEW_STATIC -O1
 WIN_LFLAGS=-mwindows -g
 WIN_LIBS=-lglew32s -lopengl32
 LIN_LFLAGS=-g
-LIN_LIBS=-lX11 -lGLEW
-
-Legendary.exe : $(OBJS) win.o
-	$(CC) $(WIN_LFLAGS) $(OBJS) win.o $(WIN_LIBS) -o $@
+LIN_LIBS=-lX11 -lGLEW -lGL
 
 legendary : $(OBJS) linux.o
 	$(CC) $(LIN_LFLAGS) linux.o $(OBJS) $(LIN_LIBS) -o $@
+
+Legendary.exe : $(OBJS) win.o
+	$(CC) $(WIN_LFLAGS) $(OBJS) win.o $(WIN_LIBS) -o $@
 
 engine.o : engine.cpp engine.h
 	$(CC) $(CFLAGS) -o $@ engine.cpp

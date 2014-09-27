@@ -8,7 +8,7 @@
 glRender::glRender()
 {
 	zNear = 0.1; zFar = 1000;
-	fov = 75; fill = true;
+	fov = 175; fill = true;
 	
 	glClearColor(0.0,0.0,0.0,0.0f);
 	glCullFace(GL_BACK);
@@ -20,6 +20,26 @@ glRender::glRender()
 	
 	glPolygonMode(GL_FRONT, GL_FILL);
 	glPolygonMode(GL_BACK, GL_LINE);
+
+    // Point stuff
+    glEnable(GL_POINT_SMOOTH);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glPointSize(5);
+
+    static GLfloat quadratic[3] = { 0.25, 0.0, 1/60.0 };
+    glPointParameterfv(GL_POINT_DISTANCE_ATTENUATION, quadratic);
+
+    // Light
+    glEnable(GL_LIGHTING);
+    glEnable(GL_LIGHT0);
+    glEnable(GL_MULTISAMPLE);
+    static GLfloat lightPosition[4] = { 0.5, 5.0, 7.0, 1.0 };
+    glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
+
+    glEnable(GL_LINE_SMOOTH);
+    glLineWidth(3);
+
 	
 	return;
 }

@@ -4,9 +4,13 @@
 #include <GL/glew.h>
 #include "types.h"
 
+struct edge {
+    int node1, node2;
+};
+
 class nbody {
 	public:
-		nbody(int nodes);
+		nbody(int nodes, int edgenum);
 		~nbody();
 
 		void draw();
@@ -20,6 +24,8 @@ class nbody {
 		vec3 *vel;
 		vec3 *acc;
 		vec3 *accT;
+        edge *edges;
+        int edgenum;
 		int nodes;
 		unsigned int randSeed;
 
