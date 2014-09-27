@@ -34,6 +34,8 @@ void LinuxEngine::UpdateTimer() {
 	//Stub. TODO: Actually update a timer
 }
 
+#define HEIGHT 900
+#define WIDTH 1440
 int main() {
 	engine = new LinuxEngine;
 	display = XOpenDisplay(NULL);
@@ -53,7 +55,7 @@ int main() {
 	cmap = XCreateColormap(display, root, vi->visual, AllocNone);
 	swa.colormap = cmap;
 	swa.event_mask = ExposureMask | KeyPressMask | ResizeRedirectMask;
-	win = XCreateWindow(display, root, 0, 0, 1024, 600, 0, vi->depth, InputOutput, vi->visual, CWColormap | CWEventMask, &swa);
+	win = XCreateWindow(display, root, 0, 0, WIDTH, HEIGHT, 0, vi->depth, InputOutput, vi->visual, CWColormap | CWEventMask, &swa);
 
 	XMapWindow(display, win);
 	XStoreName(display, win, "Legendary Alpha");
@@ -67,7 +69,7 @@ int main() {
 	}
 
 	engine->initRender();
-	engine->SetViewport(1024,600);
+	engine->SetViewport(WIDTH, HEIGHT);
 
 	while(1) {
 		//XNextEvent(display, &xev);

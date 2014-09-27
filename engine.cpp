@@ -18,7 +18,7 @@ void engine::initRender()
 {
 	Render = new glRender;
 	object = new cube[4];
-	simulation = new nbody(20, 20);
+	simulation = new nbody(50, 150);
 	object[0].locate(-100, 100, -200);
 	object[1].locate( 100, -100, -200);
 	object[2].locate( 100, 100, -200);

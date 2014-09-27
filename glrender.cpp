@@ -8,7 +8,7 @@
 glRender::glRender()
 {
 	zNear = 0.1; zFar = 1000;
-	fov = 175; fill = true;
+	fov = 100; fill = true;
 	
 	glClearColor(0.0,0.0,0.0,0.0f);
 	glCullFace(GL_BACK);
@@ -25,9 +25,10 @@ glRender::glRender()
     glEnable(GL_POINT_SMOOTH);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glPointSize(5);
+    glPointSize(15);
 
-    static GLfloat quadratic[3] = { 0.25, 0.0, 1/60.0 };
+    //GLfloat quadratic[3] = { 0.25, 0.0, 1/60.0 };
+    GLfloat quadratic[3] = { 1.0f, 0.0f, 0.0f };
     glPointParameterfv(GL_POINT_DISTANCE_ATTENUATION, quadratic);
 
     // Light
@@ -71,7 +72,7 @@ void glRender::SetFrustum()
 	GLfloat frustum[16] = {
 	(2*zNear)/(right+right), 0,						0,							 0,
 	0,						(2*zNear)/(top+top),	0,							 0,
-	0,						 0,						-(zFar+zNear)/(zFar-zNear),	-1,
+	0,						 0,						-(zFar+zNear)/(zFar-zNear),	-2,
 	0,						 0,						-(2*zFar*zNear)/(zFar-zNear),0};	
 	glMatrixMode(GL_PROJECTION);
 	glLoadMatrixf(frustum);
@@ -81,7 +82,6 @@ void glRender::SetFrustum()
 void glRender::DrawFrame()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
 }
 
 void glRender::ToggleFrame() {
