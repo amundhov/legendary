@@ -37,11 +37,12 @@ glRender::glRender()
     glEnable(GL_MULTISAMPLE);
     static GLfloat lightPosition[4] = { 0.5, 5.0, 7.0, 1.0 };
     glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
+    GLfloat light_ambient[] = { 0.0, 1.0, 0.0, 1.0};
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, light_ambient);
 
     glEnable(GL_LINE_SMOOTH);
     glLineWidth(3);
 
-	
 	return;
 }
 
@@ -73,7 +74,7 @@ void glRender::SetFrustum()
 	(2*zNear)/(right+right), 0,						0,							 0,
 	0,						(2*zNear)/(top+top),	0,							 0,
 	0,						 0,						-(zFar+zNear)/(zFar-zNear),	-2,
-	0,						 0,						-(2*zFar*zNear)/(zFar-zNear),0};	
+	0,						 0,						-(2*zFar*zNear)/(zFar-zNear),0};
 	glMatrixMode(GL_PROJECTION);
 	glLoadMatrixf(frustum);
 	glMatrixMode(GL_MODELVIEW);

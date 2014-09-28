@@ -1,6 +1,6 @@
 OBJS=engine.o msg.o glrender.o cube.o base_texture.o texture.o rtt.o nbody.o types.o
 CC=g++
-CFLAGS=-c -DGLEW_STATIC -O1
+CFLAGS=-c -DGLEW_STATIC -O3
 WIN_LFLAGS=-mwindows -g
 WIN_LIBS=-lglew32s -lopengl32
 LIN_LFLAGS=-g

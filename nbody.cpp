@@ -44,7 +44,7 @@ void nbody::tick(){
 
             vec3 dist = v - pos[j];
 
-            force += 5 * dist / (dist.x * dist.x + dist.y * dist.y + dist.z * dist.z);
+            force += dist / (dist.x * dist.x + dist.y * dist.y + dist.z * dist.z);
         }
         for (int j=0; j<edgenum; j++) {
             edge e = edges[j];
@@ -54,7 +54,7 @@ void nbody::tick(){
             if (e.node1 == i) u = pos[e.node2];
             else u = pos[e.node1];
             vec3 dist = u - v;
-            force += dist * 0.06;
+            force += dist * 0.01;
         }
 
         pos[i] += force;
@@ -107,9 +107,11 @@ void nbody::draw() {
 	loc.x,		loc.y,	loc.z,	1};	
 	glLoadMatrixf(transform);
 
-    glTranslatef(0, 0, -40);
+    glTranslatef(0, 0, -70);
     glRotatef(t, 1, 1, 1);
 
+    static GLfloat lightPosition[4] = { 0.5, 5.0, 7.0, 1.0 };
+    glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
 
 	glBegin(GL_POINTS);
 	for (int i=0; i<nodes; i++){
@@ -117,6 +119,7 @@ void nbody::draw() {
 	}
 	glEnd();
 	glBegin(GL_LINES);
+    glColor3ub(255,0,0);
 	for (int i=0; i<edgenum; i++){
         int node1 = edges[i].node1;
         int node2 = edges[i].node2;
